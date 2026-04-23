@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>國立勤益科技大學 - 智慧製造人才培育計畫成果專區</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        
+        body { font-family: 'Noto Sans TC', sans-serif; scroll-behavior: smooth; }
+        .hero-pattern {
+            background-color: #004e9c;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .text-shadow { text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        
+        .carousel-fade .carousel-item {
+            opacity: 0; transition: opacity 1s ease-in-out;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+        }
+        .carousel-fade .carousel-item.active { opacity: 1; z-index: 2; }
+        
+        .pyramid-layer { cursor: pointer; transition: all 0.3s ease; transform-origin: center; }
+        .pyramid-layer:hover { filter: brightness(1.1); transform: scale(1.02); }
+        .pyramid-layer.active { filter: brightness(1.2) drop-shadow(0 0 10px rgba(255,255,255,0.5)); stroke: white; stroke-width: 2px; }
+        .pyramid-text { pointer-events: none; font-weight: bold; fill: white; text-anchor: middle; font-size: 16px; }
+        
+        .section-view { display: none; }
+        .section-view.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .status-badge { display: inline-block; padding: 0.25rem 0.6rem; border-radius: 9999px; font-size: 0.75rem; font-weight: bold; text-align: center; min-width: 55px; }
+        .status-high { background-color: #d1fae5; color: #065f46; }
+        .status-mid { background-color: #fef3c7; color: #92400e; }
+        .status-low { background-color: #fee2e2; color: #b91c1c; }
+        .status-gray { background-color: #f3f4f6; color: #4b5563; }
+
+        .gallery-img { transition: transform 0.4s ease; cursor: pointer; }
+        .gallery-img:hover { transform: scale(1.05); }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #004e9c; border-radius: 4px; }
+        
+        .me-content-block { background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%); }
+
+        .project-filter-btn.active { background-color: #1d4ed8; color: white; box-shadow: 0 10px 25px rgba(29,78,216,0.2); }
+        .project-card { transition: all 0.35s ease; }
+        .project-card:hover { transform: translateY(-6px); box-shadow: 0 18px 36px rgba(15,23,42,0.12); }
+        .project-chip { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; }
+        .project-modal-backdrop { background: rgba(15, 23, 42, 0.72); backdrop-filter: blur(6px); }
+        .project-hidden { display: none !important; }
+        
+        /* Syllabus Modal Styles */
+        .syllabus-modal-backdrop { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(8px); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen text-gray-800 overflow-x-hidden">
+    <!-- Splash Screen -->
+<div id="splash-screen" class="fixed inset-0 bg-white flex items-center justify-center z-[99999] transition-opacity duration-700 pointer-events-none">
+    <img src="教育部計畫logo.png" alt="Logo" class="w-72 md:w-96 animate-pulse">
+</div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-[9999] relative">
+        <div class="container mx-auto px-4 py-3 flex items-center gap-4 min-w-0">
+       <a href="javascript:void(0)" onclick="showPage('home')" class="flex items-center space-x-4 group">
+
+    <!-- 教育部計畫 Logo -->
+<img src="教育部計畫logo.png"
+     alt="教育部智慧製造人才培育計畫 Logo"
+     class="h-10 md:h-12 w-auto object-contain transition duration-300 group-hover:scale-105">
+
+<!-- 校名區塊 -->
+<div class="flex flex-col">
+    <span class="text-lg font-extrabold text-gray-800 group-hover:text-blue-900 transition">
+        國立勤益科技大學
+    </span>
+    <span class="text-[10px] text-gray-500 font-bold tracking-widest uppercase">
+        Smart Manufacturing Project
+    </span>
+</div>
+
+</a>
+<div class="flex-1 min-w-0 flex items-center justify-end gap-2">
+  <!-- Desktop Navigation (only show on lg+) -->
+  <nav id="desktop-nav" class="hidden lg:flex flex-wrap gap-1 text-sm font-bold text-gray-600">
+    <button onclick="showPage('home')" class="nav-btn px-3 py-2 whitespace-nowrap rounded-lg hover:bg-blue-50 hover:text-blue-900 transition">首頁</button>
+    <button onclick="showPage('about')" class="nav-btn px-3 py-2 whitespace-nowrap rounded-lg hover:bg-blue-50 hover:text-blue-900 transition">關於我們</button>
+    <button onclick="showPage('summary')" class="nav-btn px-3 py-2 whitespace-nowrap rounded-lg hover:bg-blue-50 hover:text-blue-900 transition">計畫簡介</button>
+    <button onclick="showPage('structure')" class="nav-btn px-3 py-2 whitespace-nowrap rounded-lg hover:bg-blue-50 hover:text-blue-900 transition">計畫組成</button>
+    <button onclick="showPage('videos')" class="nav-btn px-3 py-2 whitespace-nowrap rounded-lg hover:bg-blue-50 hover:text-blue-900 transition">教學影片</button>
+    <button onclick="showPage('projects')" class="nav-btn px-3 py-2 whitespace-nowrap rounded-lg hover:bg-blue-50 hover:text-blue-900 transition">專題成果</button>
+    <button onclick="showPage('resources')" class="nav-btn px-3 py-2 whitespace-nowrap rounded-lg hover:bg-blue-50 hover:text-blue-900 transition">共享教材</button>
+    <button onclick="showPage('industry')" class="nav-btn px-3 py-2 whitespace-nowrap rounded-lg hover:bg-blue-50 hover:text-blue-900 transition">產學合作</button>
+    <button onclick="showPage('labs')" class="nav-btn px-3 py-2 whitespace-nowrap rounded-lg hover:bg-blue-50 hover:text-blue-900 transition">特色實驗室</button>
+    <button onclick="showPage('performance')" class="nav-btn px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-900 transition">執行績效</button>
+    <button onclick="showPage('activities')" class="nav-btn px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-900 transition">活動競賽</button>
+  </nav>
+
+  <!-- Mobile Hamburger (show below lg) -->
+  <button id="mobile-menu-btn"
+          class="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-xl border border-gray-200 text-gray-800 hover:bg-gray-50 active:scale-95 transition"
+          type="button"
+          aria-label="開啟選單"
+          aria-controls="mobile-menu"
+          aria-expanded="false">
+    <i class="fa-solid fa-bars text-xl"></i>
+  </button>
+</div>
+        <!-- Mobile Menu -->
+
+<div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 absolute top-full left-0 w-full shadow-2xl z-[10000]">
+            <div class="flex flex-col p-4 space-y-2 font-bold text-gray-700">
+                <button onclick="showPage('home')" class="text-left py-3 px-4 hover:bg-blue-50 rounded-xl">首頁</button>
+                <button onclick="showPage('about')" class="text-left py-3 px-4 hover:bg-blue-50 rounded-xl">關於我們</button>
+                <button onclick="showPage('summary')" class="text-left py-3 px-4 hover:bg-blue-50 rounded-xl">計畫簡介</button>
+                <button onclick="showPage('structure')" class="text-left py-3 px-4 hover:bg-blue-50 rounded-xl">計畫組成</button>
+                <button onclick="showPage('videos')" class="text-left py-3 px-4 hover:bg-blue-50 rounded-xl">教學影片</button>
+                <button onclick="showPage('projects')" class="text-left py-3 px-4 hover:bg-blue-50 rounded-xl">專題成果</button>
+                <button onclick="showPage('resources')" class="text-left py-3 px-4 hover:bg-blue-50 rounded-xl">共享教材</button>
+                <button onclick="showPage('industry')" class="text-left py-3 px-4 hover:bg-blue-50 rounded-xl">產學合作</button>
+                <button onclick="showPage('labs')" class="text-left py-3 px-4 hover:bg-blue-50 rounded-xl">特色實驗室</button>
+                <button onclick="showPage('performance')" class="text-left py-3 px-4 hover:bg-blue-50 rounded-xl">執行績效</button>
+                <button onclick="showPage('activities')" class="text-left py-3 px-4 hover:bg-blue-50 rounded-xl">活動競賽</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        
+        <!-- PAGE: HOME -->
+        <div id="page-home" class="section-view active">
+            <section class="relative min-h-[70vh] sm:min-h-[600px] flex items-center justify-center hero-pattern text-white overflow-hidden">
+                <div class="absolute inset-0 bg-black opacity-40 pointer-events-none"></div>
+                <img src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2086" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-50 pointer-events-none">
+                <div class="relative z-10 text-center px-4 max-w-5xl">
+                    <span class="inline-block py-1 px-4 rounded-full bg-yellow-500 text-white text-sm font-bold mb-6 animate-bounce shadow-xl">
+                        114年度教育部智慧製造人才培育計畫
+                    </span>
+                    <h1 class="text-4xl md:text-6xl font-extrabold mb-6 text-shadow leading-tight italic">數位轉型 <span class="text-yellow-400">x</span> 綠色製造 <span class="text-yellow-400">x</span> 製造轉型</h1>
+                    <p class="text-xl md:text-2xl text-gray-100 max-w-3xl mx-auto mb-12 text-shadow font-light">
+                        培育智慧工具機 × AI 應用跨域人才，串接課程金字塔、PBL 實作、智慧實驗室與教材共享平台。
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+                        <button onclick="showPage('highlights')" class="bg-white text-blue-900 hover:bg-blue-50 font-extrabold py-4 px-12 rounded-2xl shadow-2xl transition transform hover:scale-105">探索課程地圖</button>
+                        <button onclick="showPage('summary')" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-900 font-extrabold py-4 px-12 rounded-2xl shadow-2xl transition transform hover:scale-105 backdrop-blur-sm">計畫詳情</button>
+                        <button onclick="showPage('projects')" class="bg-yellow-500 text-white hover:bg-yellow-400 font-extrabold py-4 px-12 rounded-2xl shadow-2xl transition transform hover:scale-105">專題成果</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Counter Section (Live Data) -->
+            <section class="py-20 bg-blue-900 text-white relative overflow-hidden">
+                <div class="container mx-auto px-4 relative z-10">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+                        <div class="p-4"><div class="text-5xl font-extrabold text-yellow-400 mb-2 counter" data-target="11">0</div><p class="text-sm text-blue-200 font-bold tracking-widest uppercase">合作企業</p></div>
+                        <div class="p-4"><div class="text-5xl font-extrabold text-yellow-400 mb-2 counter" data-target="6">0</div><p class="text-sm text-blue-200 font-bold tracking-widest uppercase">基礎核心課程</p></div>
+                        <div class="p-4"><div class="text-5xl font-extrabold text-yellow-400 mb-2 counter" data-target="5">0</div><p class="text-sm text-blue-200 font-bold tracking-widest uppercase">特色領域模組</p></div>
+                        <div class="p-4"><div class="text-5xl font-extrabold text-yellow-400 counter" data-target="2">0</div><p class="text-sm text-blue-200 font-bold tracking-widest uppercase mt-2">年度 PBL 課程</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 bg-white border-b border-gray-100">
+                <div class="container mx-auto px-4 max-w-7xl">
+                    <div class="text-center mb-12">
+                        <span class="inline-flex px-4 py-1.5 rounded-full bg-blue-50 text-blue-700 text-sm font-extrabold mb-4">30 秒看懂計畫亮點</span>
+                        <h2 class="text-4xl font-extrabold text-gray-800 mb-4">首頁核心亮點</h2>
+                        <p class="text-gray-500 max-w-3xl mx-auto">從課程金字塔、PBL 產學專題、智慧實驗室、數位教材到量化績效，以一頁式視覺快速掌握計畫價值。</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6">
+                        <div class="bg-gradient-to-br from-blue-700 to-blue-900 text-white rounded-[2rem] p-7 shadow-xl">
+                            <div class="text-3xl mb-5"><i class="fa-solid fa-shapes"></i></div>
+                            <h3 class="text-xl font-extrabold mb-3">課程金字塔</h3>
+                            <p class="text-blue-100 text-sm leading-relaxed mb-5">以基礎核心、特色模組到 PBL 總整課程，建立跨域學習進程。</p>
+                            <button onclick="showPage('highlights')" class="text-sm font-extrabold underline underline-offset-4">查看培育地圖</button>
+                        </div>
+                        <div class="bg-white rounded-[2rem] p-7 border border-gray-100 shadow-sm">
+                            <div class="text-3xl text-amber-500 mb-5"><i class="fa-solid fa-lightbulb"></i></div>
+                            <h3 class="text-xl font-extrabold text-gray-800 mb-3">PBL 產學專題</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed mb-5">以企業真實問題出題，讓學生完成 AI、感測、CPS 與製造整合成果。</p>
+                            <button onclick="showPage('projects')" class="text-sm font-extrabold text-blue-700">前往成果專區 →</button>
+                        </div>
+                        <div class="bg-white rounded-[2rem] p-7 border border-gray-100 shadow-sm">
+                            <div class="text-3xl text-emerald-500 mb-5"><i class="fa-solid fa-flask-vial"></i></div>
+                            <h3 class="text-xl font-extrabold text-gray-800 mb-3">智慧製造實驗室</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed mb-5">多軸加工、感測監控與數據分析場域，支撐實作與專題驗證。</p>
+                            <button onclick="showPage('labs')" class="text-sm font-extrabold text-blue-700">查看場域設備 →</button>
+                        </div>
+                        <div class="bg-white rounded-[2rem] p-7 border border-gray-100 shadow-sm">
+                            <div class="text-3xl text-violet-500 mb-5"><i class="fa-solid fa-photo-film"></i></div>
+                            <h3 class="text-xl font-extrabold text-gray-800 mb-3">教學影片 × 共享教材</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed mb-5">課程錄影、操作示範、實驗手冊與簡報，強調可重複使用與跨校推廣。</p>
+                            <div class="flex gap-3 flex-wrap text-sm font-extrabold">
+                                <button onclick="showPage('videos')" class="text-blue-700">教學影片 →</button>
+                                <button onclick="showPage('resources')" class="text-violet-700">共享教材 →</button>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-[2rem] p-7 border border-gray-100 shadow-sm">
+                            <div class="text-3xl text-rose-500 mb-5"><i class="fa-solid fa-chart-column"></i></div>
+                            <h3 class="text-xl font-extrabold text-gray-800 mb-3">數據儀表板</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed mb-5">修課人數、業師參與、產學合作與教材數量以圖卡與表格即時呈現。</p>
+                            <button onclick="showPage('performance')" class="text-sm font-extrabold text-blue-700">查看執行績效 →</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Field Section (Experimental Field) -->
+            <section class="py-24 bg-white">
+                <div class="container mx-auto px-4">
+                    <div class="container mx-auto px-4 py-20 max-w-7xl">
+                <div class="flex flex-col lg:flex-row gap-20 items-start">
+                    <div class="lg:w-1/2 flex flex-col items-center">
+                        <h2 class="text-3xl font-extrabold text-gray-800 mb-12 flex items-center gap-3"><i class="fa-solid fa-shapes text-blue-600"></i>課程培育金字塔</h2>
+                        <svg viewBox="0 0 500 440" class="w-full max-w-lg drop-shadow-2xl">
+                            <defs>
+                                <linearGradient id="gT" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#d97706"/></linearGradient>
+                                <linearGradient id="gM" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#3b82f6"/><stop offset="100%" style="stop-color:#2563eb"/></linearGradient>
+                                <linearGradient id="gB" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#10b981"/><stop offset="100%" style="stop-color:#059669"/></linearGradient>
+                            </defs>
+                            <g onclick="updatePyramid(3)"><path id="l3" d="M250,10 L336,160 L164,160 Z" fill="url(#gT)" class="pyramid-layer"/></g>
+                            <g onclick="updatePyramid(2)"><path id="l2" d="M164,165 L336,165 L423,315 L77,315 Z" fill="url(#gM)" class="pyramid-layer active"/></g>
+                            <g onclick="updatePyramid(1)"><path id="l1" d="M77,320 L423,320 L500,453 L0,453 Z" fill="url(#gB)" class="pyramid-layer"/></g>
+                            <text x="250" y="110" class="pyramid-text">PBL 總整課程</text>
+                            <text x="250" y="255" class="pyramid-text">特色領域模組</text>
+                            <text x="250" y="400" class="pyramid-text">基礎核心課程</text>
+                        </svg>
+                        <p class="mt-12 text-gray-400 font-bold italic">點擊金字塔各層級查看詳細規劃</p>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <div id="pyr-panel" class="bg-white rounded-[3rem] shadow-xl border border-gray-100 overflow-hidden min-h-[550px] relative">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- SYLLABUS MODAL (DYNAMIC) -->
+        <div id="syllabus-modal" class="hidden fixed inset-0 z-[100002]">
+            <div class="syllabus-modal-backdrop absolute inset-0"></div>
+            <div class="relative min-h-screen flex items-center justify-center p-4">
+                <div class="w-full max-w-4xl bg-white rounded-[3rem] shadow-2xl overflow-hidden relative max-h-[90vh] flex flex-col">
+                    <button id="syllabus-modal-close" class="absolute top-6 right-6 w-11 h-11 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition z-10">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                    <div id="syllabus-header" class="p-10 flex-shrink-0 transition-colors duration-500">
+                        <span id="syllabus-badge" class="inline-block px-3 py-1 bg-white/20 rounded-full text-xs font-bold uppercase mb-4 tracking-widest border border-white/30 text-white">COURSE SYLLABUS</span>
+                        <h3 id="syllabus-title" class="text-3xl md:text-4xl font-extrabold leading-tight text-white">課程名稱</h3>
+                        <p id="syllabus-meta" class="mt-2 text-white/90 flex items-center gap-4 font-bold italic"></p>
+                    </div>
+                    <div class="p-10 overflow-y-auto space-y-10 custom-scrollbar">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="space-y-4">
+                                <h4 class="text-xl font-extrabold text-gray-800 border-l-4 border-blue-600 pl-3">課程目標</h4>
+                                <div id="syllabus-objectives" class="text-gray-600 font-medium space-y-2"></div>
+                            </div>
+                            <div class="space-y-4">
+                                <h4 class="text-xl font-extrabold text-gray-800 border-l-4 border-blue-600 pl-3">核心能力</h4>
+                                <div id="syllabus-skills" class="text-gray-600 font-medium space-y-2"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <h4 class="text-xl font-extrabold text-gray-800 border-l-4 border-blue-600 pl-3">18 週教學進度</h4>
+                            <div class="overflow-hidden rounded-2xl border border-gray-100 shadow-sm">
+                                <table class="w-full text-left border-collapse text-sm">
+                                    <thead class="bg-gray-50 font-bold text-gray-500 uppercase">
+                                        <tr>
+                                            <th class="p-4 border-b w-20">週次</th>
+                                            <th class="p-4 border-b">課程內容主題</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="syllabus-table-body" class="divide-y divide-gray-100 text-gray-700"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OTHER PAGES (Keep existing pages from original source if needed) -->
+        <!-- ... (Rest of the original index.html pages: about, summary, structure, videos, projects, resources, industry, labs, performance, activities) ... -->
+        
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-16 mt-auto">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-xs font-bold tracking-widest text-gray-600 uppercase">&copy; 2026 National Chin-Yi University of Technology. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // SYLLABUS DATA BASED ON PDF UPLOADS
+        const syllabusData = {
+            python_basic: {
+                title: "Python 程式設計",
+                instructor: "張俊隆",
+                credits: "3.0 學分 / 3.0 小時",
+                color: "bg-blue-600",
+                badge: "電子系 選修",
+                objectives: ["具備運算思維", "Python 基礎知識與工具應用", "邏輯判斷與解決問題"],
+                skills: ["程式撰寫能力", "智慧機械相關應用", "AI 智慧系統實作"],
+                schedule: [
+                    "課程大綱與學術倫理規範", "程式設計簡介", "Python 程式設計簡介", "程式設計師的遊戲", "運算思維簡介與期中報告", "資料儲存容器", "控制程序 (判斷、迴圈等)", "迴圈實作", "期中考", "副程式應用", "再論運算思維", "AI在智慧系統應用：洗碗機", "AI在智慧系統應用：網路爬蟲", "AI在智慧系統應用：點餐機", "期末報告 (1/3)", "期末報告 (2/3)", "工作經驗之談", "期末考"
+                ]
+            },
+            matlab_prog: {
+                title: "程式語言 (MATLAB)",
+                instructor: "陳聰嘉",
+                credits: "3.0 學分 / 3.0 小時",
+                color: "bg-slate-700",
+                badge: "機械系 必修",
+                objectives: ["數值分析與工程計算", "MATLAB 語法實作", "科學與工程案例分析"],
+                skills: ["矩陣操作與函數設計", "數值微分、積分實作", "微分方程數值解法"],
+                schedule: [
+                    "學術倫理規範、課程概論", "MATLAB 基本語法 (一)", "MATLAB 基本語法 (二)", "程式結構與設計 (一)", "程式結構與設計 (二)", "矩陣製作", "函數應用", "內插法與函數近似法", "期中考", "資料結構", "資料之輸入與輸出", "多項式近似法", "數值微分", "數值積分", "離散數值與連續函數之近似", "常微分方程數值解", "偏微分方程數值解", "期末考"
+                ]
+            },
+            smart_intro: {
+                title: "智慧機械概論",
+                instructor: "林岳鋒",
+                credits: "3.0 學分 / 3.0 小時",
+                color: "bg-emerald-600",
+                badge: "機械系 選修",
+                objectives: ["了解智慧機械製造技術發展", "熟悉智能化機械與智慧機器人", "設備協同生產與智慧工廠"],
+                skills: ["物聯網、大數據分析概念", "虛實整合系統 (CPS)", "自動化光學檢測"],
+                schedule: [
+                    "課程說明與學術倫理", "工業4.0 概論", "虛實合一系統", "嵌入式系統應用", "物聯網創新與應用", "大數據與雲端計算", "自動化光學檢測", "智能化模具製造", "期中考", "製程自動化與特殊加工", "打造數位工廠", "半導體製程", "感測器輔助加工 (Sensor-assisted)", "智慧型機器人", "大數據應用實務", "Smart product & Smart Factory", "智慧製造系統架構", "期末考"
+                ]
+            },
+            five_axis: {
+                title: "五軸加工技術",
+                instructor: "蘇怡甄",
+                credits: "3.0 學分 / 3.0 小時",
+                color: "bg-orange-600",
+                badge: "機械系 選修",
+                objectives: ["CAD/CAM 多軸程式製作", "軟體模擬實機運作", "訓練獨立作業能力"],
+                skills: ["五軸切削中心機操作", "Hypermill CAM 應用", "多軸同動工序排程"],
+                schedule: [
+                    "工業安全與學術倫理", "多軸工具機械簡介", "程式結構與多軸機能", "機械與控制器使用教學", "CAD/CAM 基礎簡介", "後處理與整機模擬", "加工流程與切削練習", "五軸刀路教學", "期中考", "切削實務練習", "基準補償練習", "五軸排程教學", "定軸工序實作", "多軸同動工序實作", "切削成果驗收", "五軸零件加工", "實作成果展示", "期末考"
+                ]
+            },
+            assembly_tech: {
+                title: "工具機組裝技術",
+                instructor: "陳紹賢",
+                credits: "3.0 學分 / 3.0 小時",
+                color: "bg-indigo-600",
+                badge: "機械系 選修",
+                objectives: ["進給系統元件介紹", "真直、真平調校技術", "實際進給系統組裝"],
+                skills: ["基本鏟花技術", "導螺桿、線性滑軌安裝", "預壓與預拉調校"],
+                schedule: [
+                    "課程介紹與說明", "工具機種類與元件", "調教工具與量測應用", "量具應用 (真直、真平)", "組裝實習 (鑄件水平)", "關鍵元件：線軌與硬軌", "線軌直度與平行度調校", "線軌調校實作", "期中考", "鏟花技術與說明", "關鍵元件：導螺桿與軸承", "導螺桿三點校正 (一)", "導螺桿三點校正 (二)", "真直真平預壓預拉技術", "導螺桿預壓預拉調校 (一)", "導螺桿預壓預拉調校 (二)", "期末複習", "期末測驗"
+                ]
+            },
+            precision_mach: {
+                title: "精密加工技術",
+                instructor: "蘇怡甄",
+                credits: "3.0 學分 / 3.0 小時",
+                color: "bg-amber-600",
+                badge: "機械系 選修",
+                objectives: ["精密加工技術知能", "切削技能實務教學", "Hypermill 軟體導入"],
+                skills: ["CNC 程式撰寫", "精確尺寸控制", "製程改善優化"],
+                schedule: [
+                    "工業安全與衛生", "精密加工技術概述", "精密加工用途分析", "精密加工工法介紹", "CAD/CAM (2D) 輪廓教學", "2D 輪廓路徑生成", "精密加工流程練習", "加工排程教學", "加工排程優化", "切削實務練習", "精密刀具設定", "輪廓加工路徑練習", "複雜輪廓切削", "異常排除練習", "尺寸控制練習", "精密尺寸精度調整", "綜合實作", "期末考"
+                ]
+            },
+            iot_sensor: {
+                title: "智慧製造聯網與感測",
+                instructor: "彭達仁",
+                credits: "3.0 學分 / 3.0 小時",
+                color: "bg-cyan-600",
+                badge: "機械系 選修",
+                objectives: ["感測器技術整合", "FANUC 控制器資料擷取", "邊緣運算架構建置"],
+                skills: ["訊號處理與特徵萃取", "即時監控介面設計", "智慧決策應用"],
+                schedule: [
+                    "課程介紹與學術倫理", "智慧製造與工業4.0 概論", "智慧製造數據架構", "感測器原理 (加速規、電流)", "訊號放大與類比轉數位", "FANUC 控制器參數讀取", "FOCAS API 基礎", "邊緣運算與機邊運算", "期中實作驗收", "訊號處理 (FFT、濾波)", "特徵萃取 (RMS、顫振)", "製程監測與智慧決策", "工具磨耗判定案例", "Dashboard 資料視覺化", "系統整合架構設計", "專題開發穩定度測試", "成果發表與數據報告", "綜合檢討與未來發展"
+                ]
+            },
+            comp_process: {
+                title: "綜合加工機技術概論",
+                instructor: "蘇怡甄",
+                credits: "3.0 學分 / 3.0 小時",
+                color: "bg-green-600",
+                badge: "精密機械專班 選修",
+                objectives: ["掌握加工機總類與應用", "程式撰寫與軟體製圖", "訓練獨立作業能力"],
+                skills: ["CNC 程式結構機能", "實體機台切削操作", "尺寸精度控制"],
+                schedule: [
+                    "工業安全與衛生", "CNC 機械簡介", "程式結構與機能", "控制器使用教學", "CAD/CAM (2D輪廓)", "2D 輪廓路徑生成", "加工流程練習", "加工排程教學", "排程與轉程式練習", "切削實務練習", "刀具補償實作", "輪廓加工路徑練習", "路徑優化實作", "零件切削實務", "尺寸控制練習", "量測與精度調整", "精密加工實作", "期末考"
+                ]
+            }
+        };
+
+        // NAVIGATION & PAGE VIEW LOGIC
+        function showPage(pageId) {
+            document.querySelectorAll(".section-view").forEach(p => p.classList.remove("active"));
+            const target = document.getElementById("page-" + pageId) || document.getElementById("page-home");
+            if (target) target.classList.add("active");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (pageId === "highlights") updatePyramid(1);
+        }
+
+        // SYLLABUS MODAL LOGIC
+        function openSyllabus(courseKey) {
+            const data = syllabusData[courseKey];
+            if (!data) return;
+
+            const modal = document.getElementById('syllabus-modal');
+            const header = document.getElementById('syllabus-header');
+            const badge = document.getElementById('syllabus-badge');
+            const title = document.getElementById('syllabus-title');
+            const meta = document.getElementById('syllabus-meta');
+            const objList = document.getElementById('syllabus-objectives');
+            const skillList = document.getElementById('syllabus-skills');
+            const tableBody = document.getElementById('syllabus-table-body');
+
+            // Set UI
+            header.className = `p-10 flex-shrink-0 transition-colors duration-500 ${data.color}`;
+            badge.textContent = data.badge;
+            title.textContent = data.title;
+            meta.innerHTML = `<span class="flex items-center gap-1"><i class="fa-solid fa-user-tie"></i> 授課教師：${data.instructor}</span> <span class="flex items-center gap-1"><i class="fa-solid fa-clock"></i> ${data.credits}</span>`;
+            
+            objList.innerHTML = data.objectives.map(o => `<li>${o}</li>`).join('');
+            skillList.innerHTML = data.skills.map(s => `<li>${s}</li>`).join('');
+            
+            tableBody.innerHTML = data.schedule.map((task, idx) => `
+                <tr>
+                    <td class="p-4 font-bold text-gray-400">${String(idx + 1).padStart(2, '0')}</td>
+                    <td class="p-4 ${idx === 8 || idx === 17 ? 'font-extrabold text-blue-600' : ''}">${task}</td>
+                </tr>
+            `).join('');
+
+            modal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function initSyllabusModal() {
+            const modal = document.getElementById('syllabus-modal');
+            const closeBtn = document.getElementById('syllabus-modal-close');
+            if (closeBtn) closeBtn.onclick = () => {
+                modal.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            };
+        }
+
+        // PYRAMID LOGIC
+        const pyramidMap = {
+            1: {
+                title: "基礎核心課程",
+                badge: "Level 1: Foundation",
+                color: "bg-green-600",
+                desc: "建立數位與機械基礎能力，為智慧轉型奠基。",
+                courses: [
+                    { id: "comp_process", name: "綜合加工機技術概論", teacher: "蘇怡甄", hl: true },
+                    { id: "python_basic", name: "Python 程式設計", teacher: "張俊隆", hl: true },
+                    { id: "matlab_prog", name: "程式語言 (MATLAB)", teacher: "陳聰嘉", hl: true },
+                    { id: "smart_intro", name: "智慧機械概論", teacher: "林岳鋒", hl: true }
+                ]
+            },
+            2: {
+                title: "特色領域模組",
+                badge: "Level 2: Module",
+                color: "bg-blue-600",
+                desc: "深耕工具機核心技術與 AI 感測聯網應用。",
+                courses: [
+                    { id: "five_axis", name: "五軸加工技術", teacher: "蘇怡甄", hl: true },
+                    { id: "precision_mach", name: "精密加工技術", teacher: "蘇怡甄", hl: true },
+                    { id: "assembly_tech", name: "工具機組裝技術", teacher: "陳紹賢", hl: true },
+                    { id: "iot_sensor", name: "聯網與感測整合", teacher: "彭達仁", hl: true }
+                ]
+            },
+            3: {
+                title: "PBL 總整課程",
+                badge: "Level 3: PBL",
+                color: "bg-yellow-600",
+                desc: "採企業出題，學生解題，實作具展示性之系統成果。",
+                courses: [
+                    { id: null, name: "CPS 導向多軸加工監控 (PBL)", teacher: "林岳鋒", hl: false },
+                    { id: null, name: "年度產學 PBL 專案實作", teacher: "計畫團隊", hl: false }
+                ]
+            }
+        };
+
+        function updatePyramid(lvl) {
+            document.querySelectorAll(".pyramid-layer").forEach(l => l.classList.remove("active"));
+            const layer = document.getElementById("l" + lvl);
+            if (layer) layer.classList.add("active");
+
+            const data = pyramidMap[lvl];
+            const panel = document.getElementById("pyr-panel");
+            if (!data || !panel) return;
+
+            panel.innerHTML = `
+                <div class="p-8 ${data.color} text-white rounded-t-[3rem] text-left transition-colors duration-500 shadow-inner">
+                    <span class="px-3 py-1 bg-white/20 rounded-full text-[10px] font-bold uppercase mb-4 inline-block tracking-widest border border-white/30">${data.badge}</span>
+                    <h3 class="text-3xl font-extrabold mb-2">${data.title}</h3>
+                    <p class="text-white/80 font-medium">${data.desc}</p>
+                </div>
+                <div class="p-8 space-y-4">
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2"><i class="fa-solid fa-list-ul mr-2"></i>點擊課程查看詳細大綱</p>
+                    <div class="grid grid-cols-1 gap-3">
+                        ${data.courses.map(c => `
+                            <button onclick="${c.id ? `openSyllabus('${c.id}')` : ''}" class="p-4 ${c.hl ? 'bg-gray-50 border-blue-100 hover:border-blue-300' : 'bg-gray-50 border-gray-100'} rounded-2xl border font-bold text-gray-700 text-left flex items-center justify-between hover:bg-white transition group">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2.5 h-2.5 rounded-full ${data.color} group-hover:scale-150 transition"></div>
+                                    <div class="flex flex-col">
+                                        <span class="text-sm">${c.name}</span>
+                                        <span class="text-[10px] text-gray-400">授課：${c.teacher}</span>
+                                    </div>
+                                </div>
+                                ${c.id ? '<i class="fa-solid fa-circle-arrow-right text-gray-300 group-hover:text-blue-500"></i>' : ''}
+                            </button>
+                        `).join("")}
+                    </div>
+                </div>
+            `;
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            initSyllabusModal();
+            updatePyramid(1); // Default view
+        });
+    </script>
+</body>
+</html>

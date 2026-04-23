@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>計畫執行快訊 - 國立勤益科技大學智慧製造人才培育計畫</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; }
+        .hero-pattern {
+            background-color: #004e9c;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md relative z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo 連結回首頁 -->
+            <a href="moe_achievements.html" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 flex items-center justify-center">
+                    <img src="logo.png" onerror="this.src='https://upload.wikimedia.org/wikipedia/zh/2/2e/National_Chin-Yi_University_of_Technology_logo.svg';this.onerror=null;" alt="NCUT" class="w-full h-full object-contain">
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-lg font-bold text-gray-800 group-hover:text-blue-900 transition">國立勤益科技大學</span>
+                    <span class="text-xs text-gray-500">智慧製造人才培育計畫</span>
+                </div>
+            </a>
+            <!-- 導覽列連結回首頁 -->
+            <a href="moe_achievements.html" class="text-sm font-medium text-gray-600 hover:text-blue-900 flex items-center">
+                <i class="fa-solid fa-arrow-left mr-2"></i> 回首頁
+            </a>
+        </div>
+    </header>
+
+    <!-- Page Title -->
+    <div class="hero-pattern py-12 text-center text-white">
+        <h1 class="text-3xl font-bold mb-2">計畫執行快訊</h1>
+        <p class="text-blue-100">最新活動紀錄、產學交流與競賽成果</p>
+    </div>
+
+    <!-- News List Content -->
+    <div class="container mx-auto px-4 py-12 max-w-4xl">
+        
+        <!-- Filter/Tabs (Visual only) -->
+        <div class="flex space-x-2 mb-8 overflow-x-auto pb-2">
+            <button class="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-medium whitespace-nowrap">全部消息</button>
+            <button class="px-4 py-2 bg-white text-gray-600 border border-gray-200 rounded-full text-sm font-medium hover:bg-gray-50 whitespace-nowrap">產學活動</button>
+            <button class="px-4 py-2 bg-white text-gray-600 border border-gray-200 rounded-full text-sm font-medium hover:bg-gray-50 whitespace-nowrap">課程快訊</button>
+            <button class="px-4 py-2 bg-white text-gray-600 border border-gray-200 rounded-full text-sm font-medium hover:bg-gray-50 whitespace-nowrap">榮譽榜</button>
+        </div>
+
+        <!-- News Items Timeline -->
+        <div class="space-y-6">
+
+            <!-- Item 1: Scholarship (Image Updated) -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 hover:shadow-md transition">
+                <div class="md:w-1/4 flex flex-col text-center md:text-left border-b md:border-b-0 md:border-r border-gray-100 pb-4 md:pb-0 md:pr-4">
+                    <span class="text-sm text-gray-500 font-medium">2025</span>
+                    <span class="text-2xl font-bold text-blue-600">12/31</span>
+                    <span class="inline-block mt-2 px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full w-fit mx-auto md:mx-0">產學活動</span>
+                </div>
+                <div class="md:w-3/4">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">深化產學連結！舉辦「盈錫精密獎學金」頒獎典禮</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                        為深化企業對人才培育投入之連結與認同，本校於今日舉辦頒獎典禮。透過企業具體獎助，肯定學生在專業學習與實務能力上的表現，進一步提升產學合作的穩定性與延續性。
+                    </p>
+                    <!-- Updated Image Source -->
+                    <img src="image_047d2e.png" 
+                         onerror="this.src='https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1000&auto=format&fit=crop'" 
+                         alt="盈錫精密獎學金頒獎典禮" 
+                         class="w-full h-64 object-cover rounded-lg mb-2 shadow-sm">
+                </div>
+            </div>
+
+            <!-- Item 2: PBL Course (With Image Schedule) -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 hover:shadow-md transition">
+                <div class="md:w-1/4 flex flex-col text-center md:text-left border-b md:border-b-0 md:border-r border-gray-100 pb-4 md:pb-0 md:pr-4">
+                    <span class="text-sm text-gray-500 font-medium">2025</span>
+                    <span class="text-2xl font-bold text-blue-600">11/06</span>
+                    <span class="inline-block mt-2 px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full w-fit mx-auto md:mx-0">課程快訊</span>
+                </div>
+                <div class="md:w-3/4">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">PBL 課程開跑：攜手凱柏精機實作「智慧刀具磨耗預測」</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-3">
+                        本學期 PBL 微學分課程正式啟動！由凱柏精機業師協同指導，以「CPS導向多軸加工監控」為題，帶領學生進行感測器串接與 AI 模型訓練。
+                    </p>
+                    
+                    <!-- PBL 課程圖片 -->
+                    <div class="mb-4">
+                        <img src="image_6a8632.jpg" 
+                             onerror="this.src='https://placehold.co/600x400/e2e8f0/1e3a8a?text=PBL+Schedule'"
+                             alt="PBL課程課表" 
+                             class="w-full h-auto rounded-lg border border-gray-200 shadow-sm">
+                    </div>
+
+                    <ul class="list-disc list-inside text-sm text-gray-500 bg-gray-50 p-3 rounded">
+                        <li>課程代碼：PBL導向多軸加工監控設計</li>
+                        <li>合作企業：凱柏精密機械股份有限公司</li>
+                        <li>授課時數：18 小時 (微學分)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Item 3: Seminar 2 -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 hover:shadow-md transition">
+                <div class="md:w-1/4 flex flex-col text-center md:text-left border-b md:border-b-0 md:border-r border-gray-100 pb-4 md:pb-0 md:pr-4">
+                    <span class="text-sm text-gray-500 font-medium">2025</span>
+                    <span class="text-2xl font-bold text-blue-600">10/22</span>
+                    <span class="inline-block mt-2 px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full w-fit mx-auto md:mx-0">技術交流</span>
+                </div>
+                <div class="md:w-3/4">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">AI 與機器視覺應用交流會：智慧數位製造新趨勢</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        由林岳鋒副教授主講，聚焦「金屬製品產業智慧製造與數據分析」。活動深入探討如何將機器視覺應用於製程監控與品質檢測，現場共有 37 位產業代表與師生參與，反應熱烈。
+                    </p>
+                </div>
+            </div>
+
+            <!-- Item 4: Seminar 1 -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 hover:shadow-md transition">
+                <div class="md:w-1/4 flex flex-col text-center md:text-left border-b md:border-b-0 md:border-r border-gray-100 pb-4 md:pb-0 md:pr-4">
+                    <span class="text-sm text-gray-500 font-medium">2025</span>
+                    <span class="text-2xl font-bold text-blue-600">09/25</span>
+                    <span class="inline-block mt-2 px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full w-fit mx-auto md:mx-0">技術交流</span>
+                </div>
+                <div class="md:w-3/4">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">首場產業交流會登場：聚焦智慧化製程優化與碳排放管理</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        針對中部金屬製品產業，本校舉辦首場產學交流活動。課程內容涵蓋碳盤查、能源管理及 AI 基礎應用，協助企業補足低碳轉型所需知識，並介紹本校多軸加工實驗室資源。
+                    </p>
+                </div>
+            </div>
+
+            <!-- Item 5: Project Start -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 hover:shadow-md transition">
+                <div class="md:w-1/4 flex flex-col text-center md:text-left border-b md:border-b-0 md:border-r border-gray-100 pb-4 md:pb-0 md:pr-4">
+                    <span class="text-sm text-gray-500 font-medium">2025</span>
+                    <span class="text-2xl font-bold text-blue-600">08/01</span>
+                    <span class="inline-block mt-2 px-2 py-1 bg-red-100 text-red-700 text-xs rounded-full w-fit mx-auto md:mx-0">計畫公告</span>
+                </div>
+                <div class="md:w-3/4">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">獲教育部補助「114-115年智慧製造人才培育計畫」</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        本計畫正式啟動！期程兩年，旨在整合五軸加工、AI 應用與綠色製造。將開設 12 門基礎課程與 5 個特色模組，並與台中精機、上銀科技等 11 家企業深度合作，培育跨域高階人才。
+                    </p>
+                </div>
+            </div>
+
+            <!-- Item 6: Skills Competition -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 hover:shadow-md transition">
+                <div class="md:w-1/4 flex flex-col text-center md:text-left border-b md:border-b-0 md:border-r border-gray-100 pb-4 md:pb-0 md:pr-4">
+                    <span class="text-sm text-gray-500 font-medium">2025</span>
+                    <span class="text-2xl font-bold text-blue-600">07/21</span>
+                    <span class="inline-block mt-2 px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded-full w-fit mx-auto md:mx-0">榮譽榜</span>
+                </div>
+                <div class="md:w-3/4">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">捷報！第 54 屆全國技能競賽奪金，邁向國際舞台</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-3">
+                        本校機械系學生展現精湛技術，於全國技能競賽大放異彩！
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-yellow-50 p-3 rounded border border-yellow-200">
+                            <span class="block text-yellow-800 font-bold">🥇 工業機械職類 金牌</span>
+                            <span class="block text-sm text-gray-600 mb-2">獲獎學生：黃信訓</span>
+                             <!-- Image for Huang Xinxun -->
+                             <img src="image_039c8e.jpg" 
+                                 onerror="this.src='https://placehold.co/400x300/e2e8f0/1e3a8a?text=Honor+Roll'" 
+                                 alt="黃信訓獲獎照片" 
+                                 class="w-full h-auto rounded shadow-sm">
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <span class="block text-blue-800 font-bold">🌍 國際技能競賽 國手</span>
+                            <span class="block text-sm text-gray-600 mb-2">CNC車床：吳德龍 (正取)</span>
+                            <!-- Image for Wu Delong -->
+                            <img src="image_f5ee9d.png" 
+                                 onerror="this.src='https://placehold.co/400x300/e2e8f0/1e3a8a?text=Honor+Roll'" 
+                                 alt="吳德龍獲獎照片" 
+                                 class="w-full h-auto rounded shadow-sm">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Pagination -->
+        <div class="mt-12 flex justify-center space-x-2">
+            <span class="w-8 h-8 flex items-center justify-center rounded bg-blue-600 text-white font-bold cursor-pointer">1</span>
+            <span class="w-8 h-8 flex items-center justify-center rounded bg-white border border-gray-200 text-gray-600 hover:bg-gray-100 cursor-pointer">2</span>
+            <span class="w-8 h-8 flex items-center justify-center rounded bg-white border border-gray-200 text-gray-600 hover:bg-gray-100 cursor-pointer"><i class="fa-solid fa-angle-right"></i></span>
+        </div>
+        
+        <div class="mt-12 text-center">
+            <!-- 3. 底部按鈕連結回首頁 -->
+            <a href="moe_achievements.html" class="inline-block px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 font-medium transition">
+                <i class="fa-solid fa-arrow-left mr-2"></i> 返回首頁
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-8 mt-auto">
+        <div class="container mx-auto px-4 text-center text-sm">
+            <p>&copy; 2025 國立勤益科技大學 National Chin-Yi University of Technology. All rights reserved.</p>
+            <p class="mt-2 text-gray-500">本網站成果內容係由教育部「智慧製造人才培育計畫」經費支應</p>
+        </div>
+    </footer>
+
+</body>
+</html>

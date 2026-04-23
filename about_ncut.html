@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>關於我們 - 國立勤益科技大學與機械工程系</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; }
+        .hero-pattern {
+            background-color: #004e9c;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md relative z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo 連結回首頁 -->
+            <a href="moe_achievements.html" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 flex items-center justify-center">
+                    <img src="logo.png" onerror="this.src='https://upload.wikimedia.org/wikipedia/zh/2/2e/National_Chin-Yi_University_of_Technology_logo.svg';this.onerror=null;" alt="NCUT" class="w-full h-full object-contain">
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-lg font-bold text-gray-800 group-hover:text-blue-900 transition">國立勤益科技大學</span>
+                    <span class="text-xs text-gray-500">智慧製造人才培育計畫</span>
+                </div>
+            </a>
+            <!-- 導覽列連結回首頁 -->
+            <a href="moe_achievements.html" class="text-sm font-medium text-gray-600 hover:text-blue-900 flex items-center">
+                <i class="fa-solid fa-arrow-left mr-2"></i> 回首頁
+            </a>
+        </div>
+    </header>
+
+    <!-- Page Title / Hero -->
+    <div class="relative bg-blue-900 h-64 flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-40 z-10"></div>
+        <img src="image_b68eb1.jpg" onerror="this.src='https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2086&auto=format&fit=crop'" class="absolute inset-0 w-full h-full object-cover opacity-60" alt="NCUT Campus">
+        <div class="relative z-20 text-center text-white px-4">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-wider">關於我們</h1>
+            <p class="text-lg text-blue-100 max-w-2xl mx-auto">勤毅誠樸．務實致用．深耕在地．接軌國際</p>
+        </div>
+    </div>
+
+    <!-- Content: NCUT Introduction -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <div class="relative">
+                        <div class="absolute -top-4 -left-4 w-24 h-24 bg-blue-100 rounded-full -z-10"></div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/National_Chin-Yi_University_of_Technology_Library.jpg/800px-National_Chin-Yi_University_of_Technology_Library.jpg" 
+                             onerror="this.src='https://placehold.co/600x400/e2e8f0/1e3a8a?text=NCUT+Campus'"
+                             alt="勤益校園" class="rounded-lg shadow-xl w-full object-cover h-80">
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6 border-l-4 border-blue-600 pl-4">國立勤益科技大學</h2>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        國立勤益科技大學（National Chin-Yi University of Technology, NCUT）創立於民國60年，位於臺中市太平區，毗鄰中部精密機械產業聚落。本校秉持「勤毅誠樸」校訓，以前瞻視野培育產業所需之高級專業人才。
+                    </p>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        勤益科大是一所與產業緊密連結的典範科技大學，擁有優質的教學環境與研發能量。學校積極推動產學合作，將企業資源引入校園，落實「做中學、學中做」的技職教育精神，歷年來在產學合作績效與專利研發上表現卓越，深受業界肯定。
+                    </p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex items-center text-blue-800 font-medium">
+                            <i class="fa-solid fa-location-dot mr-2"></i> 中部產業黃金縱谷核心
+                        </div>
+                        <div class="flex items-center text-blue-800 font-medium">
+                            <i class="fa-solid fa-award mr-2"></i> 連年獲選典範科技大學
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content: ME Department Introduction -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row-reverse items-center gap-12">
+                <div class="md:w-1/2">
+                    <div class="relative">
+                        <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-yellow-100 rounded-full -z-10"></div>
+                        <img src="image_2b1f74.png" 
+                             onerror="this.src='https://placehold.co/600x400/e2e8f0/1e3a8a?text=ME+Dept'"
+                             alt="機械系實作" class="rounded-lg shadow-xl w-full object-cover h-80">
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6 border-l-4 border-yellow-500 pl-4">機械工程系</h2>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        本校機械工程系以「精密機械」、「製造科技」、「應用材料」與「機電整合」為教學及研究重點。因應工業 4.0 與 AI 浪潮，本系積極轉型智慧製造教學，結合中部地區豐沛的精密機械產業資源，培育具備跨域整合能力的現代化機械工程師。
+                    </p>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-blue-500">
+                            <h4 class="font-bold text-gray-800 mb-1">教學特色</h4>
+                            <p class="text-sm text-gray-600">強調理論與實務並重，開設多軸加工、智慧監控、AI 應用等特色課程，並推動 PBL 專題實作。</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-green-500">
+                            <h4 class="font-bold text-gray-800 mb-1">產學鏈結</h4>
+                            <p class="text-sm text-gray-600">與台中精機、上銀科技等龍頭企業深度合作，提供實習機會與業師指導，縮短學用落差。</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-red-500">
+                            <h4 class="font-bold text-gray-800 mb-1">未來發展</h4>
+                            <p class="text-sm text-gray-600">聚焦數位轉型 (DX)、綠色轉型 (GX) 與製造轉型 (MX)，培養能解決產業痛點的跨域人才。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Action -->
+    <div class="py-12 bg-white text-center">
+        <div class="container mx-auto px-4">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">了解更多計畫成果</h3>
+            <a href="moe_achievements.html" class="inline-block px-8 py-3 bg-blue-600 text-white rounded-full font-bold hover:bg-blue-700 transition shadow-lg transform hover:scale-105">
+                <i class="fa-solid fa-arrow-left mr-2"></i> 返回計畫成果首頁
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-8 mt-auto">
+        <div class="container mx-auto px-4 text-center text-sm">
+            <p>&copy; 2025 國立勤益科技大學 National Chin-Yi University of Technology. All rights reserved.</p>
+            <p class="mt-2 text-gray-500">地址：41170 臺中市太平區坪林里中山路二段57號 | 電話：(04) 2392-4505</p>
+        </div>
+    </footer>
+
+</body>
+</html>

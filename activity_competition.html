@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活動競賽 - 智慧製造人才培育計畫</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; }
+        .hero-pattern {
+            background-color: #004e9c;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 4px;
+            background-color: #f59e0b; /* Yellow-500 */
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md relative z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="moe_achievements.html" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 flex items-center justify-center">
+                    <img src="logo.png" onerror="this.src='https://upload.wikimedia.org/wikipedia/zh/2/2e/National_Chin-Yi_University_of_Technology_logo.svg';this.onerror=null;" alt="NCUT" class="w-full h-full object-contain">
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-lg font-bold text-gray-800 group-hover:text-blue-900 transition">國立勤益科技大學</span>
+                    <span class="text-xs text-gray-500">智慧製造人才培育計畫</span>
+                </div>
+            </a>
+            <nav class="hidden xl:flex space-x-5 text-sm font-medium text-gray-700">
+                <a href="moe_achievements.html" class="hover:text-blue-900 py-2 border-b-2 border-transparent hover:border-blue-900 transition">首頁</a>
+                <a href="project_summary.html" class="hover:text-blue-900 py-2 border-b-2 border-transparent hover:border-blue-900 transition">計畫簡介</a>
+                <a href="project_structure.html" class="hover:text-blue-900 py-2 border-b-2 border-transparent hover:border-blue-900 transition">計畫組成</a>
+                <a href="activity_competition.html" class="text-blue-900 font-bold py-2 border-b-2 border-blue-900 transition">活動競賽</a>
+                <a href="project_highlights.html" class="hover:text-blue-900 py-2 border-b-2 border-transparent hover:border-blue-900 transition">計畫亮點</a>
+                <a href="labs.html" class="hover:text-blue-900 py-2 border-b-2 border-transparent hover:border-blue-900 transition">特色實驗室</a>
+                <a href="performance_report.html" class="hover:text-blue-900 py-2 border-b-2 border-transparent hover:border-blue-900 transition">執行績效</a>
+                <a href="news_list.html" class="hover:text-blue-900 py-2 border-b-2 border-transparent hover:border-blue-900 transition">成果快訊</a>
+            </nav>
+            <a href="moe_achievements.html" class="text-sm font-medium text-gray-600 hover:text-blue-900 flex items-center xl:hidden">
+                <i class="fa-solid fa-arrow-left mr-2"></i> 回首頁
+            </a>
+        </div>
+        
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
+            <div class="flex flex-col p-4 space-y-3">
+                <a href="project_summary.html" class="text-gray-700 hover:text-blue-900 font-medium">計畫簡介</a>
+                <a href="project_structure.html" class="text-gray-700 hover:text-blue-900 font-medium">計畫組成</a>
+                <a href="activity_competition.html" class="text-gray-700 hover:text-blue-900 font-medium">活動競賽</a>
+                <a href="project_highlights.html" class="text-gray-700 hover:text-blue-900 font-medium">計畫亮點</a>
+                <a href="labs.html" class="text-gray-700 hover:text-blue-900 font-medium">特色實驗室</a>
+                <a href="performance_report.html" class="text-gray-700 hover:text-blue-900 font-medium">執行績效</a>
+                <a href="news_list.html" class="text-gray-700 hover:text-blue-900 font-medium">成果快訊</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Title -->
+    <div class="hero-pattern py-16 text-center text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-30"></div>
+        <div class="relative z-10">
+            <span class="inline-block py-1 px-3 border border-white/50 rounded-full text-sm font-light mb-4">成果與紀錄</span>
+            <h1 class="text-4xl font-bold mb-4 tracking-wide">活動競賽</h1>
+            <p class="text-blue-100 max-w-2xl mx-auto text-lg">競賽榮耀時刻．產學深度交流</p>
+        </div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="container mx-auto px-4 py-12 max-w-6xl">
+        
+        <!-- 1. 競賽榮耀 -->
+        <section class="mb-20">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">學生競賽榮譽榜</h2>
+                <p class="text-gray-500">培育頂尖技職人才，於全國及國際賽事大放異彩</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-start gap-8 bg-white p-6 rounded-xl shadow-sm border border-yellow-100">
+                <div class="md:w-1/2">
+                    <img src="image_5f9544.jpg" 
+                         onerror="this.src='https://placehold.co/800x600/f59e0b/ffffff?text=Skills+Competition'" 
+                         alt="全國技能競賽現場" 
+                         class="w-full h-auto rounded-lg shadow-md mb-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center">
+                             <img src="image_039c8e.jpg" 
+                                  onerror="this.src='https://placehold.co/400x300/f59e0b/ffffff?text=Gold+Medal'"
+                                  class="w-full h-32 object-cover rounded shadow-sm mb-2 mx-auto" alt="黃信訓">
+                             <p class="text-sm font-bold text-gray-700">🥇 黃信訓 (金牌)</p>
+                        </div>
+                        <div class="text-center">
+                             <img src="image_f5ee9d.png" 
+                                  onerror="this.src='https://placehold.co/400x300/3b82f6/ffffff?text=WorldSkills'"
+                                  class="w-full h-32 object-cover rounded shadow-sm mb-2 mx-auto" alt="吳德龍">
+                             <p class="text-sm font-bold text-gray-700">🌍 吳德龍 (國手)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-xs font-bold mr-3">2025.07.21</span>
+                        <h3 class="text-2xl font-bold text-gray-800">第54屆全國技能競賽 & 第48屆國際技能競賽選拔</h3>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        本校機械系學生展現精湛技術，於全國技能競賽取得輝煌戰績！
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                            <i class="fa-solid fa-medal text-yellow-600 mt-1 mr-3 text-xl"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800">工業機械職類 金牌</h4>
+                                <p class="text-sm text-gray-600">獲獎學生：<strong>黃信訓</strong></p>
+                                <p class="text-xs text-gray-500 mt-1">展現紮實的機構組裝與精密調整能力，勇奪全國第一。</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <i class="fa-solid fa-earth-americas text-blue-600 mt-1 mr-3 text-xl"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800">CNC車床職類 正選國手</h4>
+                                <p class="text-sm text-gray-600">獲選學生：<strong>吳德龍</strong></p>
+                                <p class="text-xs text-gray-500 mt-1">取得第48屆國際技能競賽國手資格，將代表台灣出征。</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <i class="fa-solid fa-user-plus text-gray-600 mt-1 mr-3 text-xl"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800">CNC銑床職類 備取國手</h4>
+                                <p class="text-sm text-gray-600">獲選學生：<strong>邱士耀</strong></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 產學交流活動 -->
+        <section>
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">產學技術交流</h2>
+                <p class="text-gray-500">鏈結中部產業聚落，導入 AI 與低碳轉型技術</p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-8">
+                <!-- Activity A -->
+                <div class="flex flex-col md:flex-row bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition">
+                    <div class="md:w-2/5">
+                        <img src="image_5f956b.jpg" 
+                             onerror="this.src='https://placehold.co/800x600/e2e8f0/1e3a8a?text=Seminar'" 
+                             class="w-full h-full object-cover" alt="金屬製品產業交流會">
+                    </div>
+                    <div class="p-8 md:w-3/5">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-gray-800">金屬製品產業智慧製造與數據分析交流會</h3>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded">2025.09.25</span>
+                        </div>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            <strong>主講人：林岳鋒 副教授</strong><br>
+                            活動聚焦「智慧化製程優化」與「碳排放管理」。深入介紹中部產業在 AI 升級轉型過程中可運用之資源，課程涵蓋碳盤查、能源管理及 AI 基礎應用，協助企業補足低碳轉型所需知識。
+                        </p>
+                        <div class="flex gap-2">
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">智慧製造</span>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">低碳轉型</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity B -->
+                <div class="flex flex-col md:flex-row bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition">
+                    <div class="md:w-2/5">
+                        <img src="image_5f95a1.jpg" 
+                             onerror="this.src='https://placehold.co/800x600/e2e8f0/1e3a8a?text=AI+Vision'" 
+                             class="w-full h-full object-cover" alt="AI 機器視覺交流會">
+                    </div>
+                    <div class="p-8 md:w-3/5">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-gray-800">AI 與機器視覺應用交流會</h3>
+                            <span class="bg-purple-100 text-purple-800 text-xs font-bold px-2 py-1 rounded">2025.10.22</span>
+                        </div>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            <strong>主題：智慧數位製造新趨勢</strong><br>
+                            針對金屬製品產業於製程監控、品質檢測與生產效率提升之實務需求，說明人工智慧如何導入製造場域。透過實際案例分享，協助產業代表理解影像辨識技術在瑕疵檢測與尺寸量測上的關鍵角色。
+                        </p>
+                        <div class="flex gap-2">
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">機器視覺</span>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">AI 檢測</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="text-center mt-12">
+            <a href="moe_achievements.html" class="inline-block px-8 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition">返回首頁</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-8 mt-auto">
+        <div class="container mx-auto px-4 text-center text-sm">
+            <p>&copy; 2025 國立勤益科技大學 National Chin-Yi University of Technology. All rights reserved.</p>
+            <p class="mt-2 text-gray-500">本網站成果內容係由教育部「智慧製造人才培育計畫」經費支應</p>
+        </div>
+    </footer>
+    
+    <script>
+         // Mobile Menu Toggle
+         // Note: If you want mobile menu functionality on this page, include the script logic here similar to other pages.
+         // For brevity, basic structure is provided.
+    </script>
+</body>
+</html>

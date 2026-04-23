@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>國立勤益科技大學 - 智慧製造人才培育計畫成果專區</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; scroll-behavior: smooth; }
+        .hero-pattern {
+            background-color: #004e9c;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .text-shadow { text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        
+        .carousel-fade .carousel-item {
+            opacity: 0; transition: opacity 1s ease-in-out;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+        }
+        .carousel-fade .carousel-item.active { opacity: 1; z-index: 2; }
+        
+        .pyramid-layer { cursor: pointer; transition: all 0.3s ease; transform-origin: center; }
+        .pyramid-layer:hover { filter: brightness(1.1); transform: scale(1.02); }
+        .pyramid-layer.active { filter: brightness(1.2) drop-shadow(0 0 10px rgba(255,255,255,0.5)); stroke: white; stroke-width: 2px; }
+        .pyramid-text { pointer-events: none; font-weight: bold; fill: white; text-anchor: middle; font-size: 16px; }
+        
+        .section-view { display: none; }
+        .section-view.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .status-badge { display: inline-block; padding: 0.25rem 0.6rem; border-radius: 9999px; font-size: 0.75rem; font-weight: bold; text-align: center; min-width: 55px; }
+        .status-high { background-color: #d1fae5; color: #065f46; }
+        .status-mid { background-color: #fef3c7; color: #92400e; }
+        .status-low { background-color: #fee2e2; color: #b91c1c; }
+        .status-gray { background-color: #f3f4f6; color: #4b5563; }
+
+        .gallery-img { transition: transform 0.4s ease; cursor: pointer; }
+        .gallery-img:hover { transform: scale(1.05); }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #004e9c; border-radius: 4px; }
+        
+        .me-content-block { background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%); }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-[100]">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="javascript:void(0)" onclick="showPage('home')" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 flex items-center justify-center text-blue-900 text-2xl">
+                    <img src="logo.png" alt="NCUT Logo" class="w-full h-full object-contain">
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-lg font-extrabold text-gray-800 group-hover:text-blue-900 transition">國立勤益科技大學</span>
+                    <span class="text-[10px] text-gray-500 font-bold tracking-widest uppercase">Smart Manufacturing Project</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden lg:flex space-x-1 text-sm font-bold text-gray-600">
+                <button onclick="showPage('home')" class="nav-btn px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-900 transition">首頁</button>
+                <button onclick="showPage('about')" class="nav-btn px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-900 transition">關於我們</button>
+                <button onclick="showPage('summary')" class="nav-btn px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-900 transition">計畫簡介</button>
+                <button onclick="showPage('structure')" class="nav-btn px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-900 transition">計畫組成</button>
+                <button onclick="showPage('videos')" class="nav-btn px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-900 transition">教學影片</button>
+                <button onclick="showPage('labs')" class="nav-btn px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-900 transition">特色實驗室</button>
+                <button onclick="showPage('performance')" class="nav-btn px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-900 transition">執行績效</button>
+                <button onclick="showPage('activities')" class="nav-btn px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-900 transition">活動競賽</button>
+            </nav>
+
+            <button id="mobile-menu-btn" class="lg:hidden text-gray-800 focus:outline-none">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 absolute w-full shadow-2xl">
+            <div class="flex flex-col p-4 space-y-2 font-bold text-gray-700">
+                <button onclick="showPage('home')" class="text-left py-3 px-4 hover:bg-blue-50 rounded-xl">首頁</button>
+                <button onclick="showPage('about')" class="text-left py-3 px-4 hover:bg-blue-50 rounded-xl">關於我們</button>
+                <button onclick="showPage('summary')" class="text-left py-3 px-4 hover:bg-blue-50 rounded-xl">計畫簡介</button>
+                <button onclick="showPage('structure')" class="text-left py-3 px-4 hover:bg-blue-50 rounded-xl">計畫組成</button>
+                <button onclick="showPage('videos')" class="text-left py-3 px-4 hover:bg-blue-50 rounded-xl">教學影片</button>
+                <button onclick="showPage('labs')" class="text-left py-3 px-4 hover:bg-blue-50 rounded-xl">特色實驗室</button>
+                <button onclick="showPage('performance')" class="text-left py-3 px-4 hover:bg-blue-50 rounded-xl">執行績效</button>
+                <button onclick="showPage('activities')" class="text-left py-3 px-4 hover:bg-blue-50 rounded-xl">活動競賽</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        
+        <!-- PAGE: HOME -->
+        <div id="page-home" class="section-view active">
+            <section class="relative h-[600px] flex items-center justify-center hero-pattern text-white overflow-hidden">
+                <div class="absolute inset-0 bg-black opacity-40"></div>
+                <img src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2086" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-50" alt="Home Hero Image">
+                <div class="relative z-10 text-center px-4 max-w-5xl">
+                    <span class="inline-block py-1 px-4 rounded-full bg-yellow-500 text-white text-sm font-bold mb-6 animate-bounce shadow-xl">
+                        114年度教育部智慧製造人才培育計畫
+                    </span>
+                    <h1 class="text-4xl md:text-6xl font-extrabold mb-6 text-shadow leading-tight italic">數位轉型 <span class="text-yellow-400">x</span> 綠色製造 <span class="text-yellow-400">x</span> 製造轉型</h1>
+                    <p class="text-xl md:text-2xl text-gray-100 max-w-3xl mx-auto mb-12 text-shadow font-light">
+                        攜手 11 家龍頭企業，打造跨域整合高階工程人才的搖籃。
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+                        <button onclick="showPage('highlights')" class="bg-white text-blue-900 hover:bg-blue-50 font-extrabold py-4 px-12 rounded-2xl shadow-2xl transition transform hover:scale-105">探索課程地圖</button>
+                        <button onclick="showPage('summary')" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-900 font-extrabold py-4 px-12 rounded-2xl shadow-2xl transition transform hover:scale-105 backdrop-blur-sm">計畫詳情</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Counter Section (Live Data) -->
+            <section class="py-20 bg-blue-900 text-white relative overflow-hidden">
+                <div class="container mx-auto px-4 relative z-10">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+                        <div class="p-4"><div class="text-5xl font-extrabold text-yellow-400 mb-2 counter" data-target="11">0</div><p class="text-sm text-blue-200 font-bold tracking-widest uppercase">合作企業</p></div>
+                        <div class="p-4"><div class="text-5xl font-extrabold text-yellow-400 mb-2 counter" data-target="5">0</div><p class="text-sm text-blue-200 font-bold tracking-widest uppercase">核心課程</p></div>
+                        <div class="p-4"><div class="text-5xl font-extrabold text-yellow-400 mb-2 counter" data-target="26">0</div><p class="text-sm text-blue-200 font-bold tracking-widest uppercase">數位教材</p></div>
+                        <div class="p-4"><div class="text-5xl font-extrabold text-yellow-400 counter" data-target="1">0</div><p class="text-sm text-blue-200 font-bold tracking-widest uppercase mt-2">全國金牌</p></div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <!-- Core Field Section (Experimental Field) -->
+            <section class="py-24 bg-white">
+                <div class="container mx-auto px-4">
+                    <div class="container mx-auto px-4 py-20 max-w-7xl">
+                <div class="flex flex-col lg:flex-row gap-20 items-start">
+                    <div class="lg:w-1/2 flex flex-col items-center">
+                        <h2 class="text-3xl font-extrabold text-gray-800 mb-12 flex items-center gap-3"><i class="fa-solid fa-shapes text-blue-600"></i>課程培育金字塔</h2>
+                        <svg viewBox="0 0 500 440" class="w-full max-w-lg drop-shadow-2xl">
+                            <defs>
+                                <linearGradient id="gT" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#d97706"/></linearGradient>
+                                <linearGradient id="gM" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#3b82f6"/><stop offset="100%" style="stop-color:#2563eb"/></linearGradient>
+                                <linearGradient id="gB" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#10b981"/><stop offset="100%" style="stop-color:#059669"/></linearGradient>
+                            </defs>
+                            <g onclick="updatePyramid(3)"><path id="l3" d="M250,10 L336,160 L164,160 Z" fill="url(#gT)" class="pyramid-layer"/></g>
+                            <g onclick="updatePyramid(2)"><path id="l2" d="M164,165 L336,165 L423,315 L77,315 Z" fill="url(#gM)" class="pyramid-layer active"/></g>
+                            <g onclick="updatePyramid(1)"><path id="l1" d="M77,320 L423,320 L500,453 L0,453 Z" fill="url(#gB)" class="pyramid-layer"/></g>
+                            <text x="250" y="110" class="pyramid-text">PBL 總整課程</text>
+                            <text x="250" y="255" class="pyramid-text">特色領域模組</text>
+                            <text x="250" y="400" class="pyramid-text">基礎核心課程</text>
+                        </svg>
+                        <p class="mt-12 text-gray-400 font-bold italic">點擊金字塔各層級查看詳細規劃</p>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <div id="pyr-panel" class="bg-white rounded-[3rem] shadow-xl border border-gray-100 overflow-hidden min-h-[550px] relative">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl font-extrabold text-gray-800 mb-4 tracking-wider">核心教學場域</h2>
+                        <div class="w-24 h-1.5 bg-blue-600 mx-auto rounded-full"></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                        <div class="group cursor-pointer" onclick="showPage('labs')">
+                            <div class="relative overflow-hidden rounded-[2.5rem] h-64 mb-6 shadow-xl border-4 border-white">
+                                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" alt="Lab 1">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-8">
+                                    <h3 class="text-white text-xl font-bold">工具機實習工廠</h3>
+                                </div>
+                            </div>
+                            <p class="text-gray-500 text-sm leading-relaxed px-4 text-center">配備五軸同動機台與模擬器，落實實機加工技術訓練。</p>
+                        </div>
+                        <div class="group cursor-pointer" onclick="showPage('labs')">
+                            <div class="relative overflow-hidden rounded-[2.5rem] h-64 mb-6 shadow-xl border-4 border-white">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" alt="Lab 2">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-8">
+                                    <h3 class="text-white text-xl font-bold">智慧多軸複合技術實驗室</h3>
+                                </div>
+                            </div>
+                            <p class="text-gray-500 text-sm leading-relaxed px-4 text-center">專注於 Python 數據分析、訊號處理與 AI 診斷開發。</p>
+                        </div>
+                        <div class="group cursor-pointer" onclick="showPage('labs')">
+                            <div class="relative overflow-hidden rounded-[2.5rem] h-64 mb-6 shadow-xl border-4 border-white">
+                                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" alt="Lab 3">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-8">
+                                    <h3 class="text-white text-xl font-bold">智慧聯網數據戰情室</h3>
+                                </div>
+                            </div>
+                            
+                            <p class="text-gray-500 text-sm leading-relaxed px-4 text-center">建置 CPS 監控系統，實現加工狀態可視化管理。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE: ABOUT (COMPLETE RESTORATION) -->
+        <div id="page-about" class="section-view">
+            <div class="relative bg-blue-900 h-80 flex items-center justify-center overflow-hidden hero-pattern">
+                <div class="absolute inset-0 bg-black opacity-40 z-10"></div>
+                <img src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2000" class="absolute inset-0 w-full h-full object-cover opacity-60" alt="About Hero Image">
+                <div class="relative z-20 text-center text-white px-4">
+                    <h1 class="text-5xl font-extrabold mb-4 tracking-widest">關於我們</h1>
+                    <p class="text-xl text-blue-100 font-light italic">勤毅誠樸．務實致用．深耕在地．接軌國際</p>
+                </div>
+            </div>
+
+            <div class="container mx-auto px-4 py-20 max-w-7xl">
+                <!-- NCUT Info -->
+                <div class="flex flex-col md:flex-row items-center gap-16 mb-32">
+                    <div class="md:w-1/2 relative">
+                        <img src="ncut.jpg" class="rounded-[2.5rem] shadow-2xl w-full h-[450px] object-cover border-8 border-white gallery-img" alt="NCUT Campus">
+                        <div class="absolute -bottom-6 -right-6 bg-blue-600 text-white p-6 rounded-3xl shadow-xl">
+                            <p class="text-2xl font-extrabold italic">典範科大</p>
+                            <p class="text-[10px] tracking-widest uppercase font-bold">Leading Tech University</p>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 space-y-6">
+                        <h2 class="text-4xl font-extrabold text-gray-800 border-l-8 border-blue-600 pl-6 mb-8 tracking-wide">國立勤益科技大學</h2>
+                        <p class="text-gray-600 text-lg leading-relaxed">
+                            創立於民國 60 年，位處台中精密機械產業聚落核心（中部黃金縱谷）。本校秉持「勤、毅、誠、樸」校訓，致力於提供高品質的技術教育。
+                        </p>
+                        <p class="text-gray-600 text-lg leading-relaxed">
+                            2021 年本校慶祝建校 50 週年，我們持續蟬聯教育部「典範科技大學」之譽，積極推動產學合作，將企業資源引入校園，縮短學用落差，為台灣精密製造產業培育無數頂尖人才。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ME Department (Full Expansion) -->
+                <div class="bg-white rounded-[3rem] shadow-xl overflow-hidden border border-gray-100">
+                    <div class="bg-yellow-500 p-12 text-white relative">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full translate-x-1/2 -translate-y-1/2"></div>
+                        <h2 class="text-4xl font-extrabold mb-4 relative z-10">機械工程系 <span class="text-yellow-900/40 text-2xl ml-4 font-normal italic">ME Department</span></h2>
+                        <p class="text-yellow-100 text-lg max-w-4xl relative z-10 leading-relaxed font-medium">致力於培育掌握機械產業理論與技術、敬業務實、具國際觀的高階人才。</p>
+                    </div>
+                    
+                    <div class="p-8 lg:p-16 space-y-20 me-content-block">
+                        <!-- Positioning & Curriculum -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                            <div class="space-y-8">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center text-xl shadow-sm"><i class="fa-solid fa-map-pin"></i></div>
+                                    <h3 class="text-2xl font-extrabold text-gray-800">基本定位與特色</h3>
+                                </div>
+                                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 space-y-4 text-gray-600 leading-relaxed">
+                                    <p>主要聚焦於 <span class="text-blue-700 font-extrabold">精密機械、製造科技、應用材料與機電整合</span>。結合熱流能源、自動控制等技術，強調理論與實作並重。</p>
+                                    <ul class="space-y-3 font-medium">
+                                        <li class="flex items-start gap-2"><span class="text-yellow-500 font-bold">•</span> 提供四年制學士、碩士及博士班學位課程。</li>
+                                        <li class="flex items-start gap-2"><span class="text-yellow-500 font-bold">•</span> 強調勞動部技能檢定與國際競賽培訓。</li>
+                                        <li class="flex items-start gap-2"><span class="text-yellow-500 font-bold">•</span> 產學合作绩效卓越，與中部精機聚落深度融合。</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="space-y-8">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl shadow-sm"><i class="fa-solid fa-book-open"></i></div>
+                                    <h3 class="text-2xl font-extrabold text-gray-800">核心教學課程</h3>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="p-4 bg-blue-50 rounded-2xl font-bold text-blue-900 border border-blue-100 flex items-center gap-3"><i class="fa-solid fa-calculator text-blue-400"></i> 工程數學</div>
+                                    <div class="p-4 bg-blue-50 rounded-2xl font-bold text-blue-900 border border-blue-100 flex items-center gap-3"><i class="fa-solid fa-atom text-blue-400"></i> 材料科學</div>
+                                    <div class="p-4 bg-blue-50 rounded-2xl font-bold text-blue-900 border border-blue-100 flex items-center gap-3"><i class="fa-solid fa-wind text-blue-400"></i> 流體力學</div>
+                                    <div class="p-4 bg-blue-50 rounded-2xl font-bold text-blue-900 border border-blue-100 flex items-center gap-3"><i class="fa-solid fa-fire text-blue-400"></i> 熱傳技術</div>
+                                    <div class="p-4 bg-blue-50 rounded-2xl font-bold text-blue-900 border border-blue-100 flex items-center gap-3"><i class="fa-solid fa-sliders text-blue-400"></i> 自動控制</div>
+                                    <div class="p-4 bg-blue-50 rounded-2xl font-bold text-blue-900 border border-blue-100 flex items-center gap-3"><i class="fa-solid fa-gears text-blue-400"></i> 製造程序</div>
+                                    <div class="p-4 bg-blue-50 rounded-2xl font-bold text-blue-900 border border-blue-100 flex items-center gap-3"><i class="fa-solid fa-laptop-code text-blue-400"></i> CAD/CAM</div>
+                                    <div class="p-4 bg-blue-50 rounded-2xl font-bold text-blue-900 border border-blue-100 flex items-center gap-3"><i class="fa-solid fa-bolt text-blue-400"></i> 機械實作</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Labs & Space -->
+                        <div>
+                            <div class="flex items-center gap-4 mb-12">
+                                <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-xl shadow-sm"><i class="fa-solid fa-flask"></i></div>
+                                <h3 class="text-2xl font-extrabold text-gray-800">研發實驗室與實作場域</h3>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                                <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100 card-hover transition">
+                                    <h4 class="font-extrabold text-purple-800 mb-4 border-b pb-2">FEM 實驗室</h4>
+                                    <p class="text-sm text-gray-500 leading-relaxed">提供有限元素分析與測試設備，進行精密機械結構優化與模擬。</p>
+                                </div>
+                                <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100 card-hover transition">
+                                    <h4 class="font-extrabold text-blue-800 mb-4 border-b pb-2">材料實驗室</h4>
+                                    <p class="text-sm text-gray-500 leading-relaxed">材料力學性質測試場域，支援金屬與複合材料特性鑑定。</p>
+                                </div>
+                                <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100 card-hover transition">
+                                    <h4 class="font-extrabold text-yellow-800 mb-4 border-b pb-2">系統設計實驗室</h4>
+                                    <p class="text-sm text-gray-500 leading-relaxed">配置 3D 逆向掃描與快速成型設備，強化數位設計實務。</p>
+                                </div>
+                                <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100 card-hover transition">
+                                    <h4 class="font-extrabold text-green-800 mb-4 border-b pb-2">電機控制實驗室</h4>
+                                    <p class="text-sm text-gray-500 leading-relaxed">專注於電機控制迴路設計、感測技術與 PLC 自動化應用。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Directions -->
+                        <div class="bg-gray-900 rounded-[3rem] p-12 text-white relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-64 h-64 bg-yellow-500/10 rounded-full translate-x-1/3 -translate-y-1/3"></div>
+                            <div class="flex flex-col lg:flex-row items-center gap-12">
+                                <div class="lg:w-1/3 space-y-4">
+                                    <h3 class="text-3xl font-extrabold italic">職涯與進修規劃</h3>
+                                    <p class="text-gray-400 font-medium">培育專業工程素養，確保學生成就未來，無縫接軌產研機構。</p>
+                                </div>
+                                <div class="lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div class="bg-white/5 p-6 rounded-2xl border border-white/10 flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-yellow-500/20 text-yellow-400 flex items-center justify-center"><i class="fa-solid fa-wrench"></i></div><span class="font-bold">精密機械設計與製造</span></div>
+                                    <div class="bg-white/5 p-6 rounded-2xl border border-white/10 flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center"><i class="fa-solid fa-microchip"></i></div><span class="font-bold">自動控制與機電整合</span></div>
+                                    <div class="bg-white/5 p-6 rounded-2xl border border-white/10 flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center"><i class="fa-solid fa-gauge-high"></i></div><span class="font-bold">材料研發與能源工程</span></div>
+                                    <div class="bg-white/5 p-6 rounded-2xl border border-white/10 flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center"><i class="fa-solid fa-graduation-cap"></i></div><span class="font-bold">持續深造或進入公部門</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE: SUMMARY -->
+        <div id="page-summary" class="section-view">
+            <div class="hero-pattern py-20 text-center text-white relative">
+                <div class="absolute inset-0 bg-black opacity-30"></div>
+                <div class="relative z-10"><h1 class="text-5xl font-extrabold mb-4 tracking-wider text-shadow">計畫簡介</h1><p class="text-blue-100 text-xl font-light italic">跨域整合．實作導向．接軌國際</p></div>
+            </div>
+            <div class="container mx-auto px-4 py-20 max-w-6xl">
+                <!-- Mission Section -->
+                <div class="bg-white rounded-3xl shadow-xl p-12 mb-16 border border-gray-100">
+                    <h2 class="text-3xl font-extrabold text-gray-800 mb-8 border-l-8 border-blue-600 pl-6 tracking-wide">核心目標與願景</h2>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                        面對全球製造業的數位轉型潮流，本計畫旨在透過「數位轉型 (DX)」、「綠色製造 (GX)」與「製造轉型 (MX)」三大主軸，培育具備實戰解決問題能力的高階製造人才。我們不僅強調硬體技術的精進，更整合 AI 監控與數據加值應用，為台灣工具機產業打造下一代技術骨幹。
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <div class="bg-blue-50 p-10 rounded-[2.5rem] border border-blue-100">
+                            <h4 class="text-xl font-extrabold text-blue-900 mb-4 flex items-center gap-3"><i class="fa-solid fa-bullseye"></i> 教育使命</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed font-medium">整合機械、資工與智動系資源，透過企業出題、學生解題 (PBL) 模式，落實產業無縫對接，預計總培育人次達 580 人次。</p>
+                        </div>
+                        <div class="bg-green-50 p-10 rounded-[2.5rem] border border-green-100">
+                            <h4 class="text-xl font-extrabold text-green-900 mb-4 flex items-center gap-3"><i class="fa-solid fa-leaf"></i> 永續轉型</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed font-medium">導入碳足跡追蹤與能耗盤點教學場域，協助企業達成淨零碳排目標，預期降低單件加工碳排達 8% 以上。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quantative Indicators -->
+                <h2 class="text-3xl font-extrabold text-gray-800 mb-12 text-center">預期量化效益指標</h2>
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 text-center"><p class="text-4xl font-extrabold text-blue-600 mb-2">580+</p><p class="text-xs font-bold text-gray-400 tracking-widest">總培育人次</p></div>
+                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 text-center"><p class="text-4xl font-extrabold text-green-600 mb-2">80+</p><p class="text-xs font-bold text-gray-400 tracking-widest">上課教材件數</p></div>
+                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 text-center"><p class="text-4xl font-extrabold text-yellow-600 mb-2">30+</p><p class="text-xs font-bold text-gray-400 tracking-widest">業界師資人次</p></div>
+                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 text-center"><p class="text-4xl font-extrabold text-purple-600 mb-2">4+</p><p class="text-xs font-bold text-gray-400 tracking-widest">PBL 課程件數</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE: STRUCTURE -->
+        <div id="page-structure" class="section-view">
+            <div class="hero-pattern py-20 text-center text-white relative">
+                <div class="absolute inset-0 bg-black opacity-30"></div>
+                <div class="relative z-10"><h1 class="text-5xl font-extrabold mb-4 tracking-wider text-shadow">計畫組成</h1><p class="text-blue-100 text-xl font-light italic">產學攜手．跨域研發聯盟</p></div>
+            </div>
+            <div class="container mx-auto px-4 py-20 max-w-7xl">
+                <!-- Team Section -->
+                <h2 class="text-3xl font-extrabold text-gray-800 mb-12 text-center tracking-wider">執行核心團隊</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-32">
+                    <div class="bg-white p-12 rounded-[2.5rem] shadow-sm border border-gray-100 text-center hover:shadow-xl transition-all group">
+                        <div class="w-24 h-24 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-8 text-4xl shadow-inner group-hover:scale-110 transition duration-500"><i class="fa-solid fa-user-tie"></i></div>
+                        <h3 class="text-2xl font-extrabold mb-2 text-gray-800">黃智勇 教授</h3>
+                        <p class="text-blue-600 font-bold mb-4">計畫主持人</p>
+                        <p class="text-xs text-gray-400 font-medium italic">機械工程系 系主任</p>
+                    </div>
+                    <div class="bg-white p-12 rounded-[2.5rem] shadow-sm border border-gray-100 text-center hover:shadow-xl transition-all group">
+                        <div class="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-8 text-4xl shadow-inner group-hover:scale-110 transition duration-500"><i class="fa-solid fa-user-group"></i></div>
+                        <h3 class="text-2xl font-extrabold mb-2 text-gray-800">林岳鋒 教授</h3>
+                        <p class="text-green-600 font-bold mb-4">共同主持人</p>
+                        <p class="text-xs text-gray-400 font-medium italic">機械工程系 教授</p>
+                    </div>
+                    <div class="bg-white p-12 rounded-[2.5rem] shadow-sm border border-gray-100 text-center hover:shadow-xl transition-all group">
+                        <div class="w-24 h-24 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-8 text-4xl shadow-inner group-hover:scale-110 transition duration-500"><i class="fa-solid fa-user-group"></i></div>
+                        <h3 class="text-2xl font-extrabold mb-2 text-gray-800">李榮茂 教授</h3>
+                        <p class="text-purple-600 font-bold mb-4">共同主持人</p>
+                        <p class="text-xs text-gray-400 font-medium italic">智慧自動化系 系主任</p>
+                    </div>
+                </div>
+
+                <!-- Industry Alliance -->
+                <div class="bg-gray-100 rounded-[3rem] p-16">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl font-extrabold text-gray-800 mb-4 tracking-wider">產業合作聯盟 (11家)</h2>
+                        <p class="text-gray-500 font-medium">匯聚全台工具機與零組件頂尖企業，建構實務學習網絡</p>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <div class="bg-white p-8 rounded-2xl shadow-sm text-center font-bold text-gray-700 hover:text-blue-600 transition cursor-default">台中精機</div>
+                        <div class="bg-white p-8 rounded-2xl shadow-sm text-center font-bold text-gray-700 hover:text-blue-600 transition cursor-default">上銀科技</div>
+                        <div class="bg-white p-8 rounded-2xl shadow-sm text-center font-bold text-gray-700 hover:text-blue-600 transition cursor-default">永進機械</div>
+                        <div class="bg-white p-8 rounded-2xl shadow-sm text-center font-bold text-gray-700 hover:text-blue-600 transition cursor-default">凱柏精機</div>
+                        <div class="bg-white p-8 rounded-2xl shadow-sm text-center font-bold text-gray-700 hover:text-blue-600 transition cursor-default">大光長榮</div>
+                        <div class="bg-white p-8 rounded-2xl shadow-sm text-center font-bold text-gray-700 hover:text-blue-600 transition cursor-default">盈錫精密</div>
+                        <div class="bg-white p-8 rounded-2xl shadow-sm text-center font-bold text-gray-700 hover:text-blue-600 transition cursor-default">徠通科技</div>
+                        <div class="bg-white p-8 rounded-2xl shadow-sm text-center font-bold text-gray-700 hover:text-blue-600 transition cursor-default">亞崴機電</div>
+                        <div class="bg-white p-8 rounded-2xl shadow-sm text-center font-bold text-gray-700 hover:text-blue-600 transition cursor-default">旭東機械</div>
+                        <div class="bg-white p-8 rounded-2xl shadow-sm text-center font-bold text-gray-700 hover:text-blue-600 transition cursor-default">聯盛機電</div>
+                        <div class="bg-white p-8 rounded-2xl shadow-sm text-center font-bold text-gray-700 hover:text-blue-600 transition cursor-default">松讚實業</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- PAGE: VIDEOS -->
+<div id="page-videos" class="section-view">
+  <div class="hero-pattern py-20 text-center text-white relative">
+    <div class="absolute inset-0 bg-black opacity-30"></div>
+    <div class="relative z-10">
+      <h1 class="text-5xl font-extrabold mb-4 tracking-wider text-shadow">教學影片專區</h1>
+      <p class="text-blue-100 text-xl font-light italic">線上課程．實作示範．技術研討</p>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 py-16 max-w-7xl">
+
+    <!-- Featured Video -->
+    <div class="mb-16">
+      <div
+        class="bg-black rounded-3xl overflow-hidden shadow-2xl aspect-video relative"
+        data-yt-card
+        data-video-id="w8KK-a4t1m4"
+      >
+        <iframe
+          class="absolute inset-0 w-full h-full"
+          data-yt-frame
+          src="https://www.youtube-nocookie.com/embed/w8KK-a4t1m4?rel=0&playsinline=1"
+          title="YouTube video player"
+          frameborder="0"
+          referrerpolicy="origin-when-cross-origin"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+
+        <!-- Overlay -->
+        <div data-yt-overlay class="absolute inset-0 z-10">
+          <img
+            src="https://img.youtube.com/vi/w8KK-a4t1m4/maxresdefault.jpg"
+            class="absolute inset-0 w-full h-full object-cover opacity-60"
+            alt="Main Video Cover"
+          />
+
+          <button
+            type="button"
+            data-yt-play
+            class="absolute inset-0 m-auto w-24 h-24 bg-red-600 text-white rounded-full flex items-center justify-center text-3xl hover:scale-110 transition shadow-2xl z-10"
+            aria-label="Play video"
+          >
+            <i class="fa-solid fa-play ml-1"></i>
+          </button>
+
+          <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/90 to-transparent text-left z-10">
+            <span class="inline-block px-3 py-1 bg-yellow-500 text-black text-xs font-bold rounded mb-2 uppercase">精選教學</span>
+            <h2 class="text-white text-3xl font-extrabold mb-2">五軸加工機操作示範：開機與座標設定</h2>
+            <p class="text-gray-300">本教學由業師指導，詳細介紹多軸機台的操作規範與虛實整合路徑驗證流程。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 若影片不允許嵌入（錯誤 153），只能改成跳轉 YouTube -->
+      <p class="mt-4 text-sm text-gray-500">
+        若出現「錯誤 153」，表示該影片不允許嵌入播放；請更換可嵌入影片或改用連結開啟。
+      </p>
+    </div>
+
+    <!-- Video Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+      <!-- Card 1 -->
+      <div class="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden card-hover transition text-left">
+        <div
+          class="aspect-video bg-black relative"
+          data-yt-card
+          data-video-id="PIV2tifKPgE"
+        >
+          <iframe
+            class="absolute inset-0 w-full h-full"
+            data-yt-frame
+            src="https://www.youtube-nocookie.com/embed/PIV2tifKPgE?rel=0&playsinline=1"
+            title="YouTube video player"
+            frameborder="0"
+            referrerpolicy="origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+
+          <div data-yt-overlay class="absolute inset-0">
+            <img src="https://img.youtube.com/vi/PIV2tifKPgE/maxresdefault.jpg" class="absolute inset-0 w-full h-full object-cover opacity-80" alt="V1">
+            <button type="button" data-yt-play class="absolute inset-0 flex items-center justify-center">
+              <i class="fa-solid fa-circle-play text-white text-5xl drop-shadow-2xl"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="p-8">
+          <span class="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-[10px] font-bold rounded-full mb-4">核心課程</span>
+          <h4 class="font-extrabold text-gray-800 mb-2 text-lg">智慧機械概論與虛實整合</h4>
+          <p class="text-gray-500 text-sm leading-relaxed">深入探討數位雙生技術在加工路徑驗證與產線最佳化之應用場景。</p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden card-hover transition text-left">
+        <div
+          class="aspect-video bg-black relative"
+          data-yt-card
+          data-video-id="u2G64r_PDYQ"
+        >
+          <iframe
+            class="absolute inset-0 w-full h-full"
+            data-yt-frame
+            src="https://www.youtube-nocookie.com/embed/u2G64r_PDYQ?rel=0&playsinline=1"
+            title="YouTube video player"
+            frameborder="0"
+            referrerpolicy="origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+
+          <div data-yt-overlay class="absolute inset-0">
+            <img src="https://img.youtube.com/vi/u2G64r_PDYQ/maxresdefault.jpg" class="absolute inset-0 w-full h-full object-cover opacity-80" alt="V2">
+            <button type="button" data-yt-play class="absolute inset-0 flex items-center justify-center">
+              <i class="fa-solid fa-circle-play text-white text-5xl drop-shadow-2xl"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="p-8">
+          <span class="inline-block px-3 py-1 bg-green-50 text-green-700 text-[10px] font-bold rounded-full mb-4">PBL 專案實作</span>
+          <h4 class="font-extrabold text-gray-800 mb-2 text-lg">綠色製造能耗監測實錄</h4>
+          <p class="text-gray-500 text-sm leading-relaxed">分析加工參數與能耗之關聯性，透過數據採集優化製程碳足跡。</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden card-hover transition text-left">
+        <div
+          class="aspect-video bg-black relative"
+          data-yt-card
+          data-video-id="y1-yZkB0yaA"
+        >
+          <iframe
+            class="absolute inset-0 w-full h-full"
+            data-yt-frame
+            src="https://www.youtube-nocookie.com/embed/y1-yZkB0yaA?rel=0&playsinline=1"
+            title="YouTube video player"
+            frameborder="0"
+            referrerpolicy="origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+
+          <div data-yt-overlay class="absolute inset-0">
+            <img src="https://img.youtube.com/vi/y1-yZkB0yaA/maxresdefault.jpg" class="absolute inset-0 w-full h-full object-cover opacity-80" alt="V3">
+            <button type="button" data-yt-play class="absolute inset-0 flex items-center justify-center">
+              <i class="fa-solid fa-circle-play text-white text-5xl drop-shadow-2xl"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="p-8">
+          <span class="inline-block px-3 py-1 bg-purple-50 text-purple-700 text-[10px] font-bold rounded-full mb-4">技術研習</span>
+          <h4 class="font-extrabold text-gray-800 mb-2 text-lg">Python 訊號處理與 AI 診斷</h4>
+          <p class="text-gray-500 text-sm leading-relaxed">示範如何利用 Python 進行振動訊號之特徵擷取，建置刀具磨耗預警模型。</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+        <!-- PAGE: HIGHLIGHTS (SVG Pyramid) -->
+        <div id="page-highlights" class="section-view">
+            <div class="hero-pattern py-16 text-center text-white relative">
+                <div class="absolute inset-0 bg-black opacity-30"></div>
+                <div class="relative z-10"><h1 class="text-5xl font-extrabold mb-4 tracking-wider text-shadow">課程培育地圖</h1><p class="text-blue-100 text-xl font-light italic">循序漸進．培育跨域技術能量</p></div>
+            </div>
+            <div class="container mx-auto px-4 py-20 max-w-7xl">
+                <div class="flex flex-col lg:flex-row gap-20 items-start">
+                    <div class="lg:w-1/2 flex flex-col items-center">
+                        <h2 class="text-3xl font-extrabold text-gray-800 mb-12 flex items-center gap-3"><i class="fa-solid fa-shapes text-blue-600"></i>課程培育金字塔</h2>
+                        <svg viewBox="0 0 500 440" class="w-full max-w-lg drop-shadow-2xl">
+                            <defs>
+                                <linearGradient id="gT" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#d97706"/></linearGradient>
+                                <linearGradient id="gM" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#3b82f6"/><stop offset="100%" style="stop-color:#2563eb"/></linearGradient>
+                                <linearGradient id="gB" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#10b981"/><stop offset="100%" style="stop-color:#059669"/></linearGradient>
+                            </defs>
+                            <g onclick="updatePyramid(3)"><path id="l3" d="M250,10 L336,160 L164,160 Z" fill="url(#gT)" class="pyramid-layer"/></g>
+                            <g onclick="updatePyramid(2)"><path id="l2" d="M164,165 L336,165 L423,315 L77,315 Z" fill="url(#gM)" class="pyramid-layer active"/></g>
+                            <g onclick="updatePyramid(1)"><path id="l1" d="M77,320 L423,320 L500,453 L0,453 Z" fill="url(#gB)" class="pyramid-layer"/></g>
+                            <text x="250" y="110" class="pyramid-text">PBL 總整課程</text>
+                            <text x="250" y="255" class="pyramid-text">特色領域模組</text>
+                            <text x="250" y="400" class="pyramid-text">基礎核心課程</text>
+                        </svg>
+                        <p class="mt-12 text-gray-400 font-bold italic">點擊金字塔各層級查看詳細規劃</p>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <div id="pyr-panel" class="bg-white rounded-[3rem] shadow-xl border border-gray-100 overflow-hidden min-h-[550px] relative">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE: LABS (3 core areas) -->
+        <div id="page-labs" class="section-view">
+            <div class="bg-gray-900 text-white py-24 text-center relative overflow-hidden">
+                <div class="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1565043589221-1a6fd495880c?q=80&w=1920')] bg-cover bg-center"></div>
+                <div class="relative z-10">
+                    <h1 class="text-5xl font-extrabold mb-4 tracking-wider">特色教學實驗室</h1>
+                    <p class="text-blue-200 text-xl font-light italic">整合軟硬體資源，打造智慧製造全方位培訓場域</p>
+                </div>
+            </div>
+
+            <div class="container mx-auto px-4 py-20 max-w-6xl space-y-32">
+                <!-- Field 1 -->
+                <div class="flex flex-col lg:flex-row gap-16 items-center">
+                    <div class="lg:w-1/2">
+                        <div class="bg-gray-200 rounded-[3rem] shadow-2xl h-80 flex flex-col items-center justify-center relative overflow-hidden group">
+                            <span class="text-gray-400 font-bold italic z-10">[場域照片/介紹影片 準備中]</span>
+                            <div class="absolute inset-0 bg-blue-900/10 group-hover:bg-transparent transition duration-500"></div>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2 text-left">
+                        <span class="inline-block px-4 py-1 bg-orange-100 text-orange-700 text-xs font-bold rounded-full mb-4 uppercase tracking-widest">機械工程系</span>
+                        <h2 class="text-4xl font-extrabold mb-8 flex items-center gap-4 text-gray-800"><i data-lucide="wrench" class="text-orange-600"></i>工具機實習工廠</h2>
+                        <p class="text-gray-600 leading-relaxed text-lg mb-8 italic">
+                            整合傳統與數位加工，專注於五軸加工技術示範與實務訓練。
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-white p-5 rounded-2xl border-l-4 border-orange-500 shadow-sm font-bold text-gray-700 flex items-center gap-2"><i class="fa-solid fa-circle-check text-orange-400"></i>五軸同動加工中心</div>
+                            <div class="bg-white p-5 rounded-2xl border-l-4 border-orange-500 shadow-sm font-bold text-gray-700 flex items-center gap-2"><i class="fa-solid fa-circle-check text-orange-400"></i>CNC 數位模擬系統</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Field 2 -->
+                <div class="flex flex-col lg:flex-row-reverse gap-16 items-center">
+                    <div class="lg:w-1/2">
+                        <div class="bg-gray-200 rounded-[3rem] shadow-2xl h-80 flex flex-col items-center justify-center relative overflow-hidden group">
+                            <span class="text-gray-400 font-bold italic z-10">[場域照片/介紹影片 準備中]</span>
+                            <div class="absolute inset-0 bg-indigo-900/10 group-hover:bg-transparent transition duration-500"></div>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2 text-left">
+                        <span class="inline-block px-4 py-1 bg-indigo-100 text-indigo-700 text-xs font-bold rounded-full mb-4 uppercase tracking-widest">智慧自動化工程系</span>
+                        <h2 class="text-4xl font-extrabold mb-8 flex items-center gap-4 text-gray-800"><i data-lucide="cpu" class="text-indigo-600"></i>智慧多軸複合技術實驗室</h2>
+                        <p class="text-gray-600 leading-relaxed text-lg mb-8 italic">
+                            主攻 Python 數據採集與處理，實現製造數據價值化與跨域整合。
+                        </p>
+                        <div class="space-y-4">
+                            <div class="bg-white p-5 rounded-2xl border-l-4 border-indigo-500 shadow-sm font-bold text-gray-700 flex items-center gap-3"><i class="fa-solid fa-code text-indigo-400"></i> Python 工業數據分析平台</div>
+                            <div class="bg-white p-5 rounded-2xl border-l-4 border-indigo-500 shadow-sm font-bold text-gray-700 flex items-center gap-3"><i class="fa-solid fa-brain text-indigo-400"></i> AI 加工異常診斷模型訓練</div>
+                        </div>
+                    </div>
+                </div>
+
+               
+            </div>
+        </div>
+
+        <!-- PAGE: PERFORMANCE (Data Master Version) -->
+        <div id="page-performance" class="section-view">
+            <div class="hero-pattern py-16 text-center text-white relative text-shadow">
+                <div class="absolute inset-0 bg-black opacity-30"></div>
+                <div class="relative z-10">
+                    <span class="inline-block py-1 px-3 border border-white/50 rounded-full text-sm font-light mb-4">114年度期中報告精準數據</span>
+                    <h1 class="text-4xl font-bold mb-4 tracking-wider">執行績效與成果</h1>
+                    <p class="text-blue-100 max-w-2xl mx-auto text-lg">量化指標達成狀況與課程開設總表</p>
+                </div>
+            </div>
+
+            <div class="container mx-auto px-4 py-12 max-w-7xl">
+                <!-- Table 1: Performance Indices -->
+                <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden mb-16">
+                    <div class="p-8 border-b border-gray-200 bg-gray-50 flex justify-between items-center text-left">
+                        <h2 class="text-2xl font-extrabold text-gray-800 flex items-center tracking-wide">
+                            <span class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center mr-3 text-sm">1</span>
+                            114年度績效指標達成狀況 (截至期中)
+                        </h2>
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-tighter italic">P.19-20 Reference</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="bg-gray-100 font-bold text-gray-500 text-xs tracking-widest uppercase text-center">
+                                <tr>
+                                    <th class="p-6 border-r text-left">類別</th>
+                                    <th class="p-6 border-r text-left">績效指標項目</th>
+                                    <th class="p-6 border-r">原訂目標</th>
+                                    <th class="p-6 border-r">實際達成</th>
+                                    <th class="p-6 border-r">達成率</th>
+                                    <th class="p-6 text-left">效益說明</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100 text-sm font-bold text-gray-700">
+                                <tr>
+                                    <td rowspan="5" class="p-6 border-r bg-gray-50/50 align-top text-left">1. 課程規劃</td>
+                                    <td class="p-6 border-r">基礎/核心課程數</td><td class="p-6 border-r text-center">6</td><td class="p-6 border-r text-center text-blue-600">5</td><td class="p-6 border-r text-center"><span class="status-badge status-gray">83%</span></td>
+                                    <td rowspan="5" class="p-6 align-top text-xs font-medium text-gray-500 leading-relaxed text-left">已完成 5 門基礎/核心課程開設，符合進度；與凱柏精機等龍頭企業合作 PBL 課程。</td>
+                                </tr>
+                                <tr><td class="p-6 border-r">特色領域模組數</td><td class="p-6 border-r text-center">5</td><td class="p-6 border-r text-center text-blue-600">0</td><td class="p-6 border-r text-center"><span class="status-badge status-low">0%</span></td></tr>
+                                <tr><td class="p-6 border-r">PBL 總整課程數</td><td class="p-6 border-r text-center">2</td><td class="p-6 border-r text-center text-blue-600">1</td><td class="p-6 border-r text-center"><span class="status-badge status-mid">50%</span></td></tr>
+                                <tr><td class="p-6 border-r">產學合作件數</td><td class="p-6 border-r text-center">2</td><td class="p-6 border-r text-center text-blue-600">2</td><td class="p-6 border-r text-center"><span class="status-badge status-high">100%</span></td></tr>
+                                <tr><td class="p-6 border-r">業師人次</td><td class="p-6 border-r text-center">30</td><td class="p-6 border-r text-center text-blue-600">18</td><td class="p-6 border-r text-center"><span class="status-badge status-mid">60%</span></td></tr>
+                                <tr class="bg-gray-50/30">
+                                    <td rowspan="2" class="p-6 border-r align-top text-left">2. 教材產出</td>
+                                    <td class="p-6 border-r">上課教材件數</td><td class="p-6 border-r text-center">40</td><td class="p-6 border-r text-center text-blue-600">24</td><td class="p-6 border-r text-center"><span class="status-badge status-mid">60%</span></td>
+                                    <td rowspan="2" class="p-6 align-top text-xs font-medium text-gray-500 leading-relaxed text-left">已產出 24 件上課教材與 26 件數位/影音教材，有效支撐線上線下混合教學。</td>
+                                </tr>
+                                <tr class="bg-gray-50/30"><td class="p-6 border-r">數位/影音教材件數</td><td class="p-6 border-r text-center">35</td><td class="p-6 border-r text-center text-blue-600">26</td><td class="p-6 border-r text-center"><span class="status-badge status-mid">74%</span></td></tr>
+                                <tr>
+                                    <td rowspan="2" class="p-6 border-r bg-gray-50/50 align-top text-left">3. 實驗室建置</td>
+                                    <td class="p-6 border-r">使用比率 (時/週)</td><td class="p-6 border-r text-center">6</td><td class="p-6 border-r text-center text-blue-600">9</td><td class="p-6 border-r text-center"><span class="status-badge status-high">150%</span></td>
+                                    <td rowspan="2" class="p-6 align-top text-xs font-medium text-gray-500 leading-relaxed text-left">每週平均使用達 9 小時，優於原訂目標；並已培育 8 位跨系種子助教。</td>
+                                </tr>
+                                <tr><td class="p-6 border-r">種子助教培育人次</td><td class="p-6 border-r text-center">10</td><td class="p-6 border-r text-center text-blue-600">8 (男6 女2)</td><td class="p-6 border-r text-center"><span class="status-badge status-mid">80%</span></td></tr>
+                                <tr class="bg-gray-50/30">
+                                    <td rowspan="3" class="p-6 border-r align-top text-left">4. 人才培育</td>
+                                    <td class="p-6 border-r">總修課人次</td><td class="p-6 border-r text-center">300</td><td class="p-6 border-r text-center text-blue-600">200 (男:177 女:23)</td><td class="p-6 border-r text-center"><span class="status-badge status-mid">67%</span></td>
+                                    <td rowspan="3" class="p-6 align-top text-xs font-medium text-gray-500 leading-relaxed text-left">參與競賽人次 15 人，包含獲全國技能競賽金牌一名。</td>
+                                </tr>
+                                <tr class="bg-gray-50/30"><td class="p-6 border-r">競賽參與人次</td><td class="p-6 border-r text-center">30</td><td class="p-6 border-r text-center text-blue-600">15 (男:12 女:3)</td><td class="p-6 border-r text-center"><span class="status-badge status-mid">50%</span></td></tr>
+                                <tr class="bg-gray-50/30"><td class="p-6 border-r">種子師資培育人次</td><td class="p-6 border-r text-center">20</td><td class="p-6 border-r text-center text-blue-600">20 (男:10 女:10)</td><td class="p-6 border-r text-center"><span class="status-badge status-high">100%</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Table 2: Course List -->
+                <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+                    <div class="p-8 border-b border-gray-200 bg-gray-50 text-left">
+                        <h2 class="text-2xl font-extrabold text-gray-800 flex items-center tracking-wide">
+                            <span class="w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center mr-3 text-sm">2</span>
+                            114年度課程開設總表 (截至期中)
+                        </h2>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="bg-gray-100 font-bold text-gray-500 text-xs tracking-widest uppercase text-center">
+                                <tr>
+                                    <th class="p-6 border-r">屬性</th>
+                                    <th class="p-6 border-r text-left">課程名稱</th>
+                                    <th class="p-6 border-r">授課教師</th>
+                                    <th class="p-6 border-r">廠商</th>
+                                    <th class="p-6">教材產出</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100 text-sm font-bold text-gray-700 text-center">
+                                <tr>
+                                    <td class="p-6 border-r">基礎</td>
+                                    <td class="p-6 border-r text-left font-bold">五軸加工技術 (工具機導論)</td>
+                                    <td class="p-6 border-r">蘇怡甄</td>
+                                    <td class="p-6 border-r text-blue-600">奧奔麥</td>
+                                    <td class="p-6 text-gray-400">上課4 / 數位6</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-6 border-r">核心</td>
+                                    <td class="p-6 border-r text-left font-bold">人工智慧概論</td>
+                                    <td class="p-6 border-r">張簡才萬</td>
+                                    <td class="p-6 border-r text-gray-400">無</td>
+                                    <td class="p-6 text-gray-400">上課4 / 數位2</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-6 border-r">PBL</td>
+                                    <td class="p-6 border-r text-left font-bold text-[11px] uppercase tracking-tighter">CPS 導向多軸加工監控與刀具預測</td>
+                                    <td class="p-6 border-r">林岳鋒</td>
+                                    <td class="p-6 border-r text-blue-600">凱柏精機</td>
+                                    <td class="p-6 text-gray-400">數位8</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE: ACTIVITIES -->
+        <div id="page-activities" class="section-view">
+            <div class="hero-pattern py-16 text-center text-white relative">
+                <div class="absolute inset-0 bg-black opacity-30"></div>
+                <div class="relative z-10"><h1 class="text-5xl font-extrabold mb-4 tracking-wider text-shadow">活動競賽紀錄</h1><p class="text-blue-100 italic">榮耀時刻與技術交流實錄</p></div>
+            </div>
+            <div class="container mx-auto px-4 py-20 max-w-6xl">
+                <div class="bg-white p-12 rounded-[2.5rem] shadow-xl border border-yellow-100 text-center mb-16">
+                    <h2 class="text-4xl font-extrabold text-gray-800 mb-12 tracking-wider">🥇 學生競賽榮譽榜</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+    <!-- 卡片 1 -->
+    <div class="group">
+        <div class="w-full h-[320px] overflow-hidden rounded-3xl shadow-xl mb-6">
+            <img 
+                src="huang.jpg"
+                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                alt="Gold Winner"
+            >
+        </div>
+        <h4 class="text-2xl font-bold">黃信訓 同學</h4>
+        <p class="text-blue-600 font-bold">
+            第54屆全國技能競賽 工業機械職類金牌
+        </p>
+    </div>
+
+    <!-- 卡片 2 -->
+    <div class="group">
+        <div class="w-full h-[320px] overflow-hidden rounded-3xl shadow-xl mb-6">
+            <img 
+                src="wu.png"
+                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                alt="National Player"
+            >
+        </div>
+        <h4 class="text-2xl font-bold">吳德龍 同學</h4>
+        <p class="text-blue-600 font-bold">
+            第48屆國際技能競賽 CNC車床國手
+        </p>
+    </div>
+</div>
+
+
+                </div>
+                <div class="flex flex-col md:flex-row gap-10 items-start">
+  <!-- 左：圖片（固定同尺寸） -->
+  <div class="md:w-2/5">
+    <div class="w-full h-[320px] overflow-hidden rounded-3xl shadow-xl">
+      <img
+        src="award.jpg"
+        alt="盈錫精密獎學金頒獎典禮"
+        class="w-full h-full object-cover transition duration-500 hover:scale-105"
+      />
+    </div>
+  </div>
+
+  <!-- 右：文字 -->
+  <div class="md:w-3/5">
+    <span class="text-sm font-extrabold text-blue-600 mb-2 block uppercase tracking-widest">
+      2025.12.31
+    </span>
+    <h3 class="text-2xl font-extrabold text-gray-800 mb-4">
+      盈錫精密獎學金頒獎典禮
+    </h3>
+    <p class="text-gray-600 leading-relaxed font-medium">
+      肯定學生在專業學習與實務能力上的卓越表現，強化企業、學校與學生之緊密互動，提升產學合作之深度與穩定性。
+    </p>
+  </div>
+</div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer (RESTORED MASTER FOOTER) -->
+    <footer class="bg-gray-900 text-gray-400 py-16 mt-auto">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between gap-16 border-b border-gray-800 pb-16 mb-16 text-left">
+                <!-- Profile & Contact -->
+                <div class="md:w-1/3 space-y-8">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-white rounded-full p-2"><img src="logo.png" alt="Footer Logo"></div>
+                        <span class="text-2xl font-extrabold text-white tracking-wide uppercase">國立勤益科技大學</span>
+                    </div>
+                    <div class="space-y-4 font-bold text-gray-500 text-sm">
+                        <p class="flex items-center gap-3"><i class="fa-solid fa-user-tie text-blue-500"></i> 計畫聯絡人：陳玫吟 專案人員</p>
+                        <p class="flex items-center gap-3"><i class="fa-solid fa-phone text-blue-500"></i> (04) 2392-4505 #7182</p>
+                        <p class="flex items-center gap-3"><i class="fa-solid fa-envelope text-blue-500"></i> may@ncut.edu.tw</p>
+                        <p class="flex items-center gap-3"><i class="fa-solid fa-location-dot text-blue-500"></i> 41170 台中市太平區中山路二段57號</p>
+                        <p class="flex items-center gap-3"><i class="fa-solid fa-building text-blue-500"></i> 工程二館 3F 305室 (智慧多軸實驗室)</p>
+                    </div>
+                </div>
+
+                <!-- Strategic Benefits -->
+                <div class="md:w-1/3">
+                    <h4 class="text-white font-extrabold text-xl mb-8 border-b-2 border-blue-600 w-fit pb-2 uppercase tracking-widest">計畫執行核心效益</h4>
+                    <ul class="space-y-5 font-medium text-sm leading-relaxed">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-leaf text-green-500 mt-1"></i>
+                            <span><strong>低碳轉型：</strong>預期降低單件加工碳排放 <strong>8% 以上</strong>，協助產業接軌 CBAM 規範。</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-school text-indigo-500 mt-1"></i>
+                            <span><strong>場域活化：</strong>場域每週提供 <strong>6 小時以上</strong> 跨系教學使用，整合多元系所資源。</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-users text-orange-500 mt-1"></i>
+                            <span><strong>人才實作：</strong>累積 <strong>20 人以上</strong> 跨域專題培育，解決真實產線痛點問題。</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Governance -->
+                <div class="md:w-1/3">
+                    <h4 class="text-white font-extrabold text-xl mb-8 border-b-2 border-blue-600 w-fit pb-2 uppercase tracking-widest">主管與相關單位</h4>
+                    <div class="space-y-6 text-sm">
+                        <div><p class="text-gray-300 font-bold mb-1">主管機關</p><p>教育部資訊及科技教育司 (MOE)</p></div>
+                        <div><p class="text-gray-300 font-bold mb-1">相關單位</p>
+                            <div class="flex flex-wrap gap-4 mt-2">
+                                <a href="https://me2.ncut.edu.tw/" target="_blank" class="hover:text-white transition underline underline-offset-4 font-bold">機械工程系</a>
+                                <a href="https://smartauto.ncut.edu.tw/" target="_blank" class="hover:text-white transition underline underline-offset-4 font-bold">智動系</a>
+                                <a href="https://www.ncut.edu.tw/" target="_blank" class="hover:text-white transition underline underline-offset-4 font-bold">勤益科大首頁</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center"><p class="text-xs font-bold tracking-widest text-gray-600 uppercase">&copy; 2026 National Chin-Yi University of Technology. All rights reserved. <br>本計畫由教育部「智慧製造人才培育計畫」經費支應</p></div>
+        </div>
+    </footer>
+
+ <script>
+  lucide.createIcons();
+
+  // ✅ 切頁：強制顯示/隱藏（避免 GitHub 上第一次載入不穩）
+  function showPage(pageId) {
+    const pages = document.querySelectorAll(".section-view");
+    pages.forEach(p => {
+      p.classList.remove("active");
+      p.style.display = "none";     // 直接隱藏，避免 CSS/DOM 問題
+    });
+
+    const target = document.getElementById("page-" + pageId);
+    if (target) {
+      target.style.display = "block";
+      target.classList.add("active");
+    } else {
+      // 找不到就回首頁，避免空白
+      const home = document.getElementById("page-home");
+      if (home) {
+        home.style.display = "block";
+        home.classList.add("active");
+      }
+    }
+
+    const mobileMenu = document.getElementById("mobile-menu");
+    if (mobileMenu) mobileMenu.classList.add("hidden");
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    if (pageId === "home" && typeof animateStats === "function") {
+      setTimeout(animateStats, 300);
+    }
+    if (pageId === "highlights" && typeof updatePyramid === "function") {
+      updatePyramid(2);
+    }
+  }
+
+  // ✅ 首次載入就顯示首頁（解決「要先點別頁再回來才出現」）
+  window.addEventListener("DOMContentLoaded", function () {
+    const hash = (location.hash || "#home").replace("#", "");
+    showPage(hash);
+  });
+
+  // ✅ 支援 hash 切頁（例如 /#videos）
+  window.addEventListener("hashchange", function () {
+    const hash = (location.hash || "#home").replace("#", "");
+    showPage(hash);
+  });
+</script>
+
+ <script>
+  const pyramidData = {
+    1: {
+      title: "基礎核心課程",
+      badge: "Level 1: 紮根期",
+      color: "bg-green-600",
+      desc: "建立工具機結構與程式設計之穩固基礎。",
+      courses: [
+        "工具機導論 (Intro to MT)",
+        "人工智慧概論 (AI Intro)",
+        "Python 程式設計 (Python Programming)",
+        "數值分析與數值控制 (Numerical Analysis)",
+        "虛實整合技術基礎 (CPS Foundation)"
+      ],
+      goal: "奠定學生對於工具機系統運作、演算法邏輯與數據分析之基礎認知。"
+    },
+    2: {
+      title: "特色領域模組",
+      badge: "Level 2: 強化期",
+      color: "bg-blue-600",
+      desc: "深化五軸加工與感測數據分析技能。",
+      courses: [
+        "五軸加工技術 (5-Axis Machining)",
+        "工具機精度量測實務 (Accuracy Measurement)",
+        "智慧機電組件設計 (Intelligent Component Design)",
+        "Python 工業訊號處理 (Signal Processing)",
+        "影像辨識應用 (Computer Vision Applications)"
+      ],
+      goal: "透過實機操作與感測器聯網，強化學生具備「機電整合」與「數據驅動」的工程實力。"
+    },
+    3: {
+      title: "PBL 總整課程",
+      badge: "Level 3: 實戰期",
+      color: "bg-yellow-600",
+      desc: "採企業出題、學生解題模式，解決真實產線痛點。",
+      courses: [
+        "PBL 導向多軸加工監控 (Machining Monitoring)",
+        "智慧刀具磨耗預測系統 (Tool Wear Prediction)",
+        "綠色製造加工系統優化 (GX Optimization)",
+        "智慧監控整合實作 (Integrated Intelligent Control)"
+      ],
+      goal: "整合前兩階段所學，在業師指導下完成系統雛型開發，驗證解決複雜工業問題之能力。"
+    }
+  };
+
+  function updatePyramid(lvl) {
+    document.querySelectorAll(".pyramid-layer").forEach(l => l.classList.remove("active"));
+    const layer = document.getElementById("l" + lvl);
+    if (layer) layer.classList.add("active");
+
+    const data = pyramidData[lvl];
+    const panel = document.getElementById("pyr-panel");
+    if (!data || !panel) return;
+
+    panel.innerHTML = `
+      <div class="p-8 ${data.color} text-white rounded-t-[3rem] text-left transition-colors duration-500 shadow-inner">
+        <span class="px-3 py-1 bg-white/20 rounded-full text-[10px] font-bold uppercase mb-4 inline-block tracking-widest border border-white/30">
+          ${data.badge}
+        </span>
+        <h3 class="text-3xl font-extrabold mb-2">${data.title}</h3>
+        <p class="text-white/80 font-medium">${data.desc}</p>
+      </div>
+      <div class="p-8 space-y-4">
+        <div class="grid grid-cols-1 gap-3">
+          ${data.courses.map(c => `
+            <div class="p-4 bg-gray-50 rounded-2xl border border-gray-100 font-bold text-gray-700 text-left flex items-center gap-4 hover:bg-white transition group">
+              <div class="w-2.5 h-2.5 rounded-full ${data.color} group-hover:scale-125 transition"></div>
+              <span class="text-sm">${c}</span>
+            </div>
+          `).join("")}
+        </div>
+        <div class="pt-6 border-t border-gray-100 text-left">
+          <h4 class="text-xs font-bold text-gray-400 uppercase mb-2 tracking-widest">
+            <i class="fa-solid fa-bullseye mr-2"></i>培育學習目標
+          </h4>
+          <p class="text-gray-500 text-sm font-medium leading-relaxed italic">「${data.goal}」</p>
+        </div>
+      </div>
+    `;
+  }
+
+  function animateStats() {
+    document.querySelectorAll(".counter").forEach(c => {
+      const target = +c.getAttribute("data-target");
+      let count = 0;
+      const speed = 50;
+      const update = () => {
+        count += target / speed;
+        if (count < target) {
+          c.innerText = Math.floor(count);
+          requestAnimationFrame(update);
+        } else {
+          c.innerText = target;
+        }
+      };
+      update();
+    });
+  }
+
+  // ✅ DOM 就緒後再綁事件，避免抓不到元素
+  window.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("mobile-menu-btn");
+    const menu = document.getElementById("mobile-menu");
+    if (btn && menu) {
+      btn.addEventListener("click", () => menu.classList.toggle("hidden"));
+    }
+
+    animateStats();
+    updatePyramid(2);
+  });
+</script>
+
+<script>
+  // 事件委派：不用綁死某個 id，放 GitHub 也穩
+  document.addEventListener("click", function (e) {
+    const playBtn = e.target.closest("[data-yt-play]");
+    if (!playBtn) return;
+
+    const card = playBtn.closest("[data-yt-card]");
+    if (!card) return;
+
+    const videoId = card.getAttribute("data-video-id");
+    const frame = card.querySelector("iframe[data-yt-frame]");
+    const overlay = card.querySelector("[data-yt-overlay]");
+
+    if (!videoId || !frame || !overlay) return;
+
+    // autoplay 開始播放
+    frame.src =
+      "https://www.youtube-nocookie.com/embed/" +
+      videoId +
+      "?autoplay=1&rel=0&playsinline=1";
+
+    overlay.style.display = "none";
+  });
+</script>
+
+</body>
+</html>

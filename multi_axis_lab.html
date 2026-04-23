@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智慧多軸複合技術實驗室 | 實驗場域</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+
+
+    <!-- Hero Section -->
+    <header class="relative bg-gray-900 text-white h-96 flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-indigo-900 opacity-60 z-10"></div>
+        <!-- Digital/Tech Background Image -->
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1920&auto=format&fit=crop" 
+             class="absolute inset-0 w-full h-full object-cover" 
+             alt="Data Visualization Background">
+        
+        <div class="relative z-20 text-center px-4">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-wider">智慧多軸複合技術實驗室</h1>
+            <p class="text-xl md:text-2xl text-blue-200 font-light">Smart Multi-axis Composite Technology Laboratory</p>
+            <div class="mt-8 w-24 h-1 bg-cyan-400 mx-auto rounded-full"></div>
+        </div>
+    </header>
+
+
+    <!-- Introduction Section -->
+    <section class="py-16 container mx-auto px-6">
+        <div class="flex flex-col md:flex-row gap-12 items-center">
+            <div class="md:w-1/2">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                    <i data-lucide="cpu" class="w-8 h-8 text-cyan-600"></i>
+                    實驗室特色與目標
+                </h2>
+                <div class="bg-cyan-50 border-l-4 border-cyan-500 p-4 mb-6">
+                    <p class="text-cyan-900 font-medium">
+                        負責系所：智慧自動化工程系
+                    </p>
+                </div>
+                <p class="text-gray-600 leading-relaxed mb-6 text-justify text-lg">
+                    本實驗室致力於<strong>軟硬體虛實整合</strong>，特別強調 Python 程式設計在工業現場的應用。
+                    我們專注於將 CNC 加工參數進行數據化分析，透過 IoT 物聯網技術實現機台數據的即時擷取與可視化。
+                    這裡是跨域人才的培育基地，讓機械背景學生學習程式邏輯，讓資工背景學生接觸實體加工。
+                </p>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check-circle text-cyan-500 mt-1"></i>
+                        <span class="text-gray-700"><strong>數據可視化：</strong>開發機台戰情室看板，即時監控生產狀態。</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check-circle text-cyan-500 mt-1"></i>
+                        <span class="text-gray-700"><strong>Python 訊號處理：</strong>分析主軸負載與振動訊號，建立異常預警模型。</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check-circle text-cyan-500 mt-1"></i>
+                        <span class="text-gray-700"><strong>跨域整合專題：</strong>結合感測器與控制器，進行加工參數優化研究。</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="md:w-1/2 relative group">
+                <div class="absolute -inset-2 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                <!-- Image: Students looking at screens/code -->
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop" 
+                     alt="Students Collaboration" 
+                     class="relative rounded-lg shadow-xl w-full object-cover h-80">
+                <div class="absolute bottom-4 left-4 bg-black/70 text-white px-4 py-2 rounded text-sm backdrop-blur-sm">
+                    跨域團隊協作與程式開發
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery / Research Focus Section -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">研究重點與教學場域</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">展示本實驗室在數據分析、物聯網串接與智慧監控方面的成果。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Image 1: Data Visualization/Dashboard -->
+                <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                    <div class="relative h-60 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop" 
+                             alt="Data Dashboard" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute top-2 right-2 bg-cyan-600 text-white text-xs px-2 py-1 rounded">數據分析</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">加工數據戰情室</h3>
+                        <p class="text-gray-600 text-sm">利用 Python 與網頁技術，將機台的即時數據（如轉速、進給率、溫度）轉化為直觀的儀表板圖表。</p>
+                    </div>
+                </div>
+
+                <!-- Image 2: Sensors/IoT -->
+                <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                    <div class="relative h-60 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop" 
+                             alt="IoT Sensors" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute top-2 right-2 bg-purple-600 text-white text-xs px-2 py-1 rounded">IoT 串接</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">智慧感測模組</h3>
+                        <p class="text-gray-600 text-sm">於加工機台安裝振動與電流感測器，透過邊緣運算裝置進行訊號擷取與初步處理。</p>
+                    </div>
+                </div>
+
+                <!-- Image 3: Simulation/Computer Lab -->
+                <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                    <div class="relative h-60 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?q=80&w=600&auto=format&fit=crop" 
+                             alt="Coding Lab" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded">程式教學</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">程式設計實作區</h3>
+                        <p class="text-gray-600 text-sm">高階電腦教室環境，安裝專業開發軟體，支援 AI 模型訓練與數位雙生模擬教學。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 mt-auto">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h4 class="text-white text-lg font-bold mb-4">智慧多軸複合技術實驗室</h4>
+                    <p class="text-sm leading-relaxed text-gray-400">
+                        隸屬於智慧自動化工程系，專注於製造數據加值應用與跨域人才培育。
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white text-lg font-bold mb-4">相關連結</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="moe_achievements.html" class="hover:text-white transition">回首頁</a></li>
+                        <li><a href="multi_axis_lab.html" class="hover:text-white transition">多軸加工實驗室</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white text-lg font-bold mb-4">聯絡資訊</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li class="flex items-center gap-2"><i class="fas fa-map-marker-alt w-5"></i> 工程二館 3F 305室</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-phone w-5"></i> (02) 2345-6789 #202</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-envelope w-5"></i> lab_smart@university.edu.tw</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-500">
+                &copy; 2024 智慧製造中心 智慧多軸複合技術實驗室. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

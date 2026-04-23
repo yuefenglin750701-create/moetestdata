@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>國立勤益科技大學 - 智慧製造人才培育計畫成果專區</title>
+    <!-- Google Fonts: Noto Sans TC for Traditional Chinese -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .hero-pattern {
+            background-color: #004e9c; /* NCUT Blue */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+        }
+        /* Custom scrollbar for better look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
+        /* Carousel Styles */
+        .carousel-fade .carousel-item {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        .carousel-fade .carousel-item.active {
+            opacity: 1;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md relative z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo Area -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-12 h-12 flex items-center justify-center">
+                    <!-- NCUT Logo -->
+                    <img src="logo.png" 
+                         onerror="this.src='https://upload.wikimedia.org/wikipedia/zh/2/2e/National_Chin-Yi_University_of_Technology_logo.svg';this.onerror=null;"
+                         alt="國立勤益科技大學校徽" 
+                         class="w-full h-full object-contain">
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-bold text-gray-800 tracking-wide group-hover:text-blue-900 transition">國立勤益科技大學</span>
+                    <span class="text-xs text-gray-500 font-medium tracking-wider">National Chin-Yi University of Technology</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden xl:flex space-x-5 text-sm font-medium text-gray-700">
+                <a href="#" class="hover:text-blue-900 py-2 border-b-2 border-transparent hover:border-blue-900 transition">首頁</a>
+                <a href="project_summary.html" class="hover:text-blue-900 py-2 border-b-2 border-transparent hover:border-blue-900 transition">計畫簡介</a>
+                <a href="project_structure.html" class="hover:text-blue-900 py-2 border-b-2 border-transparent hover:border-blue-900 transition">計畫組成</a>
+                <a href="activity_competition.html" class="hover:text-blue-900 py-2 border-b-2 border-transparent hover:border-blue-900 transition">活動競賽</a>
+                <a href="project_highlights.html" class="hover:text-blue-900 py-2 border-b-2 border-transparent hover:border-blue-900 transition">計畫亮點</a>
+                <a href="labs.html" class="hover:text-blue-900 py-2 border-b-2 border-transparent hover:border-blue-900 transition">特色實驗室</a>
+                <a href="performance_report.html" class="hover:text-blue-900 py-2 border-b-2 border-transparent hover:border-blue-900 transition">執行績效</a>
+                <a href="news_list.html" class="hover:text-blue-900 py-2 border-b-2 border-transparent hover:border-blue-900 transition">成果快訊</a>
+            </nav>
+
+            <!-- Search & Mobile Menu Button -->
+            <div class="flex items-center space-x-4">
+                <button class="text-gray-600 hover:text-blue-900 transition">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </button>
+                <button id="mobile-menu-btn" class="xl:hidden text-gray-800 focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
+            <div class="flex flex-col p-4 space-y-3">
+                <a href="#" class="text-gray-700 hover:text-blue-900 font-medium">首頁</a>
+                <a href="project_summary.html" class="text-gray-700 hover:text-blue-900 font-medium">計畫簡介</a>
+                <a href="project_structure.html" class="text-gray-700 hover:text-blue-900 font-medium">計畫組成</a>
+                <a href="activity_competition.html" class="text-gray-700 hover:text-blue-900 font-medium">活動競賽</a>
+                <a href="project_highlights.html" class="text-gray-700 hover:text-blue-900 font-medium">計畫亮點</a>
+                <a href="labs.html" class="text-gray-700 hover:text-blue-900 font-medium">特色實驗室</a>
+                <a href="performance_report.html" class="text-gray-700 hover:text-blue-900 font-medium">執行績效</a>
+                <a href="news_list.html" class="text-gray-700 hover:text-blue-900 font-medium">成果快訊</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-[600px] flex items-center justify-center hero-pattern text-white overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-30"></div>
+        <!-- Background Image -->
+        <img src="image_f57da8.jpg" 
+             onerror="this.src='https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2086&auto=format&fit=crop'"
+             alt="NCUT Campus" 
+             class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-50">
+        
+        <div class="relative z-10 text-center px-4 max-w-5xl">
+            <span class="inline-block py-1 px-3 rounded-full bg-yellow-500 text-white text-sm font-bold mb-4 animate-bounce">
+                114年度教育部智慧製造人才培育計畫
+            </span>
+            <h1 class="text-3xl md:text-5xl font-bold mb-4 text-shadow leading-tight">
+                數位轉型 x 綠色製造 x 製造轉型
+            </h1>
+            <p class="text-lg md:text-xl text-gray-100 max-w-2xl mx-auto mb-10 text-shadow">
+                攜手台中精機、上銀科技等11家龍頭企業，培育具備實作力與跨域整合的高階工程人才。
+            </p>
+            
+            <!-- Button Group -->
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="project_highlights.html" class="inline-block bg-white text-blue-900 hover:bg-blue-50 font-bold py-3 px-8 rounded-lg shadow-lg transition transform hover:scale-105">
+                    探索期中成果
+                </a>
+                <a href="about_ncut.html" class="inline-block bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-900 font-bold py-3 px-8 rounded-lg shadow-lg transition transform hover:scale-105 backdrop-blur-sm">
+                    關於我們
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Highlights: PBL & Skills Competition -->
+    <section id="highlights" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 relative inline-block">
+                    計畫亮點成果
+                    <span class="absolute bottom-0 left-0 w-full h-1 bg-blue-600 rounded"></span>
+                </h2>
+                <p class="mt-4 text-gray-600">以PBL實務專題解決產業痛點，打造金牌國手搖籃</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1: PBL Project -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover border border-gray-100 transition duration-300 relative group">
+                    <a href="project_highlights.html" class="absolute inset-0 z-10"></a>
+                    <div class="h-48 bg-gray-200 relative">
+                        <img src="image_2b1f74.png" 
+                             onerror="this.src='https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1000&auto=format&fit=crop'"
+                             class="w-full h-full object-cover" alt="Industry 4.0">
+                        <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-3 py-1 m-2 rounded">PBL 實務專題</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition">智慧刀具磨耗預測</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            與<b>凱柏精機</b>合作，針對多軸加工監控與刀具壽命預測進行專題開發，透過AI模型與感測器應用，解決產業真實痛點。
+                        </p>
+                        <span class="text-blue-600 font-medium hover:text-blue-800 text-sm flex items-center">
+                            查看課程地圖 <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Skills Competition (Carousel) -->
+                <div id="skills" class="bg-white rounded-xl shadow-md overflow-hidden card-hover border border-gray-100 transition duration-300 relative group">
+                     <a href="activity_competition.html" class="absolute inset-0 z-10"></a>
+                    <div class="h-48 bg-gray-200 relative overflow-hidden carousel-fade">
+                        <!-- Carousel Wrapper -->
+                        <!-- Image 1: Huang Xinxun -->
+                        <div class="carousel-item active">
+                            <img src="image_039c8e.jpg" 
+                                 class="w-full h-full object-cover" 
+                                 alt="黃信訓獲獎">
+                        </div>
+                        <!-- Image 2: Wu Delong -->
+                        <div class="carousel-item">
+                            <img src="image_f5ee9d.png" 
+                                 class="w-full h-full object-cover" 
+                                 alt="吳德龍獲獎">
+                        </div>
+                        
+                        <div class="absolute top-0 right-0 bg-yellow-500 text-white text-xs font-bold px-3 py-1 m-2 rounded z-20">競賽榮耀</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition">金牌國手搖籃</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            <b>第54屆全國技能競賽</b>工業機械職類第一名（黃信訓）；<b>第48屆國際技能競賽</b>CNC車床正選國手（吳德龍）。
+                        </p>
+                        <span class="text-blue-600 font-medium hover:text-blue-800 text-sm flex items-center">
+                            獲獎名單 <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Labs -->
+                <div id="labs" class="bg-white rounded-xl shadow-md overflow-hidden card-hover border border-gray-100 transition duration-300 relative group">
+                    <a href="labs.html" class="absolute inset-0 z-10"></a>
+                    <div class="h-48 bg-gray-200 relative">
+                        <img src="image_b68e92.png" 
+                             onerror="this.src='https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1000&auto=format&fit=crop'"
+                             class="w-full h-full object-cover" alt="Labs">
+                        <div class="absolute top-0 right-0 bg-green-600 text-white text-xs font-bold px-3 py-1 m-2 rounded">教學場域</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition">跨域教學實驗室</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            建置「多軸加工」與「智慧多軸複合技術」實驗室，整合CNC模擬器與數位雙生系統，每週使用率達9小時。
+                        </p>
+                        <span class="text-blue-600 font-medium hover:text-blue-800 text-sm flex items-center">
+                            場域介紹 <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section id="statistics" class="py-16 bg-blue-900 text-white relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-0 left-0 w-64 h-64 bg-blue-800 rounded-full mix-blend-multiply filter blur-3xl opacity-50 -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-blue-700 rounded-full mix-blend-multiply filter blur-3xl opacity-50 translate-x-1/3 translate-y-1/3"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-2">計畫執行績效</h2>
+                <p class="text-blue-200">114年度期中報告數據概覽</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="p-4">
+                    <div class="text-4xl md:text-5xl font-bold text-yellow-400 mb-2 counter" data-target="11">0</div>
+                    <div class="text-lg md:text-xl font-medium text-gray-200">家</div>
+                    <p class="text-sm mt-2 text-blue-200">合作企業夥伴</p>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl md:text-5xl font-bold text-yellow-400 mb-2 counter" data-target="5">0</div>
+                    <div class="text-lg md:text-xl font-medium text-gray-200">門</div>
+                    <p class="text-sm mt-2 text-blue-200">基礎核心課程開設</p>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl md:text-5xl font-bold text-yellow-400 mb-2 counter" data-target="26">0</div>
+                    <div class="text-lg md:text-xl font-medium text-gray-200">件</div>
+                    <p class="text-sm mt-2 text-blue-200">數位影音教材產出</p>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl md:text-5xl font-bold text-yellow-400 mb-2 counter" data-target="1">0</div>
+                    <div class="text-lg md:text-xl font-medium text-gray-200">座</div>
+                    <p class="text-sm mt-2 text-blue-200">全國技能競賽金牌</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News List & Multimedia -->
+    <section id="news" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row gap-12">
+                
+                <!-- News List -->
+                <div class="lg:w-2/3">
+                    <div class="flex justify-between items-end mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-blue-600 pl-3">計畫執行快訊</h2>
+                        <!-- Link to News List -->
+                        <a href="news_list.html" class="text-sm text-gray-500 hover:text-blue-600">更多消息 <i class="fa-solid fa-angle-right"></i></a>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 divide-y divide-gray-100">
+                        <a href="news_list.html" class="block p-5 hover:bg-gray-50 transition group">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                                <h3 class="text-lg font-medium text-gray-800 group-hover:text-blue-700 mb-2 sm:mb-0 truncate pr-4">狂賀！本校榮獲第54屆全國技能競賽工業機械職類金牌</h3>
+                                <span class="text-sm text-gray-400 whitespace-nowrap"><i class="far fa-calendar-alt mr-1"></i> 2025-07-21</span>
+                            </div>
+                            <p class="text-gray-500 text-sm mt-2 line-clamp-1">機械系黃信訓同學勇奪金牌；吳德龍與邱士耀同學亦於國際技能競賽選拔中脫穎而出，展現本計畫精密加工培育成果。</p>
+                        </a>
+                        <a href="news_list.html" class="block p-5 hover:bg-gray-50 transition group">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                                <h3 class="text-lg font-medium text-gray-800 group-hover:text-blue-700 mb-2 sm:mb-0 truncate pr-4">攜手凱柏精機 開設PBL微學分課程</h3>
+                                <span class="text-sm text-gray-400 whitespace-nowrap"><i class="far fa-calendar-alt mr-1"></i> 2025-11-06</span>
+                            </div>
+                            <p class="text-gray-500 text-sm mt-2 line-clamp-1">本學期開設「PBL導向多軸加工監控設計」課程，引入業師指導，實作刀具磨耗預測與智慧監控系統。</p>
+                        </a>
+                        <a href="news_list.html" class="block p-5 hover:bg-gray-50 transition group">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                                <h3 class="text-lg font-medium text-gray-800 group-hover:text-blue-700 mb-2 sm:mb-0 truncate pr-4">金屬製品產業智慧製造與數據分析交流會</h3>
+                                <span class="text-sm text-gray-400 whitespace-nowrap"><i class="far fa-calendar-alt mr-1"></i> 2025-09-25</span>
+                            </div>
+                            <p class="text-gray-500 text-sm mt-2 line-clamp-1">由林岳鋒副教授主講，聚焦低碳化與智慧化轉型，介紹本校教學資源與產學合作能量。</p>
+                        </a>
+                        <a href="news_list.html" class="block p-5 hover:bg-gray-50 transition group">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                                <h3 class="text-lg font-medium text-gray-800 group-hover:text-blue-700 mb-2 sm:mb-0 truncate pr-4">獲教育部補助 114-115年智慧製造人才培育計畫</h3>
+                                <span class="text-sm text-gray-400 whitespace-nowrap"><i class="far fa-calendar-alt mr-1"></i> 2025-08-01</span>
+                            </div>
+                            <p class="text-gray-500 text-sm mt-2 line-clamp-1">本計畫期程兩年，旨在整合五軸加工、AI應用與綠色製造，培育符合產業需求的跨域人才。</p>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Multimedia/Resources Sidebar -->
+                <div class="lg:w-1/3">
+                    <div class="mb-8">
+                        <div class="flex justify-between items-end mb-6">
+                            <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-yellow-500 pl-3">影音專區</h2>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
+                            <div class="relative h-48 bg-gray-900 group cursor-pointer">
+                                <!-- NCUT Vibe Thumbnail -->
+                                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover opacity-80 group-hover:opacity-60 transition" alt="Video Thumbnail">
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center group-hover:bg-red-600 group-hover:scale-110 transition duration-300">
+                                        <i class="fa-solid fa-play text-white ml-1"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-bold text-gray-800 mb-2">五軸加工技術教學演示</h3>
+                                <p class="text-sm text-gray-500">蘇怡甄教授示範多軸同步加工與路徑模擬，解析高階工具機操作要領。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links (NCUT Specific) -->
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">計畫資源</h2>
+                        <div class="grid grid-cols-2 gap-3">
+                            <a href="#" class="flex items-center justify-center p-3 bg-white border border-gray-200 rounded hover:border-blue-500 hover:text-blue-600 transition shadow-sm text-sm font-medium">
+                                <i class="fa-solid fa-book mr-2 text-blue-500"></i> 基礎核心課程
+                            </a>
+                            <a href="#" class="flex items-center justify-center p-3 bg-white border border-gray-200 rounded hover:border-blue-500 hover:text-blue-600 transition shadow-sm text-sm font-medium">
+                                <i class="fa-solid fa-microchip mr-2 text-green-500"></i> 特色實驗室
+                            </a>
+                            <a href="#" class="flex items-center justify-center p-3 bg-white border border-gray-200 rounded hover:border-blue-500 hover:text-blue-600 transition shadow-sm text-sm font-medium">
+                                <i class="fa-solid fa-handshake mr-2 text-orange-500"></i> 產學媒合
+                            </a>
+                            <a href="#" class="flex items-center justify-center p-3 bg-white border border-gray-200 rounded hover:border-blue-500 hover:text-blue-600 transition shadow-sm text-sm font-medium">
+                                <i class="fa-solid fa-trophy mr-2 text-purple-500"></i> 競賽榮譽榜
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partners" class="py-12 bg-white border-t border-gray-200">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8">
+                <h3 class="text-xl font-bold text-gray-600">合作產業夥伴 (計畫組成)</h3>
+            </div>
+            <div class="flex flex-wrap justify-center gap-6 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
+                <a href="https://www.victortaichung.com/" target="_blank" class="px-4 py-2 border rounded text-gray-600 font-bold hover:text-blue-800 hover:border-blue-800 hover:bg-blue-50 transition no-underline">台中精機</a>
+                <a href="https://www.hiwin.tw/" target="_blank" class="px-4 py-2 border rounded text-gray-600 font-bold hover:text-blue-800 hover:border-blue-800 hover:bg-blue-50 transition no-underline">上銀科技</a>
+                <a href="https://www.ycmcnc.com/" target="_blank" class="px-4 py-2 border rounded text-gray-600 font-bold hover:text-blue-800 hover:border-blue-800 hover:bg-blue-50 transition no-underline">永進機械</a>
+                <a href="https://www.campro.com.tw/" target="_blank" class="px-4 py-2 border rounded text-gray-600 font-bold hover:text-blue-800 hover:border-blue-800 hover:bg-blue-50 transition no-underline">凱柏精機</a>
+                <a href="https://www.palmary.com/" target="_blank" class="px-4 py-2 border rounded text-gray-600 font-bold hover:text-blue-800 hover:border-blue-800 hover:bg-blue-50 transition no-underline">大光長榮</a>
+                <a href="https://www.yinsh.com/" target="_blank" class="px-4 py-2 border rounded text-gray-600 font-bold hover:text-blue-800 hover:border-blue-800 hover:bg-blue-50 transition no-underline">盈錫精密</a>
+                <a href="https://www.awea.com/" target="_blank" class="px-4 py-2 border rounded text-gray-600 font-bold hover:text-blue-800 hover:border-blue-800 hover:bg-blue-50 transition no-underline">亞崴機電</a>
+                <a href="https://www.goodwaycnc.com/" target="_blank" class="px-4 py-2 border rounded text-gray-600 font-bold hover:text-blue-800 hover:border-blue-800 hover:bg-blue-50 transition no-underline">程泰機械</a>
+                <a href="http://www.welegroup.com/" target="_blank" class="px-4 py-2 border rounded text-gray-600 font-bold hover:text-blue-800 hover:border-blue-800 hover:bg-blue-50 transition no-underline">崴立機電</a>
+                <a href="http://www.songzan.com.tw/" target="_blank" class="px-4 py-2 border rounded text-gray-600 font-bold hover:text-blue-800 hover:border-blue-800 hover:bg-blue-50 transition no-underline">松讚實業</a>
+                <a href="https://www.accutex.com.tw/" target="_blank" class="px-4 py-2 border rounded text-gray-600 font-bold hover:text-blue-800 hover:border-blue-800 hover:bg-blue-50 transition no-underline">徠通科技</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-800 text-gray-300 py-12 mt-auto">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-start">
+                
+                <div class="mb-8 md:mb-0 md:w-1/3">
+                    <div class="flex items-center space-x-2 mb-4">
+                         <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center overflow-hidden">
+                             <img src="logo.png" 
+                                  onerror="this.src='https://upload.wikimedia.org/wikipedia/zh/2/2e/National_Chin-Yi_University_of_Technology_logo.svg';this.onerror=null;"
+                                  alt="NCUT" class="w-full h-full object-contain p-1">
+                         </div>
+                        <span class="text-xl font-bold text-white">國立勤益科技大學</span>
+                    </div>
+                    <div class="text-sm text-gray-400 leading-relaxed mb-4">
+                        <p class="font-bold text-gray-200 mb-1">計畫聯絡人</p>
+                        <p>姓名：陳玫吟</p>
+                        <p>電話：04-23924505 #7182</p>
+                        <p>服務單位：國立勤益科技大學機械工程系</p>
+                        <p>電子信箱：may@ncut.edu.tw</p>
+                        <p>職稱：專案工作人員</p>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-8 h-8 rounded bg-gray-700 flex items-center justify-center hover:bg-blue-600 transition"><i class="fa-brands fa-facebook-f text-white"></i></a>
+                        <a href="#" class="w-8 h-8 rounded bg-gray-700 flex items-center justify-center hover:bg-red-600 transition"><i class="fa-brands fa-youtube text-white"></i></a>
+                        <a href="#" class="w-8 h-8 rounded bg-gray-700 flex items-center justify-center hover:bg-sky-500 transition"><i class="fa-brands fa-instagram text-white"></i></a>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8 w-full md:w-2/3">
+                    <div>
+                        <h4 class="text-white font-bold mb-4">計畫架構</h4>
+                        <ul class="space-y-2 text-sm">
+                            <!-- 已修正為正確連結 -->
+                            <li><a href="curriculum_pyramid.html" class="hover:text-white transition">基礎核心課程</a></li>
+                            <li><a href="curriculum_pyramid.html" class="hover:text-white transition">特色領域模組</a></li>
+                            <li><a href="curriculum_pyramid.html" class="hover:text-white transition">PBL 總整課程</a></li>
+                            <li><a href="#" class="hover:text-white transition">數位教材資源</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold mb-4">實驗場域</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="lab_multiaxis.html" class="hover:text-white transition">多軸加工實驗室</a></li>
+                            <li><a href="multi_axis_lab" class="hover:text-white transition">智慧多軸複合技術實驗室</a></li>
+                            <li><a href="machine_tool_factory" class="hover:text-white transition">工具機實習工廠</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold mb-4">相關連結</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="#" class="hover:text-white transition">教育部資科司</a></li>
+                            <li><a href="https://me2.ncut.edu.tw/" target="_blank" class="hover:text-white transition">機械工程系</a></li>
+                            <li><a href="#" class="hover:text-white transition">智慧自動化工程系</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-10 pt-6 text-center text-sm text-gray-500">
+                <p>&copy; 2025 國立勤益科技大學 National Chin-Yi University of Technology. All rights reserved.</p>
+                <p class="mt-2">本網站成果內容係由教育部「智慧製造人才培育計畫」經費支應</p>
+                 <p class="mt-2">
+                    <a href="https://me2.ncut.edu.tw/" target="_blank" class="inline-block px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-600 transition">
+                        前往機械工程系官網 <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Number Counter Animation (Time-based for smoother effect on small numbers)
+        const animationDuration = 2000; // 2 seconds
+
+        const animateCounters = () => {
+            const counters = document.querySelectorAll('.counter');
+            
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const startTime = performance.now();
+                
+                const updateCount = (currentTime) => {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / animationDuration, 1);
+                    
+                    // Easing function (easeOutQuart) for natural slow-down
+                    const easeProgress = 1 - Math.pow(1 - progress, 4);
+                    
+                    const currentCount = Math.floor(easeProgress * target);
+                    counter.innerText = currentCount;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                
+                requestAnimationFrame(updateCount);
+            });
+        }
+
+        // Intersection Observer
+        let options = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
+        }
+
+        let observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    animateCounters();
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, options);
+
+        const statsSection = document.getElementById('statistics');
+        if(statsSection) {
+            observer.observe(statsSection);
+        }
+
+        // Carousel Logic (Simple Fade)
+        const item1 = document.querySelector('.carousel-item:nth-child(1)');
+        const item2 = document.querySelector('.carousel-item:nth-child(2)');
+        
+        if (item1 && item2) {
+            let active = 1;
+            setInterval(() => {
+                if (active === 1) {
+                    item1.classList.remove('active');
+                    item2.classList.add('active');
+                    active = 2;
+                } else {
+                    item2.classList.remove('active');
+                    item1.classList.add('active');
+                    active = 1;
+                }
+            }, 3000); // 3 seconds
+        }
+    </script>
+</body>
+</html>

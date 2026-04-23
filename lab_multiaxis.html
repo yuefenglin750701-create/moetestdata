@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多軸加工實驗室 - 智慧製造人才培育計畫</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; }
+        .hero-pattern {
+            background-color: #004e9c;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .gallery-img {
+            transition: transform 0.3s ease;
+        }
+        .gallery-img:hover {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md relative z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="moe_achievements.html" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 flex items-center justify-center">
+                    <img src="logo.png" onerror="this.src='https://upload.wikimedia.org/wikipedia/zh/2/2e/National_Chin-Yi_University_of_Technology_logo.svg';this.onerror=null;" alt="NCUT" class="w-full h-full object-contain">
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-lg font-bold text-gray-800 group-hover:text-blue-900 transition">國立勤益科技大學</span>
+                    <span class="text-xs text-gray-500">智慧製造人才培育計畫</span>
+                </div>
+            </a>
+            <nav class="hidden xl:flex space-x-5 text-sm font-medium text-gray-700">
+                <a href="moe_achievements.html" class="hover:text-blue-900 py-2 border-b-2 border-transparent hover:border-blue-900 transition">首頁</a>
+                <a href="labs.html" class="hover:text-blue-900 py-2 border-b-2 border-transparent hover:border-blue-900 transition">回特色實驗室列表</a>
+            </nav>
+           
+        </div>
+    </header>
+
+    <!-- Page Title -->
+    <div class="hero-pattern py-16 text-center text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-30"></div>
+        <div class="relative z-10">
+            <span class="inline-block py-1 px-3 border border-white/50 rounded-full text-sm font-light mb-4">場域介紹</span>
+            <h1 class="text-4xl font-bold mb-4 tracking-wide">多軸加工實驗室</h1>
+            <p class="text-blue-100 max-w-2xl mx-auto text-lg">Multi-Axis Machining Laboratory</p>
+        </div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="container mx-auto px-4 py-12 max-w-6xl">
+        
+        <!-- Intro & Main Image -->
+        <div class="flex flex-col md:flex-row gap-12 mb-16">
+            <div class="md:w-1/2">
+                <img src="image_608d8a.jpg" onerror="this.src='https://placehold.co/800x600/e2e8f0/1e3a8a?text=Lab+Overview'" class="w-full h-auto rounded-xl shadow-lg gallery-img" alt="多軸加工實驗室全景">
+            </div>
+            <div class="md:w-1/2 flex flex-col justify-center">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 border-l-4 border-blue-600 pl-4">實驗室簡介</h2>
+                <p class="text-gray-600 leading-relaxed mb-6">
+                    本實驗室為機械工程系之核心實作場域，整合了傳統加工設備與先進五軸同動機。透過搭配 CNC 程式模擬器、Mastercam 3D CAD/CAM 軟體與 NC 模擬平台，我們構建了一個完整的「虛實整合」教學環境。
+                </p>
+                <p class="text-gray-600 leading-relaxed">
+                    學生在此場域中，能先於數位環境進行切削模擬與路徑驗證，確保程式無誤後，再接軌實體機台操作，有效提升學習效率並確保加工安全。
+                </p>
+            </div>
+        </div>
+
+        <!-- Equipment & Features -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center"><i class="fa-solid fa-screwdriver-wrench text-blue-600 mr-2"></i>主要硬體設備</h3>
+                <ul class="space-y-3 text-gray-600">
+                    <li class="flex items-start"><span class="w-2 h-2 mt-2 bg-blue-500 rounded-full mr-3 flex-shrink-0"></span>五軸同動綜合加工機 (5-Axis Machining Center)</li>
+                    <li class="flex items-start"><span class="w-2 h-2 mt-2 bg-blue-500 rounded-full mr-3 flex-shrink-0"></span>CNC 綜合加工切削中心</li>
+                    <li class="flex items-start"><span class="w-2 h-2 mt-2 bg-blue-500 rounded-full mr-3 flex-shrink-0"></span>智慧型 CNC 程式模擬器 (5台)</li>
+                    <li class="flex items-start"><span class="w-2 h-2 mt-2 bg-blue-500 rounded-full mr-3 flex-shrink-0"></span>多軸控制資料記錄系統 (DAQ)</li>
+                    <li class="flex items-start"><span class="w-2 h-2 mt-2 bg-blue-500 rounded-full mr-3 flex-shrink-0"></span>三軸力感測器 (Dynamometer)</li>
+                </ul>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center"><i class="fa-solid fa-laptop-code text-green-600 mr-2"></i>軟體與教學資源</h3>
+                <ul class="space-y-3 text-gray-600">
+                    <li class="flex items-start"><span class="w-2 h-2 mt-2 bg-green-500 rounded-full mr-3 flex-shrink-0"></span>Mastercam 3D CAD/CAM 軟體</li>
+                    <li class="flex items-start"><span class="w-2 h-2 mt-2 bg-green-500 rounded-full mr-3 flex-shrink-0"></span>VERICUT 切削模擬軟體</li>
+                    <li class="flex items-start"><span class="w-2 h-2 mt-2 bg-green-500 rounded-full mr-3 flex-shrink-0"></span>Python 數據分析套件</li>
+                    <li class="flex items-start"><span class="w-2 h-2 mt-2 bg-green-500 rounded-full mr-3 flex-shrink-0"></span>智慧聯網監控系統</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Photo Gallery -->
+        <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">場域實景</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="group">
+                <div class="overflow-hidden rounded-lg shadow-md mb-2">
+                    <img src="image_608d82.png" onerror="this.src='https://placehold.co/400x300/e2e8f0/1e3a8a?text=Machine+1'" class="w-full h-56 object-cover gallery-img" alt="五軸機台">
+                </div>
+                <p class="text-center text-sm text-gray-600 font-medium">高階五軸同動加工機</p>
+            </div>
+            <div class="group">
+                <div class="overflow-hidden rounded-lg shadow-md mb-2">
+                    <img src="image_b68e92.png" onerror="this.src='https://placehold.co/400x300/e2e8f0/1e3a8a?text=Simulation'" class="w-full h-56 object-cover gallery-img" alt="模擬教學">
+                </div>
+                <p class="text-center text-sm text-gray-600 font-medium">CNC 程式模擬教學區</p>
+            </div>
+            <div class="group">
+                <div class="overflow-hidden rounded-lg shadow-md mb-2">
+                    <img src="image_2b1f74.png" onerror="this.src='https://placehold.co/400x300/e2e8f0/1e3a8a?text=Student+Work'" class="w-full h-56 object-cover gallery-img" alt="學生實作">
+                </div>
+                <p class="text-center text-sm text-gray-600 font-medium">學生實機操作與監控</p>
+            </div>
+        </div>
+        
+        <!-- Supported Courses -->
+        <div class="bg-gray-50 rounded-xl p-8 border border-gray-200 text-center">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">支援課程</h3>
+            <div class="flex flex-wrap justify-center gap-3">
+                <span class="px-4 py-2 bg-white border border-blue-200 text-blue-700 rounded-full text-sm font-medium shadow-sm">五軸加工技術</span>
+                <span class="px-4 py-2 bg-white border border-blue-200 text-blue-700 rounded-full text-sm font-medium shadow-sm">工具機導論</span>
+                <span class="px-4 py-2 bg-white border border-blue-200 text-blue-700 rounded-full text-sm font-medium shadow-sm">虛實整合技術應用</span>
+                <span class="px-4 py-2 bg-white border border-blue-200 text-blue-700 rounded-full text-sm font-medium shadow-sm">PBL 專題實作</span>
+            </div>
+        </div>
+
+        <div class="text-center mt-12">
+            <a href="moe_achievements.html" class="inline-block px-8 py-3 bg-blue-600 text-white rounded-full font-bold hover:bg-blue-700 transition shadow-lg transform hover:scale-105">
+                <i class="fa-solid fa-house mr-2"></i> 返回首頁
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-8 mt-auto">
+        <div class="container mx-auto px-4 text-center text-sm">
+            <p>&copy; 2025 國立勤益科技大學 National Chin-Yi University of Technology. All rights reserved.</p>
+            <p class="mt-2 text-gray-500">本網站成果內容係由教育部「智慧製造人才培育計畫」經費支應</p>
+        </div>
+    </footer>
+
+</body>
+</html>
