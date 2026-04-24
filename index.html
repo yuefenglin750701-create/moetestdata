@@ -1409,8 +1409,7 @@
         </div>
 
         <!-- PAGE: RESOURCES -->
-        <div 
-<div id="page-resources" class="section-view">
+        <div id="page-resources" class="section-view">
             <div class="hero-pattern py-20 text-center text-white relative">
                 <div class="absolute inset-0 bg-black opacity-30"></div>
                 <div class="relative z-10 px-4">
@@ -4034,145 +4033,223 @@ document.addEventListener('DOMContentLoaded', function () {
 const RESOURCE_SUPABASE_CONFIG = {
   SUPABASE_URL: "https://abgcktgleihesnzuyldh.supabase.co",
   SUPABASE_ANON_KEY: "sb_publishable_ja1L8T6KlchF1IuO1dzDrw_PYet3TF7",
-  RESOURCE_TABLE: "teaching_resources",
   RESOURCE_BUCKET: "teaching-files"
 };
 
+const RESOURCE_COURSES = [
+  { name: "五軸加工", folder: "five-axis" },
+  { name: "工具機精度量測", folder: "precision-measurement" },
+  { name: "工具機關鍵組件設計", folder: "signal-ai" },
+  { name: "Python 應用於訊號處理／影像辨識", folder: "python" },
+  { name: "訊號處理與感測原理", folder: "signal" }
+];
+
 let resourceSupabaseClient = null;
-let resourceCache = [];
+const resourceCacheByCourse = {};
+const resourceErrorByCourse = {};
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function getFileType(fileNameOrType) {
+  const raw = String(fileNameOrType || "").trim().toLowerCase().split("?")[0];
+  const ext = raw.includes(".") ? raw.split(".").pop() : raw;
+  return ext || "file";
+}
 
 function resourceTypeMeta(fileType) {
-  const t = (fileType || "").toLowerCase();
+  const t = getFileType(fileType);
   if (t === "pdf") return { icon: "fa-file-pdf", label: "PDF", cls: "bg-red-50 text-red-700" };
-  if (t === "ppt" || t === "pptx") return { icon: "fa-file-powerpoint", label: "PPT", cls: "bg-orange-50 text-orange-700" };
-  return { icon: "fa-file-lines", label: "其他", cls: "bg-violet-50 text-violet-700" };
+  if (["ppt", "pptx"].includes(t)) return { icon: "fa-file-powerpoint", label: "PPT", cls: "bg-orange-50 text-orange-700" };
+  if (["doc", "docx"].includes(t)) return { icon: "fa-file-word", label: "Word", cls: "bg-blue-50 text-blue-700" };
+  if (["xls", "xlsx", "csv"].includes(t)) return { icon: "fa-file-excel", label: "Excel", cls: "bg-green-50 text-green-700" };
+  if (["jpg", "jpeg", "png", "gif", "webp", "svg"].includes(t)) return { icon: "fa-file-image", label: "圖片", cls: "bg-pink-50 text-pink-700" };
+  if (["mp4", "mov", "avi", "mkv", "webm"].includes(t)) return { icon: "fa-file-video", label: "影片", cls: "bg-cyan-50 text-cyan-700" };
+  if (["py", "ipynb", "js", "html", "css"].includes(t)) return { icon: "fa-file-code", label: "程式", cls: "bg-violet-50 text-violet-700" };
+  return { icon: "fa-file-lines", label: "檔案", cls: "bg-gray-100 text-gray-700" };
+}
+
+function encodeStoragePath(path) {
+  return String(path || "").split("/").map(encodeURIComponent).join("/");
+}
+
+function getPublicUrl(path) {
+  const { SUPABASE_URL, RESOURCE_BUCKET } = RESOURCE_SUPABASE_CONFIG;
+  if (resourceSupabaseClient) {
+    const result = resourceSupabaseClient.storage.from(RESOURCE_BUCKET).getPublicUrl(path);
+    if (result?.data?.publicUrl) return result.data.publicUrl;
+  }
+  return `${SUPABASE_URL}/storage/v1/object/public/${RESOURCE_BUCKET}/${encodeStoragePath(path)}`;
+}
+
+function buildPreviewUrl(url, fileName) {
+  const t = getFileType(fileName || url);
+  const encoded = encodeURIComponent(url);
+  if (["ppt", "pptx", "doc", "docx", "xls", "xlsx"].includes(t)) return `https://view.officeapps.live.com/op/view.aspx?src=${encoded}`;
+  if (["pdf", "jpg", "jpeg", "png", "gif", "webp", "svg", "mp4", "mov", "webm"].includes(t)) return url;
+  return `https://docs.google.com/gview?embedded=true&url=${encoded}`;
+}
+
+function buildDownloadUrl(url, fileName) {
+  const joiner = url.includes("?") ? "&" : "?";
+  return `${url}${joiner}download=${encodeURIComponent(fileName || "教材檔案")}`;
+}
+
+function isLikelyFolder(entry) {
+  if (!entry) return false;
+  if (entry.name === ".emptyFolderPlaceholder") return false;
+  // Supabase Storage folders normally have no id and no metadata.
+  if (!entry.id && !entry.metadata) return true;
+  // Some UI-created folders may appear with null metadata.
+  if (!entry.id && (entry.metadata === null || typeof entry.metadata === "undefined")) return true;
+  return false;
+}
+
+async function listBySupabaseClient(prefix) {
+  const { data, error } = await resourceSupabaseClient.storage
+    .from(RESOURCE_SUPABASE_CONFIG.RESOURCE_BUCKET)
+    .list(prefix, { limit: 1000, offset: 0, sortBy: { column: "name", order: "asc" } });
+  if (error) throw error;
+  return Array.isArray(data) ? data : [];
+}
+
+async function listByRestApi(prefix) {
+  const { SUPABASE_URL, SUPABASE_ANON_KEY, RESOURCE_BUCKET } = RESOURCE_SUPABASE_CONFIG;
+  const response = await fetch(`${SUPABASE_URL}/storage/v1/object/list/${RESOURCE_BUCKET}`, {
+    method: "POST",
+    headers: {
+      "apikey": SUPABASE_ANON_KEY,
+      "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ prefix, limit: 1000, offset: 0, sortBy: { column: "name", order: "asc" } })
+  });
+  if (!response.ok) throw new Error(`REST ${response.status}: ${await response.text()}`);
+  const data = await response.json();
+  return Array.isArray(data) ? data : [];
+}
+
+async function listStoragePrefix(prefix) {
+  try {
+    return await listBySupabaseClient(prefix);
+  } catch (err1) {
+    console.warn("Supabase SDK list 失敗，改用 REST list：", prefix, err1);
+    return await listByRestApi(prefix);
+  }
+}
+
+async function collectFiles(courseName, prefix, depth = 0) {
+  if (depth > 5) return [];
+  const rows = await listStoragePrefix(prefix);
+  const files = [];
+
+  for (const entry of rows) {
+    if (!entry || !entry.name || entry.name === ".emptyFolderPlaceholder") continue;
+    const fullPath = prefix ? `${prefix}/${entry.name}` : entry.name;
+    if (isLikelyFolder(entry)) {
+      const nested = await collectFiles(courseName, fullPath, depth + 1);
+      files.push(...nested);
+      continue;
+    }
+    files.push({
+      course: courseName,
+      file_name: entry.name,
+      file_type: getFileType(entry.name),
+      storage_path: fullPath,
+      public_url: getPublicUrl(fullPath),
+      updated_at: entry.updated_at || entry.created_at || ""
+    });
+  }
+  return files;
+}
+
+async function loadAllResourceFiles() {
+  Object.keys(resourceCacheByCourse).forEach(k => delete resourceCacheByCourse[k]);
+  Object.keys(resourceErrorByCourse).forEach(k => delete resourceErrorByCourse[k]);
+
+  if (!window.supabase) {
+    RESOURCE_COURSES.forEach(c => resourceErrorByCourse[c.name] = "Supabase CDN 尚未載入，請確認網路或 supabase-js CDN。 ");
+    return;
+  }
+
+  if (!resourceSupabaseClient) {
+    resourceSupabaseClient = window.supabase.createClient(
+      RESOURCE_SUPABASE_CONFIG.SUPABASE_URL,
+      RESOURCE_SUPABASE_CONFIG.SUPABASE_ANON_KEY
+    );
+  }
+
+  for (const course of RESOURCE_COURSES) {
+    try {
+      const files = await collectFiles(course.name, course.folder);
+      resourceCacheByCourse[course.name] = files;
+      console.log(`[教材] ${course.name} / ${course.folder}:`, files);
+    } catch (err) {
+      console.error(`[教材] ${course.name} 讀取失敗`, err);
+      resourceCacheByCourse[course.name] = [];
+      resourceErrorByCourse[course.name] = err?.message || String(err);
+    }
+  }
 }
 
 function renderCourseFiles(courseName) {
   const target = document.querySelector('.resource-file-list[data-course="' + courseName + '"]');
   if (!target) return;
-  const courseFiles = resourceCache.filter(item => item.course === courseName);
 
-  if (!courseFiles.length) {
-    target.innerHTML = '<div class="resource-empty-box rounded-[1.25rem] p-6 text-center text-sm text-gray-500">目前此課程尚未有教材，或 Supabase 資料表 / Storage 路徑 / RLS 讀取權限尚未設定完成。</div>';
+  const course = RESOURCE_COURSES.find(c => c.name === courseName);
+  const files = (resourceCacheByCourse[courseName] || [])
+    .slice()
+    .sort((a, b) => String(a.file_name || "").localeCompare(String(b.file_name || ""), "zh-Hant"));
+
+  if (!files.length) {
+    const err = resourceErrorByCourse[courseName];
+    target.innerHTML = `
+      <div class="resource-empty-box rounded-[1.25rem] p-6 text-center text-sm text-gray-500 leading-7">
+        目前此課程尚未讀到教材。<br>
+        對應 Supabase 路徑：<b>teaching-files/${escapeHtml(course?.folder || "")}</b><br>
+        ${err ? `<span class="text-red-600 font-bold">讀取錯誤：${escapeHtml(err)}</span><br>` : ""}
+        請確認該資料夾內有檔案，且 Storage bucket 已設為 Public，或 Storage policy 允許 <b>SELECT / list</b>。
+      </div>`;
     return;
   }
 
-  target.innerHTML = courseFiles.map(item => {
-    const meta = resourceTypeMeta(item.file_type);
-    const href = item.public_url || item.file_url || "";
+  target.innerHTML = files.map(item => {
+    const fileName = item.file_name || "未命名教材";
+    // 顯示名稱：只將「工具機關鍵組件設計」教材頁面中的檔案名稱顯示為 CNC，
+    // 實際 Supabase storage_path 與下載連結維持原檔案路徑，不影響檔案讀取。
+    const displayFileName = courseName === "工具機關鍵組件設計" ? "CNC" : fileName;
+    const meta = resourceTypeMeta(item.file_type || fileName);
+    const href = item.public_url || "";
+    const previewUrl = buildPreviewUrl(href, fileName);
+    const downloadUrl = buildDownloadUrl(href, fileName);
     return `
-      <div class="bg-white rounded-[1.25rem] border border-gray-100 p-4 mb-3">
+      <div class="bg-white rounded-[1.25rem] border border-gray-100 p-4 mb-3 shadow-sm hover:shadow-md transition">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
           <div class="min-w-0">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="resource-type-pill ${meta.cls}">
-                <i class="fa-solid ${meta.icon}"></i>${meta.label}
-              </span>
+            <div class="flex items-center gap-2 mb-2 flex-wrap">
+              <span class="resource-type-pill ${meta.cls}"><i class="fa-solid ${meta.icon}"></i>${meta.label}</span>
+              <span class="text-xs text-gray-400">${escapeHtml(item.storage_path)}</span>
             </div>
-            <h4 class="text-base font-extrabold text-gray-800 break-words">${item.file_name || "未命名教材"}</h4>
-            <p class="text-sm text-gray-500 mt-1">${item.description || "教材說明待補充"}</p>
+            <h4 class="text-base font-extrabold text-gray-800 break-words">${escapeHtml(displayFileName)}</h4>
+            <p class="text-sm text-gray-500 mt-1">點選預覽可線上查看；點選下載可直接下載原始檔。</p>
           </div>
           <div class="flex flex-wrap gap-2 shrink-0">
-            <a href="${href || 'javascript:void(0)'}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 text-white text-sm font-extrabold hover:bg-blue-700 transition ${href ? '' : 'opacity-50 pointer-events-none'}">
+            <a href="${previewUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 text-white text-sm font-extrabold hover:bg-blue-700 transition">
               <i class="fa-solid fa-eye"></i>預覽
             </a>
-            <a href="${href || 'javascript:void(0)'}" download class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-gray-200 text-gray-700 text-sm font-extrabold hover:bg-gray-50 transition ${href ? '' : 'opacity-50 pointer-events-none'}">
+            <a href="${downloadUrl}" download="${escapeHtml(displayFileName)}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-gray-200 text-gray-700 text-sm font-extrabold hover:bg-gray-50 transition">
               <i class="fa-solid fa-download"></i>下載
             </a>
           </div>
         </div>
-      </div>
-    `;
+      </div>`;
   }).join("");
-}
-
-async function fetchSupabaseResources() {
-  const { SUPABASE_URL, SUPABASE_ANON_KEY, RESOURCE_TABLE, RESOURCE_BUCKET } = RESOURCE_SUPABASE_CONFIG;
-
-  const manualResources = [
-    {
-      course: "工具機精度量測",
-      file_name: "工具機械之真圓度測定.pptx",
-      file_type: "pptx",
-      description: "真圓度量測教材",
-      storage_path: "precision-measurement/yuanliang-roundness.pptx"
-    },
-    {
-      course: "五軸加工",
-      file_name: "G01與G90手寫程式.pptx",
-      file_type: "pptx",
-      description: "手寫程式教材",
-      storage_path: "five-axis/su-yizhen-g01-g90.pptx"
-    },
-    {
-      course: "Python 應用於訊號處理／影像辨識",
-      file_name: "PBL智慧人才培育計畫.pptx",
-      file_type: "pptx",
-      description: "PBL課程教材",
-      storage_path: "signal-ai/pbl-smart-talent-plan.pptx"
-    }
-  ];
-
-  const useManualResources = () => {
-    resourceCache = manualResources.map(item => {
-      const pub = resourceSupabaseClient
-        ? resourceSupabaseClient.storage.from(RESOURCE_BUCKET).getPublicUrl(item.storage_path)
-        : { data: { publicUrl: SUPABASE_URL + "/storage/v1/object/public/" + RESOURCE_BUCKET + "/" + item.storage_path } };
-
-      return {
-        ...item,
-        public_url: pub?.data?.publicUrl || (SUPABASE_URL + "/storage/v1/object/public/" + RESOURCE_BUCKET + "/" + item.storage_path)
-      };
-    });
-  };
-
-  const useDemo = !window.supabase ||
-    SUPABASE_URL.includes("請填入") ||
-    SUPABASE_ANON_KEY.includes("請填入");
-
-  if (useDemo) {
-    resourceSupabaseClient = null;
-    useManualResources();
-    return;
-  }
-
-  if (!resourceSupabaseClient) {
-    resourceSupabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  }
-
-  try {
-    const { data, error } = await resourceSupabaseClient
-      .from(RESOURCE_TABLE)
-      .select("*")
-      .order("created_at", { ascending: false });
-
-    if (error) {
-      console.warn("資料表讀取失敗，改用 Storage 固定路徑：", error);
-      useManualResources();
-      return;
-    }
-
-    const rows = (data || []).map(item => {
-      let publicUrl = item.public_url || item.file_url || "";
-      if (!publicUrl && item.storage_path) {
-        const pub = resourceSupabaseClient.storage.from(RESOURCE_BUCKET).getPublicUrl(item.storage_path);
-        publicUrl = pub?.data?.publicUrl || "";
-      }
-      return { ...item, public_url: publicUrl };
-    }).filter(item => item.public_url);
-
-    if (!rows.length) {
-      console.warn("資料表沒有可用資料，改用 Storage 固定路徑。");
-      useManualResources();
-      return;
-    }
-
-    resourceCache = rows;
-  } catch (err) {
-    console.warn("Supabase 連線異常，改用 Storage 固定路徑：", err);
-    useManualResources();
-  }
 }
 
 function bindResourceAccordion() {
@@ -4183,10 +4260,8 @@ function bindResourceAccordion() {
       const panel = parent.querySelector(".resource-folder-panel");
       const courseName = header.dataset.course;
       const isOpen = panel.classList.contains("open");
-
       document.querySelectorAll(".resource-folder-header").forEach(h => h.classList.remove("active"));
       document.querySelectorAll(".resource-folder-panel").forEach(p => p.classList.remove("open"));
-
       if (!isOpen) {
         header.classList.add("active");
         panel.classList.add("open");
@@ -4196,9 +4271,17 @@ function bindResourceAccordion() {
   });
 }
 
+function renderAllResourceLists() {
+  document.querySelectorAll(".resource-file-list").forEach(el => renderCourseFiles(el.dataset.course));
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
-  await fetchSupabaseResources();
+  document.querySelectorAll(".resource-file-list").forEach(el => {
+    el.innerHTML = '<div class="resource-empty-box rounded-[1.25rem] p-6 text-center text-sm text-gray-500 leading-7"><i class="fa-solid fa-spinner fa-spin mr-2"></i>正在讀取 Supabase 教材...</div>';
+  });
+  await loadAllResourceFiles();
   bindResourceAccordion();
+  renderAllResourceLists();
 });
 </script>
 
