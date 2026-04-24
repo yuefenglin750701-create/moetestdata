@@ -1136,9 +1136,15 @@
       <span class="project-chip bg-amber-50 text-amber-700">可重複使用數位教材</span>
     </div>
 
+    <div id="video-category-filters" class="flex flex-wrap gap-3 mb-8">
+      <button type="button" class="video-category-filter active px-5 py-2 rounded-full border border-blue-200 bg-blue-600 text-white text-sm font-extrabold shadow-sm transition" data-filter="all">全部影片</button>
+      <button type="button" class="video-category-filter px-5 py-2 rounded-full border border-blue-200 bg-white text-blue-700 text-sm font-extrabold shadow-sm transition hover:bg-blue-50" data-filter="招生影片">招生影片</button>
+      <button type="button" class="video-category-filter px-5 py-2 rounded-full border border-blue-200 bg-white text-blue-700 text-sm font-extrabold shadow-sm transition hover:bg-blue-50" data-filter="教學影片">教學影片</button>
+    </div>
+
     <div id="video-gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
 
-      <button type="button" class="video-thumb-card group bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden text-left transition hover:shadow-xl hover:-translate-y-1"
+      <button type="button" data-video-category="招生影片" class="video-thumb-card group bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden text-left transition hover:shadow-xl hover:-translate-y-1"
         data-video-id="PIV2tifKPgE"
         data-video-tag="核心課程"
         data-video-title="智慧機械概論與虛實整合"
@@ -1157,7 +1163,7 @@
         </div>
       </button>
 
-      <button type="button" class="video-thumb-card group bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden text-left transition hover:shadow-xl hover:-translate-y-1"
+      <button type="button" data-video-category="招生影片" class="video-thumb-card group bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden text-left transition hover:shadow-xl hover:-translate-y-1"
         data-video-id="u2G64r_PDYQ"
         data-video-tag="PBL 專案實作"
         data-video-title="綠色製造能耗監測實錄"
@@ -1176,7 +1182,7 @@
         </div>
       </button>
 
-      <button type="button" class="video-thumb-card group bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden text-left transition hover:shadow-xl hover:-translate-y-1"
+      <button type="button" data-video-category="招生影片" class="video-thumb-card group bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden text-left transition hover:shadow-xl hover:-translate-y-1"
         data-video-id="y1-yZkB0yaA"
         data-video-tag="技術研習"
         data-video-title="Python 訊號處理與 AI 診斷"
@@ -1195,7 +1201,7 @@
         </div>
       </button>
 
-      <button type="button" class="video-thumb-card group bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden text-left transition hover:shadow-xl hover:-translate-y-1"
+      <button type="button" data-video-category="教學影片" class="video-thumb-card group bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden text-left transition hover:shadow-xl hover:-translate-y-1"
         data-video-id="fqFJGuke00A"
         data-video-tag="精選教學"
         data-video-title="五軸加工機操作示範：開機與座標設定"
@@ -1214,7 +1220,7 @@
         </div>
       </button>
 
-      <button type="button" class="video-thumb-card group bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden text-left transition hover:shadow-xl hover:-translate-y-1"
+      <button type="button" data-video-category="教學影片" class="video-thumb-card group bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden text-left transition hover:shadow-xl hover:-translate-y-1"
         data-video-id="eAb6gCuuKPY"
         data-video-tag="新增教學影片"
         data-video-title="智慧製造教學影片新增內容"
@@ -1233,7 +1239,7 @@
         </div>
       </button>
 
-      <button type="button" class="video-thumb-card group bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden text-left transition hover:shadow-xl hover:-translate-y-1"
+      <button type="button" data-video-category="教學影片" class="video-thumb-card group bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden text-left transition hover:shadow-xl hover:-translate-y-1"
         data-video-id="6gVRiu4F_Cc"
         data-video-tag="新增教學影片"
         data-video-title="智慧製造教學影片新增內容（二）"
@@ -2880,7 +2886,43 @@ window.addEventListener("DOMContentLoaded", () => {
     document.body.classList.add("overflow-hidden");
   }
 
+  function initVideoCategoryFilters() {
+    const filterButtons = document.querySelectorAll('.video-category-filter');
+    const cards = document.querySelectorAll('.video-thumb-card[data-video-category]');
+    if (!filterButtons.length || !cards.length) return;
+
+    const setActiveButton = (activeBtn) => {
+      filterButtons.forEach((btn) => {
+        const isActive = btn === activeBtn;
+        btn.classList.toggle('active', isActive);
+        btn.classList.toggle('bg-blue-600', isActive);
+        btn.classList.toggle('text-white', isActive);
+        btn.classList.toggle('bg-white', !isActive);
+        btn.classList.toggle('text-blue-700', !isActive);
+      });
+    };
+
+    const applyFilter = (filterValue) => {
+      cards.forEach((card) => {
+        const category = card.dataset.videoCategory || '教學影片';
+        const shouldShow = filterValue === 'all' || category === filterValue;
+        card.classList.toggle('hidden', !shouldShow);
+      });
+    };
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        setActiveButton(btn);
+        applyFilter(btn.dataset.filter || 'all');
+      });
+    });
+
+    applyFilter('all');
+  }
+
   function initVideoGallery() {
+    initVideoCategoryFilters();
+
     document.querySelectorAll(".video-thumb-card").forEach((card) => {
       card.addEventListener("click", () => openVideoModal(card));
     });
