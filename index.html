@@ -4032,8 +4032,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <script>
 const RESOURCE_SUPABASE_CONFIG = {
-  SUPABASE_URL: "請填入你的 Supabase URL",
-  SUPABASE_ANON_KEY: "請填入你的 Supabase anon key",
+  SUPABASE_URL: "https://abgcktgleihesnzuyldh.supabase.co",
+  SUPABASE_ANON_KEY: "sb_publishable_ja1L8T6KlchF1IuO1dzDrw_PYet3TF7",
   RESOURCE_TABLE: "teaching_resources",
   RESOURCE_BUCKET: "teaching-files"
 };
@@ -4054,13 +4054,13 @@ function renderCourseFiles(courseName) {
   const courseFiles = resourceCache.filter(item => item.course === courseName);
 
   if (!courseFiles.length) {
-    target.innerHTML = '<div class="resource-empty-box rounded-[1.25rem] p-6 text-center text-sm text-gray-500">目前此課程尚未有教材，或尚未完成 Supabase 設定。</div>';
+    target.innerHTML = '<div class="resource-empty-box rounded-[1.25rem] p-6 text-center text-sm text-gray-500">目前此課程尚未有教材，或 Supabase 資料表 / Storage 路徑 / RLS 讀取權限尚未設定完成。</div>';
     return;
   }
 
   target.innerHTML = courseFiles.map(item => {
     const meta = resourceTypeMeta(item.file_type);
-    const href = item.public_url || item.file_url || "#";
+    const href = item.public_url || item.file_url || "";
     return `
       <div class="bg-white rounded-[1.25rem] border border-gray-100 p-4 mb-3">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
@@ -4074,10 +4074,10 @@ function renderCourseFiles(courseName) {
             <p class="text-sm text-gray-500 mt-1">${item.description || "教材說明待補充"}</p>
           </div>
           <div class="flex flex-wrap gap-2 shrink-0">
-            <a href="${href}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 text-white text-sm font-extrabold hover:bg-blue-700 transition">
+            <a href="${href || 'javascript:void(0)'}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 text-white text-sm font-extrabold hover:bg-blue-700 transition ${href ? '' : 'opacity-50 pointer-events-none'}">
               <i class="fa-solid fa-eye"></i>預覽
             </a>
-            <a href="${href}" download class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-gray-200 text-gray-700 text-sm font-extrabold hover:bg-gray-50 transition">
+            <a href="${href || 'javascript:void(0)'}" download class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-gray-200 text-gray-700 text-sm font-extrabold hover:bg-gray-50 transition ${href ? '' : 'opacity-50 pointer-events-none'}">
               <i class="fa-solid fa-download"></i>下載
             </a>
           </div>
@@ -4092,14 +4092,8 @@ async function fetchSupabaseResources() {
   const useDemo = !window.supabase || SUPABASE_URL.includes("請填入") || SUPABASE_ANON_KEY.includes("請填入");
 
   if (useDemo) {
-    resourceCache = [
-      { course: "五軸加工", file_name: "五軸加工教材.pdf", file_type: "pdf", description: "示範教材資料", public_url: "#" },
-      { course: "五軸加工", file_name: "五軸加工課程簡報.pptx", file_type: "ppt", description: "示範課程簡報", public_url: "#" },
-      { course: "工具機精度量測", file_name: "精度量測講義.pdf", file_type: "pdf", description: "示範教材資料", public_url: "#" },
-      { course: "工具機關鍵組件設計", file_name: "關鍵組件設計.pptx", file_type: "ppt", description: "示範課程簡報", public_url: "#" },
-      { course: "Python 應用於訊號處理／影像辨識", file_name: "影像辨識範例.zip", file_type: "zip", description: "示範其他類型教材", public_url: "#" },
-      { course: "訊號處理與感測原理", file_name: "訊號處理教材.pdf", file_type: "pdf", description: "示範教材資料", public_url: "#" }
-    ];
+    resourceCache = [];
+    console.error("Supabase 尚未正確設定，請檢查 SUPABASE_URL / SUPABASE_ANON_KEY。");
     return;
   }
 
@@ -4121,7 +4115,7 @@ async function fetchSupabaseResources() {
       publicUrl = pub?.data?.publicUrl || "";
     }
     return { ...item, public_url: publicUrl };
-  });
+  }).filter(item => item.public_url);
 }
 
 function bindResourceAccordion() {
