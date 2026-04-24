@@ -1481,7 +1481,7 @@
                     <div class="flex flex-col lg:flex-row gap-8 lg:items-start">
                         <div class="lg:w-1/3">
                             <h2 class="text-3xl font-extrabold text-gray-800 mb-4">特色領域模組教材</h2>
-                            <p class="text-gray-500 leading-relaxed mb-5">點選資料夾後會像 Google Drive 一樣展開教材清單，並從 Supabase 自動讀取 PDF、PPT 與其他教材檔案。</p>
+                            <p class="text-gray-500 leading-relaxed mb-5">點選資料夾後會像 Google Drive 一樣展開教材清單。此版本會優先讀取 Supabase 資料表；若資料表尚未讀到資料，會直接連到 Storage 中的固定檔案路徑。</p>
                             <div class="supabase-config-note bg-blue-50 border border-blue-100 rounded-[1.5rem] p-5 text-sm text-blue-900/85 leading-7">
                                 <div class="font-extrabold text-blue-900 mb-2">Supabase 設定欄位</div>
                                 <div><code>SUPABASE_URL</code></div>
@@ -4089,11 +4089,51 @@ function renderCourseFiles(courseName) {
 
 async function fetchSupabaseResources() {
   const { SUPABASE_URL, SUPABASE_ANON_KEY, RESOURCE_TABLE, RESOURCE_BUCKET } = RESOURCE_SUPABASE_CONFIG;
-  const useDemo = !window.supabase || SUPABASE_URL.includes("請填入") || SUPABASE_ANON_KEY.includes("請填入");
+
+  const manualResources = [
+    {
+      course: "工具機精度量測",
+      file_name: "工具機械之真圓度測定.pptx",
+      file_type: "pptx",
+      description: "真圓度量測教材",
+      storage_path: "precision-measurement/yuanliang-roundness.pptx"
+    },
+    {
+      course: "五軸加工",
+      file_name: "G01與G90手寫程式.pptx",
+      file_type: "pptx",
+      description: "手寫程式教材",
+      storage_path: "five-axis/su-yizhen-g01-g90.pptx"
+    },
+    {
+      course: "Python 應用於訊號處理／影像辨識",
+      file_name: "PBL智慧人才培育計畫.pptx",
+      file_type: "pptx",
+      description: "PBL課程教材",
+      storage_path: "signal-ai/pbl-smart-talent-plan.pptx"
+    }
+  ];
+
+  const useManualResources = () => {
+    resourceCache = manualResources.map(item => {
+      const pub = resourceSupabaseClient
+        ? resourceSupabaseClient.storage.from(RESOURCE_BUCKET).getPublicUrl(item.storage_path)
+        : { data: { publicUrl: SUPABASE_URL + "/storage/v1/object/public/" + RESOURCE_BUCKET + "/" + item.storage_path } };
+
+      return {
+        ...item,
+        public_url: pub?.data?.publicUrl || (SUPABASE_URL + "/storage/v1/object/public/" + RESOURCE_BUCKET + "/" + item.storage_path)
+      };
+    });
+  };
+
+  const useDemo = !window.supabase ||
+    SUPABASE_URL.includes("請填入") ||
+    SUPABASE_ANON_KEY.includes("請填入");
 
   if (useDemo) {
-    resourceCache = [];
-    console.error("Supabase 尚未正確設定，請檢查 SUPABASE_URL / SUPABASE_ANON_KEY。");
+    resourceSupabaseClient = null;
+    useManualResources();
     return;
   }
 
@@ -4101,21 +4141,38 @@ async function fetchSupabaseResources() {
     resourceSupabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   }
 
-  const { data, error } = await resourceSupabaseClient.from(RESOURCE_TABLE).select("*").order("created_at", { ascending: false });
-  if (error) {
-    console.error(error);
-    resourceCache = [];
-    return;
-  }
+  try {
+    const { data, error } = await resourceSupabaseClient
+      .from(RESOURCE_TABLE)
+      .select("*")
+      .order("created_at", { ascending: false });
 
-  resourceCache = (data || []).map(item => {
-    let publicUrl = item.public_url || item.file_url || "";
-    if (!publicUrl && item.storage_path) {
-      const pub = resourceSupabaseClient.storage.from(RESOURCE_BUCKET).getPublicUrl(item.storage_path);
-      publicUrl = pub?.data?.publicUrl || "";
+    if (error) {
+      console.warn("資料表讀取失敗，改用 Storage 固定路徑：", error);
+      useManualResources();
+      return;
     }
-    return { ...item, public_url: publicUrl };
-  }).filter(item => item.public_url);
+
+    const rows = (data || []).map(item => {
+      let publicUrl = item.public_url || item.file_url || "";
+      if (!publicUrl && item.storage_path) {
+        const pub = resourceSupabaseClient.storage.from(RESOURCE_BUCKET).getPublicUrl(item.storage_path);
+        publicUrl = pub?.data?.publicUrl || "";
+      }
+      return { ...item, public_url: publicUrl };
+    }).filter(item => item.public_url);
+
+    if (!rows.length) {
+      console.warn("資料表沒有可用資料，改用 Storage 固定路徑。");
+      useManualResources();
+      return;
+    }
+
+    resourceCache = rows;
+  } catch (err) {
+    console.warn("Supabase 連線異常，改用 Storage 固定路徑：", err);
+    useManualResources();
+  }
 }
 
 function bindResourceAccordion() {
