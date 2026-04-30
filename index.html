@@ -583,85 +583,199 @@
 }
 
 
-/* 專題圖片點擊放大 Lightbox */
-.project-image-card {
-  cursor: zoom-in;
-  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+
+/* === 2026-04-30 課程培育金字塔比例修正版：讓左側金字塔與右側課程卡片視覺平衡 === */
+.pyramid-balanced-section{padding-top:4.5rem;padding-bottom:4.5rem;}
+.pyramid-balanced-wrap{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(420px,.92fr);gap:3.5rem;align-items:center;}
+.pyramid-visual-side{min-height:560px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.pyramid-visual-side h2{margin-bottom:2rem!important;}
+.pyramid-visual-side svg{width:min(100%,560px);max-width:560px!important;}
+.pyramid-panel-side{width:100%;display:flex;justify-content:center;}
+.pyramid-panel-balanced{width:min(100%,520px);min-height:520px!important;max-height:660px;border-radius:2.25rem!important;overflow:hidden;}
+.pyramid-panel-balanced>.p-8:first-child{padding:1.6rem 2rem!important;border-top-left-radius:2.25rem!important;border-top-right-radius:2.25rem!important;}
+.pyramid-panel-balanced>.p-8:nth-child(2){padding:1.45rem 1.55rem!important;max-height:505px;overflow-y:auto;}
+.pyramid-panel-balanced .pyramid-course-card{border-radius:1.35rem!important;padding:1rem 1.1rem!important;}
+.pyramid-panel-balanced .pyramid-course-card h4{font-size:1rem!important;line-height:1.5;}
+.pyramid-panel-balanced .pyramid-course-card p{font-size:.82rem!important;}
+.pyramid-panel-balanced .uniform-btn{min-height:36px;padding:.55rem .8rem;border-radius:.75rem;font-size:.78rem;}
+.pyramid-panel-balanced .pyramid-module-card{border-radius:1rem!important;padding:.85rem!important;}
+@media(max-width:1023px){.pyramid-balanced-wrap{grid-template-columns:1fr;gap:2.5rem}.pyramid-visual-side{min-height:auto}.pyramid-visual-side svg{max-width:520px!important}.pyramid-panel-balanced{max-width:640px;max-height:none}.pyramid-panel-balanced>.p-8:nth-child(2){max-height:none}}
+@media(max-width:640px){.pyramid-balanced-section{padding-top:3rem;padding-bottom:3rem}.pyramid-visual-side h2{font-size:1.55rem!important;text-align:center}.pyramid-panel-balanced{width:100%;min-height:auto!important;border-radius:1.6rem!important}.pyramid-panel-balanced>.p-8:first-child{padding:1.35rem 1.4rem!important;border-top-left-radius:1.6rem!important;border-top-right-radius:1.6rem!important}.pyramid-panel-balanced>.p-8:nth-child(2){padding:1.15rem!important}}
+
+
+/* 專題成果頁面：四張卡片比例修正版 */
+#page-projects .container.max-w-7xl {
+    max-width: 1380px !important;
 }
-.project-image-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.14);
-  border-color: #bfdbfe;
+#projects-grid {
+    align-items: stretch;
 }
-.project-lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 100300;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
-  background: rgba(2, 6, 23, 0.88);
-  backdrop-filter: blur(8px);
+#projects-grid .project-card {
+    height: 100%;
+    min-height: 650px;
+    display: flex;
+    flex-direction: column;
 }
-.project-lightbox.active {
-  display: flex;
+#projects-grid .project-card > .h-48 {
+    height: 220px !important;
+    flex-shrink: 0;
 }
-.project-lightbox-inner {
-  position: relative;
-  width: min(1200px, 96vw);
-  max-height: 92vh;
-  border-radius: 1.75rem;
-  overflow: hidden;
-  background: #0f172a;
-  box-shadow: 0 28px 90px rgba(0,0,0,.45);
+#projects-grid .project-card > .p-7 {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1.55rem !important;
 }
-.project-lightbox-img {
-  width: 100%;
-  max-height: 86vh;
-  object-fit: contain;
-  display: block;
-  background: #0f172a;
+#projects-grid .project-card h3 {
+    min-height: 3.75rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
-.project-lightbox-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 3;
-  width: 48px;
-  height: 48px;
-  border-radius: 9999px;
-  border: 0;
-  background: rgba(255,255,255,.94);
-  color: #0f172a;
-  font-size: 1.1rem;
-  cursor: pointer;
-  box-shadow: 0 14px 30px rgba(15,23,42,.3);
+#projects-grid .project-card p {
+    min-height: 6.4rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
-.project-lightbox-caption {
-  position: absolute;
-  left: 1rem;
-  bottom: 1rem;
-  right: 1rem;
-  z-index: 3;
-  display: inline-flex;
-  width: fit-content;
-  max-width: calc(100% - 2rem);
-  align-items: center;
-  gap: .55rem;
-  padding: .7rem 1rem;
-  border-radius: 9999px;
-  background: rgba(15,23,42,.58);
-  border: 1px solid rgba(255,255,255,.14);
-  color: #fff;
-  backdrop-filter: blur(8px);
-  font-weight: 800;
+#projects-grid .project-card .space-y-2 {
+    margin-top: auto;
+    min-height: 4.6rem;
 }
-@media (max-width: 768px) {
-  .project-lightbox { padding: .85rem; }
-  .project-lightbox-inner { width: 98vw; border-radius: 1.25rem; }
-  .project-lightbox-close { width: 42px; height: 42px; top: .75rem; right: .75rem; }
-  .project-lightbox-caption { font-size: .85rem; bottom: .75rem; left: .75rem; right: .75rem; }
+#projects-grid .project-card .open-project-modal {
+    margin-top: 0.5rem;
+}
+#projects-grid .project-chip {
+    font-size: 0.72rem;
+    padding: 0.35rem 0.65rem;
+}
+@media (min-width: 1280px) {
+    #projects-grid {
+        gap: 1.5rem !important;
+    }
+}
+@media (max-width: 1279px) {
+    #projects-grid .project-card {
+        min-height: 620px;
+    }
+}
+@media (max-width: 767px) {
+    #projects-grid .project-card {
+        min-height: auto;
+    }
+    #projects-grid .project-card > .h-48 {
+        height: 210px !important;
+    }
+    #projects-grid .project-card h3,
+    #projects-grid .project-card p,
+    #projects-grid .project-card .space-y-2 {
+        min-height: auto;
+    }
+}
+
+
+
+/* 專題四封面文字：卷軸式呈現，避免長標題撐開或被截斷 */
+#projects-grid .project-card[data-category~="pbl"] .project-cover-title-scroll {
+    position: absolute;
+    left: 0.9rem;
+    right: 0.9rem;
+    top: 0.85rem;
+    z-index: 5;
+    height: 2rem;
+    overflow: hidden;
+    border-radius: 9999px;
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.7);
+    box-shadow: 0 8px 18px rgba(15,23,42,0.12);
+}
+#projects-grid .project-card[data-category~="pbl"] .project-cover-title-scroll span {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 100%;
+    color: #0f172a;
+    font-size: 0.82rem;
+    font-weight: 900;
+    line-height: 2rem;
+    animation: projectCoverMarquee 12s linear infinite;
+}
+#projects-grid .project-card[data-category~="pbl"]:hover .project-cover-title-scroll span {
+    animation-duration: 7s;
+}
+@keyframes projectCoverMarquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+#projects-grid .project-card[data-category~="pbl"] .project-cover-badges {
+    top: 3.35rem !important;
+}
+#projects-grid .project-card[data-category~="pbl"] img[alt=""] {
+    color: transparent;
+}
+@media (max-width: 767px) {
+    #projects-grid .project-card[data-category~="pbl"] .project-cover-title-scroll {
+        left: 0.8rem;
+        right: 0.8rem;
+        top: 0.75rem;
+        height: 1.9rem;
+    }
+    #projects-grid .project-card[data-category~="pbl"] .project-cover-title-scroll span {
+        font-size: 0.76rem;
+        line-height: 1.9rem;
+        animation-duration: 10s;
+    }
+    #projects-grid .project-card[data-category~="pbl"] .project-cover-badges {
+        top: 3.1rem !important;
+    }
+}
+
+
+/* 專題四修正版：封面不使用跑馬燈，內容區改為可捲動完整閱讀 */
+#projects-grid .project-card[data-category~="pbl"] .project-cover-title-scroll {
+    display: none !important;
+}
+#projects-grid .project-card[data-category~="pbl"] .project-cover-badges {
+    top: 1rem !important;
+}
+#projects-grid .project-scroll-content {
+    height: 9.4rem;
+    min-height: 9.4rem;
+    overflow-y: auto;
+    padding-right: 0.45rem;
+    margin-bottom: 1.25rem;
+    border-radius: 0.85rem;
+    scroll-behavior: smooth;
+}
+#projects-grid .project-scroll-content p {
+    min-height: 0 !important;
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    -webkit-box-orient: initial !important;
+    overflow: visible !important;
+    margin-bottom: 0 !important;
+}
+#projects-grid .project-scroll-content::-webkit-scrollbar {
+    width: 6px;
+}
+#projects-grid .project-scroll-content::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 999px;
+}
+#projects-grid .project-scroll-content::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 999px;
+}
+#projects-grid .project-scroll-content::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+@media (max-width: 767px) {
+    #projects-grid .project-scroll-content {
+        height: 10.5rem;
+        min-height: 10.5rem;
+    }
 }
 
 </style>
@@ -867,13 +981,12 @@
 </div>
 </section>
 <!-- Core Field Section (Experimental Field) -->
-<section class="py-24 bg-white">
-<div class="container mx-auto px-4">
-<div class="container mx-auto px-4 py-20 max-w-7xl">
-<div class="flex flex-col lg:flex-row gap-20 items-start">
-<div class="lg:w-1/2 flex flex-col items-center">
+<section class="pyramid-balanced-section bg-white">
+<div class="container mx-auto px-4 max-w-7xl">
+<div class="pyramid-balanced-wrap">
+<div class="pyramid-visual-side">
 <h2 class="text-3xl font-extrabold text-gray-800 mb-12 flex items-center gap-3"><i class="fa-solid fa-shapes text-blue-600"></i>課程培育金字塔</h2>
-<svg class="w-full max-w-lg drop-shadow-2xl" viewbox="0 0 500 440">
+<svg class="w-full max-w-xl drop-shadow-2xl" viewbox="0 0 500 460">
 <defs>
 <lineargradient id="gT" x1="100%" x2="100%" y1="100%" y2="100%"><stop offset="100%" style="stop-color:#f59e0b"></stop><stop offset="100%" style="stop-color:#d97706"></stop></lineargradient>
 <lineargradient id="gM" x1="100%" x2="100%" y1="100%" y2="100%"><stop offset="100%" style="stop-color:#3b82f6"></stop><stop offset="100%" style="stop-color:#2563eb"></stop></lineargradient>
@@ -887,8 +1000,8 @@
 <text class="pyramid-text" x="250" y="400">基礎核心課程</text>
 </svg>
 </div>
-<div class="lg:w-1/2">
-<div class="bg-white rounded-[3rem] shadow-xl border border-gray-100 overflow-hidden min-h-[550px] relative pyr-panel-collapsed" id="pyr-panel">
+<div class="pyramid-panel-side">
+<div class="pyramid-panel-balanced bg-white rounded-[3rem] shadow-xl border border-gray-100 overflow-hidden min-h-[550px] relative pyr-panel-collapsed" id="pyr-panel">
 <div class="pyr-panel-placeholder">
 <i class="fa-solid fa-layer-group"></i>
 <div class="text-2xl font-extrabold text-gray-700 mb-3">課程架構總覽</div>
@@ -1431,10 +1544,10 @@
 <div class="relative z-10"><h1 class="text-5xl font-extrabold mb-4 tracking-wider text-shadow">課程培育地圖</h1><p class="text-blue-100 text-xl font-light italic">循序漸進．培育跨域技術能量</p></div>
 </div>
 <div class="container mx-auto px-4 py-20 max-w-7xl">
-<div class="flex flex-col lg:flex-row gap-20 items-start">
-<div class="lg:w-1/2 flex flex-col items-center">
+<div class="pyramid-balanced-wrap">
+<div class="pyramid-visual-side">
 <h2 class="text-3xl font-extrabold text-gray-800 mb-12 flex items-center gap-3"><i class="fa-solid fa-shapes text-blue-600"></i>課程培育金字塔</h2>
-<svg class="w-full max-w-lg drop-shadow-2xl" viewbox="0 0 500 440">
+<svg class="w-full max-w-xl drop-shadow-2xl" viewbox="0 0 500 460">
 <defs>
 <lineargradient id="gT" x1="100%" x2="100%" y1="100%" y2="100%"><stop offset="100%" style="stop-color:#f59e0b"></stop><stop offset="100%" style="stop-color:#d97706"></stop></lineargradient>
 <lineargradient id="gM" x1="100%" x2="100%" y1="100%" y2="100%"><stop offset="100%" style="stop-color:#3b82f6"></stop><stop offset="100%" style="stop-color:#2563eb"></stop></lineargradient>
@@ -1448,8 +1561,8 @@
 <text class="pyramid-text" x="250" y="400">基礎核心課程</text>
 </svg>
 </div>
-<div class="lg:w-1/2">
-<div class="bg-white rounded-[3rem] shadow-xl border border-gray-100 overflow-hidden min-h-[550px] relative" id="pyr-panel">
+<div class="pyramid-panel-side">
+<div class="pyramid-panel-balanced bg-white rounded-[3rem] shadow-xl border border-gray-100 overflow-hidden min-h-[550px] relative" id="pyr-panel">
 </div>
 </div>
 </div>
@@ -1789,7 +1902,7 @@
 <button class="project-filter-btn px-5 py-3 rounded-full bg-white border border-gray-200 text-gray-700 font-extrabold transition" data-filter="robot">智慧夾取</button>
 <button class="project-filter-btn px-5 py-3 rounded-full bg-white border border-gray-200 text-gray-700 font-extrabold transition" data-filter="pbl">PBL課程</button>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8" id="projects-grid">
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6" id="projects-grid">
 <article class="project-card bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden" data-category="inspection ai automation">
 <div class="h-48 overflow-hidden relative group">
 <img class="w-full h-full object-cover group-hover:scale-105 transition duration-500" src="115-1.jpeg"/>
@@ -1880,9 +1993,10 @@
 </article>
 <article class="project-card bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden" data-category="pbl machining manufacturing">
 <div class="h-48 overflow-hidden relative group bg-slate-100">
-<img class="w-full h-full object-cover group-hover:scale-105 transition duration-500" src="cover.png" alt="五軸加工製程規劃與加工品質效率優化" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src=\'cover.PNG\'}else if(this.dataset.retry==1){this.dataset.retry=2;this.src=\'cover\'}"/>
+<img class="w-full h-full object-cover group-hover:scale-105 transition duration-500" src="cover.png" alt="" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src=\'cover.PNG\'}else if(this.dataset.retry==1){this.dataset.retry=2;this.src=\'cover\'}"/>
 <div class="absolute inset-0 bg-black/15 group-hover:bg-black/5 transition"></div>
-<div class="absolute top-4 left-4 flex gap-2">
+
+<div class="absolute top-4 left-4 flex gap-2 project-cover-badges">
 <span class="project-chip bg-rose-50 text-rose-700 shadow-sm">PBL課程</span>
 <span class="project-chip bg-blue-50 text-blue-700 shadow-sm">五軸加工</span>
 </div>
@@ -1894,7 +2008,9 @@
 <span class="project-chip bg-amber-50 text-amber-700">CAM製程規劃</span>
 </div>
 <h3 class="text-xl font-extrabold text-gray-800 mb-3">五軸加工製程規劃與加工品質效率優化</h3>
-<p class="text-gray-500 text-sm leading-relaxed mb-5">本專題以CPS智慧製造為核心，結合CAM加工規劃與實際五軸機台操作，針對產業提出的加工效率與品質問題進行分析與改善。透過比較不同加工策略與刀具路徑，並進行加工實驗與數據分析，驗證最佳化效果。同時結合業師指導與廠商回饋，建立從問題分析、實作驗證到持續優化的完整學習流程，提升學生實務應用與智慧製造整合能力。</p>
+<div class="project-scroll-content" aria-label="專題四完整說明，可上下捲動閱讀">
+<p class="text-gray-500 text-sm leading-relaxed">本專題以 CPS 智慧製造為核心，結合 CAM 加工規劃與實際五軸機台操作，針對產業提出的加工效率與品質問題進行分析與改善。透過比較不同加工策略與刀具路徑，並進行加工實驗與數據分析，驗證最佳化效果。同時結合業師指導與廠商回饋，建立從問題分析、實作驗證到持續優化的完整學習流程，提升學生實務應用與智慧製造整合能力。</p>
+</div>
 <div class="space-y-2 text-sm font-medium text-gray-600 mb-6">
 <div><span class="font-extrabold text-gray-800">出題廠商：</span>凱柏精密機械股份有限公司</div>
 <div><span class="font-extrabold text-gray-800">成果亮點：</span>參與 114 年中精機盃 CNC 多軸加工競賽，榮獲第六名</div>
@@ -3153,32 +3269,29 @@ window.addEventListener("DOMContentLoaded", () => {
       if (!images.length) {
         return '<p class="text-gray-500">目前尚未設定圖片檔名。</p>';
       }
-
-      const hasExt = (name) => /\.(png|jpe?g|webp|gif|svg)$/i.test(name);
-      const escapeAttr = (value) => String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-      const displayName = (name) => name.replace(/\.(png|jpe?g|webp|gif|svg)$/i, '');
-
       return images.map(name => {
-        const imgSrc = name === '__pbl_114_image__' ? 'cover.png' : (hasExt(name) ? name : `${name}.jpg`);
-        const label = name === '__pbl_114_image__' ? '五軸加工製程規劃與加工品質效率優化' : displayName(name);
-        const fallbackBase = hasExt(name) ? name.replace(/\.(png|jpe?g|webp|gif|svg)$/i, '') : name;
-        const safeSrc = escapeAttr(imgSrc);
-        const safeLabel = escapeAttr(label);
-
-        return `
-        <button type="button" class="project-image-card rounded-[1.5rem] border border-gray-200 overflow-hidden bg-white shadow-sm text-left"
-                data-full-src="${safeSrc}" data-caption="${safeLabel}" aria-label="放大查看 ${safeLabel}">
-          <div class="aspect-[4/3] bg-gray-100 flex items-center justify-center overflow-hidden relative">
-            <img src="${safeSrc}" alt="${safeLabel}" class="w-full h-full object-cover"
-                 onerror="if(!this.dataset.fallback){this.dataset.fallback='png';this.src='${fallbackBase}.png';this.closest('.project-image-card')?.setAttribute('data-full-src','${fallbackBase}.png');}else if(this.dataset.fallback==='png'){this.dataset.fallback='jpg';this.src='${fallbackBase}.jpg';this.closest('.project-image-card')?.setAttribute('data-full-src','${fallbackBase}.jpg');}else if(this.dataset.fallback==='jpg'){this.dataset.fallback='JPG';this.src='${fallbackBase}.JPG';this.closest('.project-image-card')?.setAttribute('data-full-src','${fallbackBase}.JPG');}else if(this.dataset.fallback==='JPG'){this.dataset.fallback='jpeg';this.src='${fallbackBase}.jpeg';this.closest('.project-image-card')?.setAttribute('data-full-src','${fallbackBase}.jpeg');}else{this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex flex-col items-center justify-center text-center px-4 text-gray-400 bg-gray-50&quot;><i class=&quot;fa-regular fa-image text-3xl mb-3&quot;></i><p class=&quot;font-extrabold text-gray-600 mb-1&quot;>${safeLabel}</p><p class=&quot;text-xs leading-relaxed&quot;>圖片資料尚未提供</p></div>';}">
-            <div class="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/90 text-gray-800 flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition">
-              <i class="fa-solid fa-magnifying-glass-plus"></i>
+        if (name === '__pbl_114_image__') {
+          return `
+            <div class="rounded-[1.5rem] border border-gray-200 overflow-hidden bg-white shadow-sm">
+              <div class="aspect-[4/3] bg-gray-100 flex items-center justify-center overflow-hidden">
+                <img src="cover.png" alt="五軸加工製程規劃與加工品質效率優化" class="w-full h-full object-cover">
+              </div>
+              <div class="px-4 py-3 border-t border-gray-100">
+                <p class="text-sm font-extrabold text-gray-800">五軸加工製程規劃與加工品質效率優化</p>
+              </div>
             </div>
+          `;
+        }
+        return `
+        <div class="rounded-[1.5rem] border border-gray-200 overflow-hidden bg-white shadow-sm">
+          <div class="aspect-[4/3] bg-gray-100 flex items-center justify-center overflow-hidden">
+            <img src="${name}.jpg" alt="${name}" class="w-full h-full object-cover"
+                 onerror="if(!this.dataset.fallback){this.dataset.fallback='png';this.src='${name}.png';}else if(this.dataset.fallback==='png'){this.dataset.fallback='jpeg';this.src='${name}.jpeg';}else{this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex flex-col items-center justify-center text-center px-4 text-gray-400 bg-gray-50&quot;><i class=&quot;fa-regular fa-image text-3xl mb-3&quot;></i><p class=&quot;font-extrabold text-gray-600 mb-1&quot;>${name}</p><p class=&quot;text-xs leading-relaxed&quot;>圖片資料尚未提供</p></div>';}">
           </div>
           <div class="px-4 py-3 border-t border-gray-100">
-            <p class="text-sm font-extrabold text-gray-800">${safeLabel}</p>
+            <p class="text-sm font-extrabold text-gray-800">${name}</p>
           </div>
-        </button>
+        </div>
       `;
       }).join('');
     };
@@ -4518,70 +4631,6 @@ document.addEventListener("click", function(e){
     <h5>－${title}</h5>
     <p>${content}</p>
   `;
-});
-</script>
-
-
-<!-- 專題圖片放大預覽 Lightbox -->
-<div class="project-lightbox" id="project-image-lightbox" aria-hidden="true">
-  <div class="project-lightbox-inner">
-    <button type="button" class="project-lightbox-close" id="project-lightbox-close" aria-label="關閉圖片預覽">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-    <img src="" alt="專題圖片預覽" class="project-lightbox-img" id="project-lightbox-img">
-    <div class="project-lightbox-caption" id="project-lightbox-caption">
-      <i class="fa-regular fa-image"></i>
-      <span>專題圖片</span>
-    </div>
-  </div>
-</div>
-
-
-<script>
-document.addEventListener("click", function(e){
-  const card = e.target.closest(".project-image-card");
-  const lightbox = document.getElementById("project-image-lightbox");
-  const lightboxImg = document.getElementById("project-lightbox-img");
-  const caption = document.getElementById("project-lightbox-caption");
-  if(card && lightbox && lightboxImg){
-    const img = card.querySelector("img");
-    const src = img && img.src ? img.src : card.dataset.fullSrc;
-    const text = card.dataset.caption || (img ? img.alt : "專題圖片");
-    lightboxImg.src = src;
-    lightboxImg.alt = text;
-    if(caption){
-      caption.innerHTML = '<i class="fa-regular fa-image"></i><span>' + text + '</span>';
-    }
-    lightbox.classList.add("active");
-    lightbox.setAttribute("aria-hidden", "false");
-    document.body.classList.add("overflow-hidden");
-    e.preventDefault();
-    e.stopPropagation();
-  }
-
-  if(e.target.closest("#project-lightbox-close") || e.target.id === "project-image-lightbox"){
-    const box = document.getElementById("project-image-lightbox");
-    const imgEl = document.getElementById("project-lightbox-img");
-    if(box){
-      box.classList.remove("active");
-      box.setAttribute("aria-hidden", "true");
-      document.body.classList.remove("overflow-hidden");
-    }
-    if(imgEl) imgEl.src = "";
-  }
-});
-
-document.addEventListener("keydown", function(e){
-  if(e.key === "Escape"){
-    const box = document.getElementById("project-image-lightbox");
-    const imgEl = document.getElementById("project-lightbox-img");
-    if(box && box.classList.contains("active")){
-      box.classList.remove("active");
-      box.setAttribute("aria-hidden", "true");
-      document.body.classList.remove("overflow-hidden");
-      if(imgEl) imgEl.src = "";
-    }
-  }
 });
 </script>
 
