@@ -288,10 +288,10 @@
             transition: width 0.18s linear;
         }
         .lab-carousel[data-paused="true"] .lab-carousel-hint::after {
-            content: '已暫停';
+            content: '';
         }
         .lab-carousel[data-paused="false"] .lab-carousel-hint::after {
-            content: '自動播放';
+            content: '';
         }
         .lab-carousel-hint { min-width: 88px; justify-content: center; }
         .lab-carousel-lightbox {
@@ -939,7 +939,7 @@
 <section class="py-20 bg-white border-b border-gray-100">
 <div class="container mx-auto px-4 max-w-7xl">
 <div class="text-center mb-12">
-<span class="inline-flex px-4 py-1.5 rounded-full bg-blue-50 text-blue-700 text-sm font-extrabold mb-4">30 秒看懂計畫亮點</span>
+
 <h2 class="text-4xl font-extrabold text-gray-800 mb-4">首頁核心亮點</h2>
 <p class="text-gray-500 max-w-3xl mx-auto">從課程金字塔、PBL 產學專題、智慧實驗室、數位教材到量化績效，以一頁式視覺快速掌握計畫價值。</p>
 </div>
@@ -1001,14 +1001,8 @@
 </svg>
 </div>
 <div class="pyramid-panel-side">
-<div class="pyramid-panel-balanced bg-white rounded-[3rem] shadow-xl border border-gray-100 overflow-hidden min-h-[550px] relative pyr-panel-collapsed" id="pyr-panel">
-<div class="pyr-panel-placeholder">
-<i class="fa-solid fa-layer-group"></i>
-<div class="text-2xl font-extrabold text-gray-700 mb-3">課程架構總覽</div>
-<p class="text-sm md:text-base leading-relaxed max-w-md mx-auto">
-                                    以基礎核心、特色領域模組與 PBL 總整課程建構完整智慧製造人才培育路徑。
-                                </p>
-</div>
+<div class="pyramid-panel-balanced bg-white rounded-[3rem] shadow-xl border border-gray-100 overflow-hidden min-h-[550px] relative" id="pyr-panel">
+
 </div>
 </div>
 </div>
@@ -1114,9 +1108,9 @@
 <p class="text-gray-500 text-sm leading-relaxed px-4 text-center">建置 CPS 監控系統，實現加工狀態可視化管理。</p>
 </div>
 </div>
-</div>
-</section>
-</div>
+</section></div>
+
+
 <!-- PAGE: ABOUT (COMPLETE RESTORATION) -->
 <div class="section-view" id="page-about">
 <div class="relative bg-blue-900 h-80 flex items-center justify-center overflow-hidden hero-pattern">
@@ -1586,10 +1580,10 @@
 <div class="lab-carousel-glow"></div>
 <div class="lab-carousel-overlay"></div>
 <div class="lab-carousel-topbar">
-<div class="lab-carousel-badge"><i class="fa-solid fa-images"></i><span>場域精選輪播</span></div>
+<div class="lab-carousel-badge"><i class="fa-solid fa-images"></i><span>場域照片</span></div>
 <div class="lab-carousel-topbar-right">
 <div class="lab-carousel-count">01 / 03</div>
-<div class="lab-carousel-hint"><i class="fa-solid fa-circle-play"></i></div>
+
 </div>
 </div>
 <button aria-label="上一張" class="lab-carousel-btn prev" type="button"><i class="fa-solid fa-chevron-left"></i></button>
@@ -1627,10 +1621,10 @@
 <div class="lab-carousel-glow"></div>
 <div class="lab-carousel-overlay"></div>
 <div class="lab-carousel-topbar">
-<div class="lab-carousel-badge"><i class="fa-solid fa-images"></i><span>場域精選輪播</span></div>
+<div class="lab-carousel-badge"><i class="fa-solid fa-images"></i><span>場域照片</span></div>
 <div class="lab-carousel-topbar-right">
 <div class="lab-carousel-count">01 / 03</div>
-<div class="lab-carousel-hint"><i class="fa-solid fa-circle-play"></i></div>
+
 </div>
 </div>
 <button aria-label="上一張" class="lab-carousel-btn prev" type="button"><i class="fa-solid fa-chevron-left"></i></button>
@@ -1680,19 +1674,8 @@
 <p class="text-gray-500 leading-relaxed">本區以課程別分類，明確標示教材類型、適用對象與授權方式，利於校內外推廣使用。</p>
 </div>
 <div class="lg:w-2/3 grid md:grid-cols-2 gap-6">
-<div class="bg-gray-50 rounded-[1.75rem] p-6 border border-gray-100">
-<h3 class="text-lg font-extrabold text-gray-800 mb-3">必備功能</h3>
-<ul class="space-y-2 text-sm text-gray-600 font-medium">
-<li>• 依課程分類與搜尋</li>
-<li>• 提供下載連結與檔案格式說明</li>
-<li>• 標示授權與使用範圍</li>
-<li>• 可對應教學影片與專題成果頁面</li>
-</ul>
-</div>
-<div class="bg-blue-50 rounded-[1.75rem] p-6 border border-blue-100">
-<h3 class="text-lg font-extrabold text-blue-900 mb-3">跨校使用說明</h3>
-<p class="text-sm text-blue-900/80 leading-relaxed">建議在每份教材附上「適用課程、學習目標、操作需求與授權說明」，強化教學資源可擴散性，是審查重點加分項。</p>
-</div>
+
+
 <div class="md:col-span-2 overflow-hidden rounded-[2rem] border border-gray-100 overflow-x-auto">
 <table class="w-full text-left border-collapse min-w-[720px]">
 <thead class="bg-gray-100 text-xs font-bold tracking-widest uppercase text-gray-500">
@@ -1920,30 +1903,30 @@
 <div><span class="font-extrabold text-gray-800">成果亮點：</span>作業準確率 100% 提升至 100%</div>
 </div>
 <button class="open-project-modal w-full py-3 rounded-2xl bg-blue-600 text-white font-extrabold hover:bg-blue-700 transition" data-category="115-1 × 宇隆科技 × 智慧巡檢" data-desc="本專題以宇隆科技產線巡檢與量測流程為問題來源，透過操作側鏡頭、料車鏡頭、量具辨識、量測動作偵測與影像回溯分析，建置一套可支援工件／量具辨識、流程監控與異常追溯的智慧 AI 巡檢站。" data-details='
-<div class="space-y-3">
-  <div class="accordion-item">
-    <button class="accordion-btn">問題來源</button>
-    <div class="accordion-content">五軸加工路徑規劃不易，造成加工時間過長、品質不穩與刀具負載不均。</div>
-  </div>
-  <div class="accordion-item">
-    <button class="accordion-btn">限制條件</button>
-    <div class="accordion-content">五軸加工路徑複雜、刀具與加工策略影響大，需在有限時間內完成加工與優化。</div>
-  </div>
-  <div class="accordion-item">
-    <button class="accordion-btn">問題拆解</button>
-    <div class="accordion-content">加工路徑規劃(CAM)、粗加工/精加工策略、加工品質與效率分析。</div>
-  </div>
-  <div class="accordion-item">
-    <button class="accordion-btn">目標確立</button>
-    <div class="accordion-content">完成五軸加工流程並進行加工品質與效率優化。</div>
-  </div>
-  <div class="mt-3 p-3 bg-yellow-50 rounded-lg">
-    <b>成果亮點：</b><br>
-    • 競賽作品、實際成品、CAM路徑成果<br>
-    • 加工前後比較分析（時間、品質、穩定性）<br>
+&lt;div class="space-y-3"&gt;
+  &lt;div class="accordion-item"&gt;
+    &lt;button class="accordion-btn"&gt;問題來源&lt;/button&gt;
+    &lt;div class="accordion-content"&gt;五軸加工路徑規劃不易，造成加工時間過長、品質不穩與刀具負載不均。&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="accordion-item"&gt;
+    &lt;button class="accordion-btn"&gt;限制條件&lt;/button&gt;
+    &lt;div class="accordion-content"&gt;五軸加工路徑複雜、刀具與加工策略影響大，需在有限時間內完成加工與優化。&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="accordion-item"&gt;
+    &lt;button class="accordion-btn"&gt;問題拆解&lt;/button&gt;
+    &lt;div class="accordion-content"&gt;加工路徑規劃(CAM)、粗加工/精加工策略、加工品質與效率分析。&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="accordion-item"&gt;
+    &lt;button class="accordion-btn"&gt;目標確立&lt;/button&gt;
+    &lt;div class="accordion-content"&gt;完成五軸加工流程並進行加工品質與效率優化。&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="mt-3 p-3 bg-yellow-50 rounded-lg"&gt;
+    &lt;b&gt;成果亮點：&lt;/b&gt;&lt;br&gt;
+    • 競賽作品、實際成品、CAM路徑成果&lt;br&gt;
+    • 加工前後比較分析（時間、品質、穩定性）&lt;br&gt;
     • 業師回饋與學生優化策略形成循環
-  </div>
-</div>
+  &lt;/div&gt;
+&lt;/div&gt;
 ' data-images="專題1-1,專題1-2,專題1-3" data-result="教學成效顯示作業準確率由 100% 提升至 100%，尺寸判定平均時間由 52 秒縮短至 32 秒，品質異常率由 4.100% 降低至 1.100%。" data-tags="宇隆科技,YOLO,視覺辨識,量具辨識,影像回溯" data-title="智慧製造產線視覺巡檢量測系統開發">查看詳情</button>
 </div>
 </article>
@@ -1993,9 +1976,8 @@
 </article>
 <article class="project-card bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden" data-category="pbl machining manufacturing">
 <div class="h-48 overflow-hidden relative group bg-slate-100">
-<img class="w-full h-full object-cover group-hover:scale-105 transition duration-500" src="cover.png" alt="" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src=\'cover.PNG\'}else if(this.dataset.retry==1){this.dataset.retry=2;this.src=\'cover\'}"/>
+<img alt="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src=\'cover.PNG\'}else if(this.dataset.retry==1){this.dataset.retry=2;this.src=\'cover\'}" src="cover.png"/>
 <div class="absolute inset-0 bg-black/15 group-hover:bg-black/5 transition"></div>
-
 <div class="absolute top-4 left-4 flex gap-2 project-cover-badges">
 <span class="project-chip bg-rose-50 text-rose-700 shadow-sm">PBL課程</span>
 <span class="project-chip bg-blue-50 text-blue-700 shadow-sm">五軸加工</span>
@@ -2008,14 +1990,14 @@
 <span class="project-chip bg-amber-50 text-amber-700">CAM製程規劃</span>
 </div>
 <h3 class="text-xl font-extrabold text-gray-800 mb-3">五軸加工製程規劃與加工品質效率優化</h3>
-<div class="project-scroll-content" aria-label="專題四完整說明，可上下捲動閱讀">
+<div aria-label="專題四完整說明，可上下捲動閱讀" class="project-scroll-content">
 <p class="text-gray-500 text-sm leading-relaxed">本專題以 CPS 智慧製造為核心，結合 CAM 加工規劃與實際五軸機台操作，針對產業提出的加工效率與品質問題進行分析與改善。透過比較不同加工策略與刀具路徑，並進行加工實驗與數據分析，驗證最佳化效果。同時結合業師指導與廠商回饋，建立從問題分析、實作驗證到持續優化的完整學習流程，提升學生實務應用與智慧製造整合能力。</p>
 </div>
 <div class="space-y-2 text-sm font-medium text-gray-600 mb-6">
 <div><span class="font-extrabold text-gray-800">出題廠商：</span>凱柏精密機械股份有限公司</div>
 <div><span class="font-extrabold text-gray-800">成果亮點：</span>參與 114 年中精機盃 CNC 多軸加工競賽，榮獲第六名</div>
 </div>
-<button class="open-project-modal w-full py-3 rounded-2xl bg-blue-600 text-white font-extrabold hover:bg-blue-700 transition" data-category="PBL課程 × 凱柏精機 × 五軸加工" data-desc="本專題以CPS智慧製造為核心，結合CAM加工規劃與實際五軸機台操作，針對產業提出的加工效率與品質問題進行分析與改善。透過比較不同加工策略與刀具路徑，並進行加工實驗與數據分析，驗證最佳化效果。同時結合業師指導與廠商回饋，建立從問題分析、實作驗證到持續優化的完整學習流程，提升學生實務應用與智慧製造整合能力。" data-images="專題4-1.png,專題4-2.png,專題4-3.png,專題4-4.png,專題4-5.JPG,專題4-6.png" data-details="<div class=&quot;pbl4-accordion-grid&quot;>   <div class=&quot;pbl4-accordion-item&quot;>     <button type=&quot;button&quot; class=&quot;pbl4-accordion-header&quot;>問題來源 <i class=&quot;fa-solid fa-chevron-down&quot;></i></button>     <div class=&quot;pbl4-accordion-content&quot;>五軸加工路徑規劃不易，造成加工時間過長、加工品質不穩與刀具負載不均等問題。</div>   </div>   <div class=&quot;pbl4-accordion-item&quot;>     <button type=&quot;button&quot; class=&quot;pbl4-accordion-header&quot;>限制條件 <i class=&quot;fa-solid fa-chevron-down&quot;></i></button>     <div class=&quot;pbl4-accordion-content&quot;>五軸加工路徑複雜，刀具與加工策略影響大，需在有限時間內完成加工與優化。</div>   </div>   <div class=&quot;pbl4-accordion-item&quot;>     <button type=&quot;button&quot; class=&quot;pbl4-accordion-header&quot;>問題拆解 <i class=&quot;fa-solid fa-chevron-down&quot;></i></button>     <div class=&quot;pbl4-accordion-content&quot;>加工路徑規劃（CAM）、粗加工／精加工策略、加工品質與效率分析。</div>   </div>   <div class=&quot;pbl4-accordion-item&quot;>     <button type=&quot;button&quot; class=&quot;pbl4-accordion-header&quot;>目標確立 <i class=&quot;fa-solid fa-chevron-down&quot;></i></button>     <div class=&quot;pbl4-accordion-content&quot;>完成五軸加工流程，並進行加工品質與效率優化。</div>   </div> </div>" data-images="專題4-1,專題4-2,專題4-3,專題4-4,專題4-5,專題4-6" data-result="本課程設計結合 CAM 編程與五軸實機加工，並導入不同加工策略（如不同刀具與加工路徑）進行比較分析，強調從「加工、分析到優化」的完整學習流程。課程成果將產出競賽作品、實際加工成品以及對應的 CAM 加工路徑檔案，並透過加工前後的比較分析（包含加工時間與品質差異）進行成果驗證，同時評估加工過程的穩定性與可行性，最終確認改善成果具備實務應用價值。" data-tags="PBL課程,五軸加工,CAM,加工路徑,凱柏精機,中精機盃" data-title="五軸加工製程規劃與加工品質效率優化">查看詳情</button>
+<button class="open-project-modal w-full py-3 rounded-2xl bg-blue-600 text-white font-extrabold hover:bg-blue-700 transition" data-category="PBL課程 × 凱柏精機 × 五軸加工" data-desc="本專題以CPS智慧製造為核心，結合CAM加工規劃與實際五軸機台操作，針對產業提出的加工效率與品質問題進行分析與改善。透過比較不同加工策略與刀具路徑，並進行加工實驗與數據分析，驗證最佳化效果。同時結合業師指導與廠商回饋，建立從問題分析、實作驗證到持續優化的完整學習流程，提升學生實務應用與智慧製造整合能力。" data-details='&lt;div class="pbl4-accordion-grid"&gt;   &lt;div class="pbl4-accordion-item"&gt;     &lt;button type="button" class="pbl4-accordion-header"&gt;問題來源 &lt;i class="fa-solid fa-chevron-down"&gt;&lt;/i&gt;&lt;/button&gt;     &lt;div class="pbl4-accordion-content"&gt;五軸加工路徑規劃不易，造成加工時間過長、加工品質不穩與刀具負載不均等問題。&lt;/div&gt;   &lt;/div&gt;   &lt;div class="pbl4-accordion-item"&gt;     &lt;button type="button" class="pbl4-accordion-header"&gt;限制條件 &lt;i class="fa-solid fa-chevron-down"&gt;&lt;/i&gt;&lt;/button&gt;     &lt;div class="pbl4-accordion-content"&gt;五軸加工路徑複雜，刀具與加工策略影響大，需在有限時間內完成加工與優化。&lt;/div&gt;   &lt;/div&gt;   &lt;div class="pbl4-accordion-item"&gt;     &lt;button type="button" class="pbl4-accordion-header"&gt;問題拆解 &lt;i class="fa-solid fa-chevron-down"&gt;&lt;/i&gt;&lt;/button&gt;     &lt;div class="pbl4-accordion-content"&gt;加工路徑規劃（CAM）、粗加工／精加工策略、加工品質與效率分析。&lt;/div&gt;   &lt;/div&gt;   &lt;div class="pbl4-accordion-item"&gt;     &lt;button type="button" class="pbl4-accordion-header"&gt;目標確立 &lt;i class="fa-solid fa-chevron-down"&gt;&lt;/i&gt;&lt;/button&gt;     &lt;div class="pbl4-accordion-content"&gt;完成五軸加工流程，並進行加工品質與效率優化。&lt;/div&gt;   &lt;/div&gt; &lt;/div&gt;' data-images="專題4-1,專題4-2,專題4-3,專題4-4,專題4-5,專題4-6" data-result="本課程設計結合 CAM 編程與五軸實機加工，並導入不同加工策略（如不同刀具與加工路徑）進行比較分析，強調從「加工、分析到優化」的完整學習流程。課程成果將產出競賽作品、實際加工成品以及對應的 CAM 加工路徑檔案，並透過加工前後的比較分析（包含加工時間與品質差異）進行成果驗證，同時評估加工過程的穩定性與可行性，最終確認改善成果具備實務應用價值。" data-tags="PBL課程,五軸加工,CAM,加工路徑,凱柏精機,中精機盃" data-title="五軸加工製程規劃與加工品質效率優化">查看詳情</button>
 </div>
 </article>
 </div>
@@ -2405,8 +2387,8 @@
 <!-- 左：圖片（固定同尺寸） -->
 <div class="md:w-2/5">
 <div class="w-full h-[320px] overflow-hidden rounded-3xl shadow-xl">
-<img alt="盈錫精密獎學金頒獎典禮" class="w-full h-full object-cover transition duration-500 hover:scale-105" src="award.jpg">
-</img></div>
+<img alt="盈錫精密獎學金頒獎典禮" class="w-full h-full object-cover transition duration-500 hover:scale-105" src="award.jpg"/>
+</div>
 </div>
 <!-- 右：文字 -->
 <div class="md:w-3/5">
@@ -2423,7 +2405,6 @@
 </div>
 </div>
 </div>
-
 <div class="hidden fixed inset-0 z-[100002]" id="lab-detail-modal">
 <div class="absolute inset-0 lab-modal-backdrop"></div>
 <div class="relative min-h-screen px-4 py-8 flex items-center justify-center">
@@ -3040,8 +3021,7 @@ if (window.lucide && typeof window.lucide.createIcons === "function") {
         <span class="px-3 py-1 bg-white/20 rounded-full text-[10px] font-bold uppercase mb-4 inline-block tracking-widest border border-white/30">
           ${data.badge}
         </span>
-        <h3 class="text-3xl font-extrabold mb-2">${data.title}</h3>
-        <p class="text-white/85 font-medium leading-relaxed">${data.desc}</p>
+        <h3 class="text-3xl font-extrabold mb-0">${data.title}</h3>
       </div>
       <div class="p-8 space-y-5">
         ${data.courses.map(c => {
@@ -3070,7 +3050,6 @@ if (window.lucide && typeof window.lucide.createIcons === "function") {
                   <div class="w-3 h-3 rounded-full ${data.color}"></div>
                   <h4 class="text-lg font-extrabold text-gray-800">${c.name}</h4>
                 </div>
-                ${c.note ? `<p class="text-sm text-gray-500 font-semibold">${c.note}</p>` : ''}
               </div>
               ${(clickable || c.labKey) ? `
               <div class="uniform-action-row mt-4">
@@ -3081,13 +3060,6 @@ if (window.lucide && typeof window.lucide.createIcons === "function") {
             </div>
           `;
         }).join("")}
-
-        <div class="pt-6 border-t border-gray-100 text-left">
-          <h4 class="text-xs font-bold text-gray-400 uppercase mb-2 tracking-widest">
-            <i class="fa-solid fa-bullseye mr-2"></i>培育學習目標
-          </h4>
-          <p class="text-gray-500 text-sm font-medium leading-relaxed italic">「${data.goal}」</p>
-        </div>
       </div>
     `;
 
@@ -4321,17 +4293,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const panel = document.getElementById('pyr-panel');
   if (panel) {
     panel.classList.add('pyr-panel-collapsed');
-    if (!panel.innerHTML || panel.innerHTML.includes('Injected by JS')) {
-      panel.innerHTML = `
-        <div class="pyr-panel-placeholder">
-                                <i class="fa-solid fa-layer-group"></i>
-                                <div class="text-2xl font-extrabold text-gray-700 mb-3">課程架構總覽</div>
-                                <p class="text-sm md:text-base leading-relaxed max-w-md mx-auto">
-                                    以基礎核心、特色領域模組與 PBL 總整課程建構完整智慧製造人才培育路徑。
-                                </p>
-                            </div>
-      `;
-    }
+    
   }
 });
 </script>
@@ -4540,7 +4502,7 @@ function renderCourseFiles(courseName) {
               <span class="text-xs text-gray-400">${escapeHtml(item.storage_path)}</span>
             </div>
             <h4 class="text-base font-extrabold text-gray-800 break-words">${escapeHtml(displayFileName)}</h4>
-            <p class="text-sm text-gray-500 mt-1">點選預覽可線上查看；點選下載可直接下載原始檔。</p>
+            
           </div>
           <div class="flex flex-wrap gap-2 shrink-0">
             <a href="${previewUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 text-white text-sm font-extrabold hover:bg-blue-700 transition">
@@ -4587,13 +4549,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   renderAllResourceLists();
 });
 </script>
-
-
-
-
-
-
-
 <script>
 document.addEventListener("click", function(e){
   const btn = e.target.closest(".pbl4-accordion-header");
@@ -4633,6 +4588,5 @@ document.addEventListener("click", function(e){
   `;
 });
 </script>
-
 </body>
 </html>
