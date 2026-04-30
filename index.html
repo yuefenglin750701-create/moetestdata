@@ -582,6 +582,88 @@
   .pbl4-accordion-grid { grid-template-columns: 1fr; }
 }
 
+
+/* 專題圖片點擊放大 Lightbox */
+.project-image-card {
+  cursor: zoom-in;
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.project-image-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.14);
+  border-color: #bfdbfe;
+}
+.project-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100300;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(2, 6, 23, 0.88);
+  backdrop-filter: blur(8px);
+}
+.project-lightbox.active {
+  display: flex;
+}
+.project-lightbox-inner {
+  position: relative;
+  width: min(1200px, 96vw);
+  max-height: 92vh;
+  border-radius: 1.75rem;
+  overflow: hidden;
+  background: #0f172a;
+  box-shadow: 0 28px 90px rgba(0,0,0,.45);
+}
+.project-lightbox-img {
+  width: 100%;
+  max-height: 86vh;
+  object-fit: contain;
+  display: block;
+  background: #0f172a;
+}
+.project-lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 3;
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  border: 0;
+  background: rgba(255,255,255,.94);
+  color: #0f172a;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(15,23,42,.3);
+}
+.project-lightbox-caption {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 3;
+  display: inline-flex;
+  width: fit-content;
+  max-width: calc(100% - 2rem);
+  align-items: center;
+  gap: .55rem;
+  padding: .7rem 1rem;
+  border-radius: 9999px;
+  background: rgba(15,23,42,.58);
+  border: 1px solid rgba(255,255,255,.14);
+  color: #fff;
+  backdrop-filter: blur(8px);
+  font-weight: 800;
+}
+@media (max-width: 768px) {
+  .project-lightbox { padding: .85rem; }
+  .project-lightbox-inner { width: 98vw; border-radius: 1.25rem; }
+  .project-lightbox-close { width: 42px; height: 42px; top: .75rem; right: .75rem; }
+  .project-lightbox-caption { font-size: .85rem; bottom: .75rem; left: .75rem; right: .75rem; }
+}
+
 </style>
 </head>
 <body class="bg-gray-50 flex flex-col min-h-screen text-gray-800 overflow-x-hidden">
@@ -3071,29 +3153,32 @@ window.addEventListener("DOMContentLoaded", () => {
       if (!images.length) {
         return '<p class="text-gray-500">目前尚未設定圖片檔名。</p>';
       }
+
+      const hasExt = (name) => /\.(png|jpe?g|webp|gif|svg)$/i.test(name);
+      const escapeAttr = (value) => String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const displayName = (name) => name.replace(/\.(png|jpe?g|webp|gif|svg)$/i, '');
+
       return images.map(name => {
-        if (name === '__pbl_114_image__') {
-          return `
-            <div class="rounded-[1.5rem] border border-gray-200 overflow-hidden bg-white shadow-sm">
-              <div class="aspect-[4/3] bg-gray-100 flex items-center justify-center overflow-hidden">
-                <img src="cover.png" alt="五軸加工製程規劃與加工品質效率優化" class="w-full h-full object-cover">
-              </div>
-              <div class="px-4 py-3 border-t border-gray-100">
-                <p class="text-sm font-extrabold text-gray-800">五軸加工製程規劃與加工品質效率優化</p>
-              </div>
-            </div>
-          `;
-        }
+        const imgSrc = name === '__pbl_114_image__' ? 'cover.png' : (hasExt(name) ? name : `${name}.jpg`);
+        const label = name === '__pbl_114_image__' ? '五軸加工製程規劃與加工品質效率優化' : displayName(name);
+        const fallbackBase = hasExt(name) ? name.replace(/\.(png|jpe?g|webp|gif|svg)$/i, '') : name;
+        const safeSrc = escapeAttr(imgSrc);
+        const safeLabel = escapeAttr(label);
+
         return `
-        <div class="rounded-[1.5rem] border border-gray-200 overflow-hidden bg-white shadow-sm">
-          <div class="aspect-[4/3] bg-gray-100 flex items-center justify-center overflow-hidden">
-            <img src="${name}.jpg" alt="${name}" class="w-full h-full object-cover"
-                 onerror="if(!this.dataset.fallback){this.dataset.fallback='png';this.src='${name}.png';}else if(this.dataset.fallback==='png'){this.dataset.fallback='jpeg';this.src='${name}.jpeg';}else{this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex flex-col items-center justify-center text-center px-4 text-gray-400 bg-gray-50&quot;><i class=&quot;fa-regular fa-image text-3xl mb-3&quot;></i><p class=&quot;font-extrabold text-gray-600 mb-1&quot;>${name}</p><p class=&quot;text-xs leading-relaxed&quot;>圖片資料尚未提供</p></div>';}">
+        <button type="button" class="project-image-card rounded-[1.5rem] border border-gray-200 overflow-hidden bg-white shadow-sm text-left"
+                data-full-src="${safeSrc}" data-caption="${safeLabel}" aria-label="放大查看 ${safeLabel}">
+          <div class="aspect-[4/3] bg-gray-100 flex items-center justify-center overflow-hidden relative">
+            <img src="${safeSrc}" alt="${safeLabel}" class="w-full h-full object-cover"
+                 onerror="if(!this.dataset.fallback){this.dataset.fallback='png';this.src='${fallbackBase}.png';this.closest('.project-image-card')?.setAttribute('data-full-src','${fallbackBase}.png');}else if(this.dataset.fallback==='png'){this.dataset.fallback='jpg';this.src='${fallbackBase}.jpg';this.closest('.project-image-card')?.setAttribute('data-full-src','${fallbackBase}.jpg');}else if(this.dataset.fallback==='jpg'){this.dataset.fallback='JPG';this.src='${fallbackBase}.JPG';this.closest('.project-image-card')?.setAttribute('data-full-src','${fallbackBase}.JPG');}else if(this.dataset.fallback==='JPG'){this.dataset.fallback='jpeg';this.src='${fallbackBase}.jpeg';this.closest('.project-image-card')?.setAttribute('data-full-src','${fallbackBase}.jpeg');}else{this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;w-full h-full flex flex-col items-center justify-center text-center px-4 text-gray-400 bg-gray-50&quot;><i class=&quot;fa-regular fa-image text-3xl mb-3&quot;></i><p class=&quot;font-extrabold text-gray-600 mb-1&quot;>${safeLabel}</p><p class=&quot;text-xs leading-relaxed&quot;>圖片資料尚未提供</p></div>';}">
+            <div class="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/90 text-gray-800 flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition">
+              <i class="fa-solid fa-magnifying-glass-plus"></i>
+            </div>
           </div>
           <div class="px-4 py-3 border-t border-gray-100">
-            <p class="text-sm font-extrabold text-gray-800">${name}</p>
+            <p class="text-sm font-extrabold text-gray-800">${safeLabel}</p>
           </div>
-        </div>
+        </button>
       `;
       }).join('');
     };
@@ -4433,6 +4518,70 @@ document.addEventListener("click", function(e){
     <h5>－${title}</h5>
     <p>${content}</p>
   `;
+});
+</script>
+
+
+<!-- 專題圖片放大預覽 Lightbox -->
+<div class="project-lightbox" id="project-image-lightbox" aria-hidden="true">
+  <div class="project-lightbox-inner">
+    <button type="button" class="project-lightbox-close" id="project-lightbox-close" aria-label="關閉圖片預覽">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <img src="" alt="專題圖片預覽" class="project-lightbox-img" id="project-lightbox-img">
+    <div class="project-lightbox-caption" id="project-lightbox-caption">
+      <i class="fa-regular fa-image"></i>
+      <span>專題圖片</span>
+    </div>
+  </div>
+</div>
+
+
+<script>
+document.addEventListener("click", function(e){
+  const card = e.target.closest(".project-image-card");
+  const lightbox = document.getElementById("project-image-lightbox");
+  const lightboxImg = document.getElementById("project-lightbox-img");
+  const caption = document.getElementById("project-lightbox-caption");
+  if(card && lightbox && lightboxImg){
+    const img = card.querySelector("img");
+    const src = img && img.src ? img.src : card.dataset.fullSrc;
+    const text = card.dataset.caption || (img ? img.alt : "專題圖片");
+    lightboxImg.src = src;
+    lightboxImg.alt = text;
+    if(caption){
+      caption.innerHTML = '<i class="fa-regular fa-image"></i><span>' + text + '</span>';
+    }
+    lightbox.classList.add("active");
+    lightbox.setAttribute("aria-hidden", "false");
+    document.body.classList.add("overflow-hidden");
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  if(e.target.closest("#project-lightbox-close") || e.target.id === "project-image-lightbox"){
+    const box = document.getElementById("project-image-lightbox");
+    const imgEl = document.getElementById("project-lightbox-img");
+    if(box){
+      box.classList.remove("active");
+      box.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("overflow-hidden");
+    }
+    if(imgEl) imgEl.src = "";
+  }
+});
+
+document.addEventListener("keydown", function(e){
+  if(e.key === "Escape"){
+    const box = document.getElementById("project-image-lightbox");
+    const imgEl = document.getElementById("project-lightbox-img");
+    if(box && box.classList.contains("active")){
+      box.classList.remove("active");
+      box.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("overflow-hidden");
+      if(imgEl) imgEl.src = "";
+    }
+  }
 });
 </script>
 
